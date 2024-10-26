@@ -15,8 +15,8 @@ using UnityEngine.Rendering;
 
 public class GooglePlayGamesScript : MonoBehaviour
 {
-    private saveData savedata = new saveData();
-    private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
+    private saveData savedata = new saveData(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
+    private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } } // SlotPlayer의 싱글톤 인스턴스. 현재 플레이어의 데이터(ID와 코인)를 저장하고 로딩하는 데 사용
     const string  url = "http://155.248.199.174:3001/Players";
     void Awake()
     {
@@ -41,7 +41,7 @@ public class GooglePlayGamesScript : MonoBehaviour
         });
     }
 
-    //디바이스 로그인
+    // 디바이스 고유 ID를 이용한 게스트 로그인
     public void LoginGuest()
     {
         savedata.ID = SystemInfo.deviceUniqueIdentifier;
@@ -49,19 +49,22 @@ public class GooglePlayGamesScript : MonoBehaviour
         Get();
     }
 
-    //Login
+    // 코루틴을 통한 비동기 Login 요청
     public void Get()
     {
+        // 서버와 비동기 통신을 통해 유저 데이터를 불러오기 위해 코루틴을 시작
         StartCoroutine(Login());
     }
 
     public IEnumerator Login()
     {
+        // 서버에 로그인 요청을 보내고, 유저 정보를 가져오기 위한 코루틴
         using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{savedata.ID}"))
         {
             yield return request.SendWebRequest();
 
             Debug.Log("start");
+            // 서버에서 유저 데이터를 찾지 못한 경우 회원가입 코루틴을 통해 유저를 생성하고 다시 GET을 통해 유저 데이터를 불러옴
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
 
@@ -77,6 +80,7 @@ public class GooglePlayGamesScript : MonoBehaviour
                 }
             }
 
+            // 서버에서 유저 데이터를 찾을 경우 JSON 응답 파싱 후 객체에 ID와 COIN을 저장하고 로비로 이동
             else
             {
                 // 서버에서 응답 받은 JSON 데이터를 파싱
