@@ -53,13 +53,13 @@ namespace Mkey
         #endregion keys
 
         #region events
-        public Action <long> ChangeCoinsEvent;
+        public Action<long> ChangeCoinsEvent;
         public Action<int> LoadCoinsEvent;
         public Action<int> ChangeJamsEvent;
         public Action<int> LoadJamsEvent;
-        public Action <float> ChangeLevelProgressEvent;
+        public Action<float> ChangeLevelProgressEvent;
         public Action<float> LoadLevelProgressEvent;
-        public Action <int, long, bool> ChangeLevelEvent;
+        public Action<int, long, bool> ChangeLevelEvent;
         public Action<int> LoadLevelEvent;
         public Action<int> ChangeWinCoinsEvent;
         #endregion events
@@ -153,7 +153,7 @@ namespace Mkey
 
         #region coins
         /// <summary>
-        /// Add coins and save result
+        /// 코인을 추가하고 결과를 저장
         /// </summary>
         /// <param name="count"></param>
         public void AddCoins(int count)
@@ -162,7 +162,7 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Set coins and save result
+        /// 코인 수를 설정하고 결과를 저장
         /// </summary>
         /// <param name="count"></param>
         public void SetCoinsCount(long count)
@@ -171,7 +171,7 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Set coins, save result and raise ChangeCoinsEvent
+        /// 코인 수를 설정하고 결과를 저장하고 ChangeCoinsEvent를 발생시킴
         /// </summary>
         /// <param name="count"></param>
         private void SetCoinsCount(long count, bool raiseEvent)
@@ -249,7 +249,7 @@ namespace Mkey
 
         #region Level
         /// <summary>
-        /// Change level and save result
+        /// 레벨을 변경시키고 결과를 저장
         /// </summary>
         /// <param name="count"></param>
         public void AddLevel(int count)
@@ -258,7 +258,7 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Set level, save result and raise event ChangeLevelEvent
+        /// 레벨을 설정하고, 결과를 저장하고 ChangeLevelEvent를 발생시킴
         /// </summary>
         /// <param name="count"></param>
         public void SetLevel(int count)
@@ -267,7 +267,7 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Set level, save result and raise event ChangeLevelEvent
+        /// 레벨을 설정하고, 결과를 저장하고 ChangeLevelEvent를 발생시킴
         /// </summary>
         /// <param name="count"></param>
         private void SetLevel(int count, bool raiseEvent)

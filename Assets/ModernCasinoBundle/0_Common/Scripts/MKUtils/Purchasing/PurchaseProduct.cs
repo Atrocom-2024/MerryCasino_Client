@@ -12,8 +12,11 @@ namespace Mkey
     {
         private Purchaser P { get { return Purchaser.Instance; } }
 
-        public void PurchaseByID(string productID)
+        public string productID;
+
+        public void PurchaseByID()
         {
+            Debug.Log($"{productID} 제품 구매 시도");
             if (P) P.BuyProductID(productID);
         }
     }

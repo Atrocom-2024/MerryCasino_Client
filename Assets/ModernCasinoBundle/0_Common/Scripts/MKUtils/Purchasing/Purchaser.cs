@@ -1,8 +1,10 @@
 ﻿using System;
-using UnityEditor.Purchasing;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
 
 /* changes
  28032019
@@ -48,7 +50,6 @@ using UnityEngine.Purchasing;
 namespace Mkey
 {
 
-
 #if ((UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID) && ADDIAP)
     // Deriving the Purchaser class from IStoreListener enables it to receive messages from Unity Purchasing.
     public class Purchaser : MonoBehaviour, IStoreListener
@@ -67,6 +68,8 @@ namespace Mkey
         public ShopThingData[] subscriptions; // 구독형 제품
 
         public static Purchaser Instance;  // 싱글톤 패턴 -> 게임에서 이 클래스를 하나의 인스턴스만 유지하기 위해 사용
+
+        public PurchaseProduct purchaseProduct;
 
         #region events
         public Action <string, string> GoodPurchaseEvent;   // <id, name>
@@ -101,6 +104,7 @@ namespace Mkey
             }
         }
 
+        [Obsolete]
         public void InitializePurchasing()
         {
             // If we have already connected to Purchasing ...
@@ -165,7 +169,7 @@ namespace Mkey
                     }
                 }
             }
-        #endregion build consumables
+            #endregion build consumables
 
             UnityPurchasing.Initialize(this, builder);
         }
@@ -337,6 +341,10 @@ namespace Mkey
             return null;
         }
 
+        public void OnInitializeFailed(InitializationFailureReason error, string message) {
+            throw new NotImplementedException();
+        }
+
 #else
         void Awake()
         {
@@ -349,6 +357,7 @@ namespace Mkey
 
         void Start() 
         {
+            InitializeProducts();
             InitializePurchasing();
         }
 
@@ -400,6 +409,37 @@ namespace Mkey
             }
     #endregion build 
         }
+        private void InitializeProducts() {
+            // 소비성 제품 배열 초기화
+            consumable = new ShopThingData[4];
+            consumable[0] = new ShopThingData() {
+                name = "100000 Coins",
+                kProductID = "coin_pack_1",
+                PurchaseEvent = new UnityEvent(),
+                clickEvent = new Button.ButtonClickedEvent()
+            };
+
+            consumable[1] = new ShopThingData() {
+                name = "1000000 Coins",
+                kProductID = "coin_pack_2",
+                PurchaseEvent = new UnityEvent(),
+                clickEvent = new Button.ButtonClickedEvent()
+            };
+            
+            consumable[2] = new ShopThingData() {
+                name = "5000000 Coins",
+                kProductID = "coin_pack_3",
+                PurchaseEvent = new UnityEvent(),
+                clickEvent = new Button.ButtonClickedEvent()
+            };
+            
+            consumable[3] = new ShopThingData() {
+                name = "10000000 Coins",
+                kProductID = "coin_pack_4",
+                PurchaseEvent = new UnityEvent(),
+                clickEvent = new Button.ButtonClickedEvent()
+            };
+        }
 
         public void BuyProductID(string productId)
         {
@@ -442,6 +482,55 @@ namespace Mkey
                 }
             return null;
         }
+
+        //public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args) {
+        //    ShopThingData prod = GetProductById(args.purchasedProduct.definition.id);
+        //    if (prod != null) {
+        //        Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", prod.kProductID));
+        //        if (prod.PurchaseEvent != null) {
+        //            prod.PurchaseEvent.Invoke();
+        //        } else {
+        //            Debug.Log("PurchaseEvent failed");
+        //        }
+        //        GoodPurchaseEvent?.Invoke(prod.kProductID, prod.name);
+
+        //        // 서버로 결제 성공 데이터 전송
+        //        StartCoroutine(SendPurchaseDataToServer(prod.kProductID, prod.name));
+        //    } else {
+        //        Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+        //    }
+
+        //    // Return a flag indicating wither this product has completely been received, 
+        //    // or if the application needs to be reminded of this purchase at next app launch. 
+        //    return PurchaseProcessingResult.Complete;
+        //}
+
+        //private IEnumerator SendPurchaseDataToServer(string productId) {
+        //    // JSON 데이터 생성
+        //    string userId = "user123"; // 유저 ID, 실제 유저 ID로 교체
+        //    string jsonData = JsonUtility.ToJson(new PurchaseData {
+        //        userId = userId,
+        //        productId = productId,
+        //        purchaseDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+        //    });
+
+        //    // UnityWebRequest를 사용하여 서버에 POST 요청
+        //    using (UnityWebRequest request = new UnityWebRequest("http://your-node-server.com/api/purchase", "POST")) {
+        //        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        //        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        //        request.downloadHandler = new DownloadHandlerBuffer();
+        //        request.SetRequestHeader("Content-Type", "application/json");
+
+        //        // 요청을 보내고 대기
+        //        yield return request.SendWebRequest();
+
+        //        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
+        //            Debug.LogError($"Server request failed: {request.error}");
+        //        } else {
+        //            Debug.Log($"Server response: {request.downloadHandler.text}");
+        //        }
+        //    }
+        //}
 #endif
 
     }
