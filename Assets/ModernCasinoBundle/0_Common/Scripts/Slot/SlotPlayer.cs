@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
+using UnityEngine.Networking;
 
 namespace Mkey
 {
@@ -64,6 +66,8 @@ namespace Mkey
         public Action<int> ChangeWinCoinsEvent;
         #endregion events
 
+        const string url = "http://localhost:3000/api/players";
+
         #region properties
 
         public string Id
@@ -96,7 +100,7 @@ namespace Mkey
         #endregion properties
 
         #region saved properties
-        public long Coins
+        public long Coins // 유저의 코인 수
         {
             get; set;
         }
@@ -133,7 +137,7 @@ namespace Mkey
         private void Start()
         {
             //Validate();
-            //LoadCoins();
+            LoadCoins();
             LoadLevel();
             LoadLevelProgress();
         }
@@ -177,8 +181,8 @@ namespace Mkey
         private void SetCoinsCount(long count, bool raiseEvent)
         {
             //count = Mathf.Max(0, count);
-            bool changed = (Coins != count);
-            Coins = count;
+            bool changed = (Coins != count); // 코인이 변경될 때 changed를 true로 설정
+            Coins = count; // Coins 값을 새로 전달된 count 값으로 업데이트
             if (SaveData && changed)
             {
                 string key = saveCoinsKey;
@@ -198,9 +202,31 @@ namespace Mkey
                 AddCoins(defFBCoinsCount);
             }
         }
+        
+        /// <summary>
+        /// 서버로부터 코인 데이터를 받아오는 메서드
+        /// </summary>
+        private IEnumerator GetCoins()
+        {
+            using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{Instance.Id}"))
+            {
+                yield return request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    long coins = long.Parse(request.downloadHandler.text);
+                    SetCoinsCount(coins, false); // 서버에서 받은 코인 데이터를 설정
+                }
+                else
+                {
+                    Debug.LogError("Failed to load coins from server: " + request.error);
+                    SetCoinsCount(defCoinsCount, false); // 실패 시 기본값으로 설정
+                }
+            }
+        }
 
         /// <summary>
-        /// Load serialized coins or set defaults
+        /// 직렬화된 코인 데이터를 불러오거나, 기본값으로 설정
         /// </summary>
         private void LoadCoins()
         {
@@ -220,7 +246,7 @@ namespace Mkey
 
         #region wincoins
         /// <summary>
-        /// Add coins and save result
+        /// 승리 코인 수에 count만큼 코인을 추가하고 결과를 저장
         /// </summary>
         /// <param name="count"></param>
         public void AddWinCoins(int count)
@@ -229,7 +255,7 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Set coins and save result
+        /// 승리 코인의 수를 설정하고, 변경된 경우 이를 저장
         /// </summary>
         /// <param name="count"></param>
         public void SetWinCoinsCount(int count)
@@ -240,6 +266,9 @@ namespace Mkey
             if (changed) ChangeWinCoinsEvent?.Invoke(WinCoins);
         }
 
+        /// <summary>
+        /// 승리한 코인(WinCoins)을 플레이어의 총 코인에 추가하고, 승리 코인 수를 0으로 초기화하는 역할
+        /// </summary>
         public void TakeWin()
         {
             AddCoins(WinCoins);
