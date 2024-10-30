@@ -66,8 +66,6 @@ namespace Mkey
         public Action<int> ChangeWinCoinsEvent;
         #endregion events
 
-        const string url = "http://localhost:3000/api/players";
-
         #region properties
 
         public string Id
@@ -208,10 +206,12 @@ namespace Mkey
         /// </summary>
         private IEnumerator GetCoins()
         {
+            const string url = "http://localhost:3000/api/players";
+
             using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{Instance.Id}"))
             {
                 yield return request.SendWebRequest();
-
+                Debug.Log(request.downloadHandler.text);
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     long coins = long.Parse(request.downloadHandler.text);
@@ -234,10 +234,11 @@ namespace Mkey
             {
                 string key = saveCoinsKey;
                 //SetCoinsCount(PlayerPrefs.GetInt(key, defCoinsCount), false);
+                StartCoroutine(GetCoins());
             }
             else
             {
-                //SetCoinsCount(defCoinsCount, false);
+                SetCoinsCount(defCoinsCount, false);
             }
 
             //LoadCoinsEvent?.Invoke(Coins);

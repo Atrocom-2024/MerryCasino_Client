@@ -31,7 +31,7 @@ public class GooglePlayGamesScript : MonoBehaviour
         {
             if (success == SignInStatus.Success)
             {
-                savedata.ID= Social.localUser.id;
+                savedata.id= Social.localUser.id;
                 Get();
             }
             else
@@ -44,8 +44,8 @@ public class GooglePlayGamesScript : MonoBehaviour
     // 디바이스 고유 ID를 이용한 게스트 로그인
     public void LoginGuest()
     {
-        savedata.ID = SystemInfo.deviceUniqueIdentifier;
-        Debug.Log(savedata.ID);
+        savedata.id = SystemInfo.deviceUniqueIdentifier;
+        Debug.Log(savedata.id);
         Get();
     }
 
@@ -59,7 +59,7 @@ public class GooglePlayGamesScript : MonoBehaviour
     public IEnumerator Login()
     {
         // 서버에 로그인 요청을 보내고, 유저 정보를 가져오기 위한 코루틴
-        using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{savedata.ID}")) // 메모리 누수 방지를 위해 using 사용
+        using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{savedata.id}")) // 메모리 누수 방지를 위해 using 사용
         {
             // yield return을 사용해 비동기적으로 요청을 기다리면서 메인 스레드가 멈추지 않고 다른 작업을 할 수 있게 함
             yield return request.SendWebRequest(); // 코루틴의 일시 정지 역할을 하며, 네트워크 응답이 오면 다시 실행을 재개
@@ -92,8 +92,9 @@ public class GooglePlayGamesScript : MonoBehaviour
                 string jsondata = request.downloadHandler.text;
                 Debug.Log("else");
                 saveData myObject = JsonUtility.FromJson<saveData>(jsondata);
-                MPlayer.Id = myObject.ID;
-                MPlayer.Coins = myObject.COIN;
+                Debug.Log(jsondata);
+                MPlayer.Id = myObject.id;
+                MPlayer.Coins = myObject.coins;
                 LoadLobby();
             }
         }
@@ -144,7 +145,7 @@ public class GooglePlayGamesScript : MonoBehaviour
     {
         // MPlayer.Coins 값을 savedata.COIN에 저장하고, JSON 형식으로 변환하여 서버에 전송
         var request = new UnityWebRequest($"{url}/Patch", "POST");
-        savedata.COIN = MPlayer.Coins;
+        savedata.coins = MPlayer.Coins;
         var jsondata = JsonUtility.ToJson(savedata);
         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsondata);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
@@ -166,11 +167,11 @@ public class GooglePlayGamesScript : MonoBehaviour
 
 public class saveData
 {
-    public string ID;
-    public long COIN;
+    public string id;
+    public long coins;
     public saveData()
     {
-        ID = "";
-        COIN = 0;
+        id = "";
+        coins = 0;
     }
 }
