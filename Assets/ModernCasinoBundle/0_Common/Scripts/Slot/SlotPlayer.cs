@@ -174,6 +174,7 @@ namespace Mkey
 
         /// <summary>
         /// 코인 수를 설정하고 결과를 저장하고 ChangeCoinsEvent를 발생시킴
+        /// 만약 데이터 변경마다 DB의 데이터를 수정하려면 이 메서드에서 로직을 구현해야 함
         /// </summary>
         /// <param name="count"></param>
         private void SetCoinsCount(long count, bool raiseEvent)

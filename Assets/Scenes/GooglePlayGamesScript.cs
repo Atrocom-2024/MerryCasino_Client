@@ -17,9 +17,12 @@ public class GooglePlayGamesScript : MonoBehaviour
 {
     private saveData savedata = new saveData(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } } // SlotPlayer의 싱글톤 인스턴스. 현재 플레이어의 데이터(ID와 코인)를 저장하고 로딩하는 데 사용
-    const string  url = "http://localhost:3000/api/players";
+    private string url;
+    //const string  url = "http://localhost:3000/api/players";
     void Awake()
     {
+        EnvReader.Load(".env");
+        url = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/players";
         Debug.Log("awake login");
         PlayGamesPlatform.Activate();
     }
@@ -144,7 +147,7 @@ public class GooglePlayGamesScript : MonoBehaviour
     IEnumerator SendRequestAndCloseApp()
     {
         // MPlayer.Coins 값을 savedata.COIN에 저장하고, JSON 형식으로 변환하여 서버에 전송
-        var request = new UnityWebRequest($"{url}/Patch", "POST");
+        var request = new UnityWebRequest($"{url}/{savedata.id}", "PATCH");
         savedata.coins = MPlayer.Coins;
         var jsondata = JsonUtility.ToJson(savedata);
         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsondata);
