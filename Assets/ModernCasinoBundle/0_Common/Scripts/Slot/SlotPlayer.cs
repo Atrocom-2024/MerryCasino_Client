@@ -125,6 +125,8 @@ namespace Mkey
 
         public static SlotPlayer Instance;
 
+        private SlotAPIManager apiManager;
+
         #region regular
         private void Awake()
         {
@@ -182,10 +184,14 @@ namespace Mkey
             //count = Mathf.Max(0, count);
             bool changed = (Coins != count); // 코인이 변경될 때 changed를 true로 설정
             Coins = count; // Coins 값을 새로 전달된 count 값으로 업데이트
+
             if (SaveData && changed)
             {
                 string key = saveCoinsKey;
                 //PlayerPrefs.SetInt(key, Coins);
+                StartCoroutine(SlotAPIManager.Instance.SetCoins(Id, Coins,
+                    onSuccess: () => Debug.Log("Coins updated successfully on server."),
+                    onError: error => Debug.LogError(error)));
             }
             if (changed && raiseEvent) ChangeCoinsEvent?.Invoke(Coins);
         }
@@ -201,30 +207,6 @@ namespace Mkey
                 AddCoins(defFBCoinsCount);
             }
         }
-        
-        /// <summary>
-        /// 서버로부터 코인 데이터를 받아오는 메서드
-        /// </summary>
-        private IEnumerator GetCoins()
-        {
-            const string url = "http://localhost:3000/api/players";
-
-            using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{Instance.Id}"))
-            {
-                yield return request.SendWebRequest();
-                Debug.Log(request.downloadHandler.text);
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    long coins = long.Parse(request.downloadHandler.text);
-                    SetCoinsCount(coins, false); // 서버에서 받은 코인 데이터를 설정
-                }
-                else
-                {
-                    Debug.LogError("Failed to load coins from server: " + request.error);
-                    SetCoinsCount(defCoinsCount, false); // 실패 시 기본값으로 설정
-                }
-            }
-        }
 
         /// <summary>
         /// 직렬화된 코인 데이터를 불러오거나, 기본값으로 설정
@@ -235,7 +217,9 @@ namespace Mkey
             {
                 string key = saveCoinsKey;
                 //SetCoinsCount(PlayerPrefs.GetInt(key, defCoinsCount), false);
-                StartCoroutine(GetCoins());
+                StartCoroutine(apiManager.GetCoins(Id,
+                    coins => SetCoinsCount(coins, false),
+                    error => Debug.LogError(error)));
             }
             else
             {
