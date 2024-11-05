@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -508,8 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d20f9390aabb6b43af0cda5d9beb708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dailyRewardPUPrefab: {fileID: 1117392776551408193, guid: 0a8da994773237143b712485c903ab14,
-    type: 3}
+  dailyRewardPUPrefab: {fileID: 1117392776551408193, guid: 0a8da994773237143b712485c903ab14, type: 3}
   delay: 1.5
   showOnlyAtStart: 1
 --- !u!1 &126552406
@@ -3594,8 +3593,7 @@ MonoBehaviour:
         m_MethodName: ShowPopUp
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 3224142826008424092, guid: a5f1e5a633ed867479ef12da3f93e12b,
-            type: 3}
+          m_ObjectArgument: {fileID: 3224142826008424092, guid: a5f1e5a633ed867479ef12da3f93e12b, type: 3}
           m_ObjectArgumentAssemblyTypeName: Mkey.PopUpsController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4638,8 +4636,7 @@ MonoBehaviour:
         m_MethodName: ShowPopUp
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6655722244036044426, guid: c6ba0ae41f9709748a0635ff47d5e6d6,
-            type: 3}
+          m_ObjectArgument: {fileID: 6655722244036044426, guid: c6ba0ae41f9709748a0635ff47d5e6d6, type: 3}
           m_ObjectArgumentAssemblyTypeName: Mkey.PopUpsController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6729,6 +6726,7 @@ MonoBehaviour:
         m_Calls: []
   nonConsumable: []
   subscriptions: []
+  purchaseProduct: {fileID: 0}
 --- !u!114 &114962611217186981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6795,8 +6793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1821a57f1130746bd1ad8bc59ab3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadGroupPrefab: {fileID: 7212712433044532372, guid: 723c02a8683ac7f42b627df8d9998160,
-    type: 3}
+  LoadGroupPrefab: {fileID: 7212712433044532372, guid: 723c02a8683ac7f42b627df8d9998160, type: 3}
 --- !u!1 &1358812029165218516
 GameObject:
   m_ObjectHideFlags: 0
@@ -6831,8 +6828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpPrefabs: []
-  MessageWindowPrefab: {fileID: 114065369340063790, guid: cc497609fc20651428e1ca6dbb7a8e4a,
-    type: 3}
+  MessageWindowPrefab: {fileID: 114065369340063790, guid: cc497609fc20651428e1ca6dbb7a8e4a, type: 3}
 --- !u!114 &1358812029165218518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6945,6 +6941,7 @@ GameObject:
   - component: {fileID: 2508946762212475623}
   - component: {fileID: 2508946762212475624}
   - component: {fileID: 2508946762212475622}
+  - component: {fileID: 2508946762212475626}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6952,6 +6949,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2508946762212475626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2508946762212475625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf63123d66b37443b6066d66d62e014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2668899509784917044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7672,10 +7681,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cc00221d4c90b4cb579cac12c11114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goodMessagePrefab: {fileID: 114065369340063790, guid: fa291749b85dfb14bbf93f93aefb5aa3,
-    type: 3}
-  failedMessagePrefab: {fileID: 114065369340063790, guid: 09b5f43827c553b4d9f2b732339ee146,
-    type: 3}
+  goodMessagePrefab: {fileID: 114065369340063790, guid: fa291749b85dfb14bbf93f93aefb5aa3, type: 3}
+  failedMessagePrefab: {fileID: 114065369340063790, guid: 09b5f43827c553b4d9f2b732339ee146, type: 3}
   showGoodMessage: 1
   showFailedMessage: 1
 --- !u!23 &8519036307307277304
@@ -7802,8 +7809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567873986781127418049795336ba8cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenPrefab: {fileID: 3794241657592779555, guid: 016bb460f4ca83441a2fe5e68c8d1f93,
-    type: 3}
+  screenPrefab: {fileID: 3794241657592779555, guid: 016bb460f4ca83441a2fe5e68c8d1f93, type: 3}
   timerText: {fileID: 8519036307307277305}
   TimePassEvent:
     m_PersistentCalls:
@@ -7837,8 +7843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d173879edad9bb43aff83c895d04b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fortuneWheelPrefab: {fileID: 6198733924019409881, guid: c0f9e7bc3f84da4449965052378c4a71,
-    type: 3}
+  fortuneWheelPrefab: {fileID: 6198733924019409881, guid: c0f9e7bc3f84da4449965052378c4a71, type: 3}
   fortuneWheel: {fileID: 0}
   ease: 23
   autoClose: 1

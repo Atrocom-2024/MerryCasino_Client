@@ -441,6 +441,10 @@ namespace Mkey
             };
         }
 
+        /// <summary>
+        /// 실제 제품 구매를 담당하는 메서드. 서버로 구매 요청은 해당 메서드에서 진행
+        /// </summary>
+        /// <param name="productId"></param>
         public void BuyProductID(string productId)
         {
             ShopThingData prod = GetProductById(productId);
