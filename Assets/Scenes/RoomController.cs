@@ -11,9 +11,6 @@ using UnityEngine.UI;
 // 특정 룸의 지급률을 계산하고, 관련된 정보를 관리하는 클래스
 public class RoomController : MonoBehaviour
 {
-    const string probeurl = "http://155.248.199.174:80/Payout";
-    const string url = "http://155.248.199.174:80/Payoutreturn";
-    const string payouturl = "http://155.248.199.174:80/targetPayout";
     public static RoomController Instance;
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
     public double resultPayout;
@@ -32,7 +29,10 @@ public class RoomController : MonoBehaviour
     private void Awake()
     {
         // 인스턴스를 설정하고 초기 값을 설정
-        StartCoroutine(getTargetPayout());
+        StartCoroutine(RoomAPIManager.Instance.GetTargetPayout(roomNumber, basePayout, plusPayout,
+            onSuccess: plusPayout => Debug.Log($"Plus Payout: {plusPayout}"),
+            onError: error => Debug.LogError(error)));
+
         if (Instance == null) Instance = this;
         sessionTotalBet = 1;
         resultPayout = 0;
@@ -40,88 +40,50 @@ public class RoomController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(getServer());
-        StartCoroutine(calculResultPayout());
-        
+        StartCoroutine(RoomAPIManager.Instance.GetServer(
+            roomNumber,
+            returnEvent // 조건이 충족되면 호출될 메서드
+        ));
+        StartCoroutine(PayoutRoutine());
     }
-    IEnumerator getTargetPayout()
-    {
-        // 특정 룸의 목표 지급률(targetPayout)을 가져온다.
-        using (UnityWebRequest request = UnityWebRequest.Get($"{payouturl}/{roomNumber}"))
-        {
-            yield return request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.Log("fail");
-                string errmsg = request.downloadHandler.text;
-            }
-            else // 성공적으로 데이터를 받으면 plusPayout 값을 계산합니다 (targetPayout - basePayout)
-            {
-                string sucmsg = request.downloadHandler.text;
-                double targetPayout=double.Parse(sucmsg);
-                Debug.Log(targetPayout);
-                plusPayout = targetPayout - basePayout;
-            }
-
-        }
-    }
-    IEnumerator getServer()
-    {
-        // 서버에 주기적으로 요청을 보내 특정 조건(errmsg가 true인 경우)이 발생하면 returnEvent()를 호출
-        while (true)
-        {
-            using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{roomNumber}"))
-            {
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    string errmsg = request.downloadHandler.text;
-                }
-                else
-                {
-                    string errmsg = request.downloadHandler.text;
-                    if (errmsg == "true")
-                    {
-                        returnEvent();
-                        Debug.Log(errmsg);
-                    }
-                    else
-                    {
-                        Debug.Log(errmsg);
-                    }
-                }
-            }
-            yield return new WaitForSeconds(5); // 5초 동안 대기
-        }
-    }
-    IEnumerator calculResultPayout()
+    private IEnumerator PayoutRoutine()
     {
         while (true)
         {
-            using (UnityWebRequest request = UnityWebRequest.Get($"{probeurl}/{roomNumber}"))
-            {
-                yield return request.SendWebRequest();
+            yield return RoomAPIManager.Instance.GetPayout(
+                roomNumber,
+                sucmsg =>
+                {
+                    // Success callback - call calculResultPayout logic
+                    calculResultPayout(sucmsg);
+                },
+                errmsg =>
+                {
+                    // Error callback - log or handle error
+                    Debug.LogError(errmsg);
+                }
+            );
 
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    string errmsg = request.downloadHandler.text;
-                }
-                else // randomProbe와 betProbe 값을 사용하여 resultPayout을 계산하고, 이를 PayoutText UI 요소에 표시
-                {
-                    string sucmsg = request.downloadHandler.text;
-                    double randomProbe = double.Parse(sucmsg) <= 1 ? double.Parse(sucmsg) : 1;
-                    double betProbe = (sessionTotalBet / 10000) <= 1 ? (sessionTotalBet / 10000) : 1;
-                    resultPayout = (plusPayout / 2) * (randomProbe + betProbe);
-                    PayoutText.text=resultPayout.ToString("F2") + "%";
-                    double percentage = 1d - resultPayout / plusPayout;
-                    PayoutText.color = new Color(1.0f, (float)percentage, 0.0f);
-                }
-            }
-            yield return new WaitForSeconds(1); // 1초 동안 대기
+            yield return new WaitForSeconds(1); // 1초 대기
         }
     }
+
+    private void calculResultPayout(string sucmsg)
+    {
+        Debug.Log($"특정 room payout은 {sucmsg}입니다.");
+        // Process result payout logic here
+        double randomProbe = double.Parse(sucmsg) <= 1 ? double.Parse(sucmsg) : 1;
+        double betProbe = (sessionTotalBet / 10000) <= 1 ? (sessionTotalBet / 10000) : 1;
+        resultPayout = (plusPayout / 2) * (randomProbe + betProbe);
+        Debug.Log($"result Payout: {resultPayout}");
+
+        // Update the UI
+        PayoutText.text = resultPayout.ToString("F2") + "%";
+        double percentage = 1d - resultPayout / plusPayout;
+        PayoutText.color = new Color(1.0f, (float)percentage, 0.0f);
+    }
+
     private void returnEvent()
     {
         // 플레이어의 코인을 추가하고, sessionTotalBet과 resultPayout 값을 초기화
@@ -144,10 +106,9 @@ public class RoomController : MonoBehaviour
     {
         Payoutinfo._returnPopup.SetActive(false);
     }
+
     //public void OnPayOutInfo()
     //{
     //    Payoutinfo._infoPopup.SetActive(true);
     //}
-
-
 }

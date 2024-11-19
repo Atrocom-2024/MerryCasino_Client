@@ -9,10 +9,14 @@ using UnityEngine.Networking;
 public class SlotAPIManager: MonoBehaviour
 {
     public static SlotAPIManager Instance { get; private set; }
-    private const string apiBaseUrl = "http://localhost:3000/api/players";
+    private string apiBaseUrl;
 
     private void Awake()
     {
+        // 환경변수를 awake에서 불러오는 방법밖에 없을까?
+        EnvReader.Load(".env");
+        apiBaseUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/players";
+
         if (Instance == null)
         {
             Instance = this;

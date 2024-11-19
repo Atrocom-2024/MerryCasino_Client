@@ -197,18 +197,6 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Add facebook gift (only once), and save flag.
-        /// </summary>
-        public void AddFbCoins()
-        {
-            if (!PlayerPrefs.HasKey(saveFbCoinsKey) || PlayerPrefs.GetInt(saveFbCoinsKey) == 0)
-            {
-                PlayerPrefs.SetInt(saveFbCoinsKey, 1);
-                AddCoins(defFBCoinsCount);
-            }
-        }
-
-        /// <summary>
         /// 직렬화된 코인 데이터를 불러오거나, 기본값으로 설정
         /// </summary>
         private void LoadCoins()
@@ -216,7 +204,7 @@ namespace Mkey
             if (SaveData)
             {
                 string key = saveCoinsKey;
-                //SetCoinsCount(PlayerPrefs.GetInt(key, defCoinsCount), false);
+                SetCoinsCount(PlayerPrefs.GetInt(key, defCoinsCount), false);
                 StartCoroutine(apiManager.GetCoins(Id,
                     coins => SetCoinsCount(coins, false),
                     error => Debug.LogError(error)));
@@ -249,7 +237,8 @@ namespace Mkey
             count = Mathf.Max(0, count);
             bool changed = (WinCoins != count);
             WinCoins = count;
-            if (changed) ChangeWinCoinsEvent?.Invoke(WinCoins);
+            if (changed)
+                ChangeWinCoinsEvent?.Invoke(WinCoins);
         }
 
         /// <summary>
@@ -380,9 +369,8 @@ namespace Mkey
 
         public void SetDefaultData()
         {
-            //SetCoinsCount(defCoinsCount);
-            PlayerPrefs.SetInt(saveFbCoinsKey, 0); // reset facebook gift
-           
+            SetCoinsCount(defCoinsCount);
+
             SetLevel(0);
             SetLevelProgress(0);
         }
