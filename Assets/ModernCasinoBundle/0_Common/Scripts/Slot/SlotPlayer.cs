@@ -125,8 +125,6 @@ namespace Mkey
 
         public static SlotPlayer Instance;
 
-        private SlotAPIManager apiManager;
-
         #region regular
         private void Awake()
         {
@@ -189,9 +187,14 @@ namespace Mkey
             {
                 string key = saveCoinsKey;
                 //PlayerPrefs.SetInt(key, Coins);
-                StartCoroutine(SlotAPIManager.Instance.SetCoins(Id, Coins,
+                StartCoroutine(RoomSocketManager.Instance.SetCoins(Id, Coins,
                     onSuccess: () => Debug.Log("Coins updated successfully on server."),
-                    onError: error => Debug.LogError(error)));
+                    onError: error => Debug.LogError(error)
+                ));
+                //StartCoroutine(RoomAPIManager.Instance.SetCoins(Id, Coins,
+                //    onSuccess: () => Debug.Log("Coins updated successfully on server."),
+                //    onError: error => Debug.LogError(error)
+                //));
             }
             if (changed && raiseEvent) ChangeCoinsEvent?.Invoke(Coins);
         }
@@ -205,9 +208,10 @@ namespace Mkey
             {
                 string key = saveCoinsKey;
                 SetCoinsCount(PlayerPrefs.GetInt(key, defCoinsCount), false);
-                StartCoroutine(apiManager.GetCoins(Id,
+                StartCoroutine(RoomAPIManager.Instance.GetCoins(Id,
                     coins => SetCoinsCount(coins, false),
-                    error => Debug.LogError(error)));
+                    error => Debug.LogError(error)
+                ));
             }
             else
             {

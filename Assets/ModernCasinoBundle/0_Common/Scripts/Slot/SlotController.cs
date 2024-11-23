@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Mkey
 {
@@ -16,8 +17,9 @@ namespace Mkey
 
     public class SlotController : MonoBehaviour
     {
-      //  public string machineID;
+        //  public string machineID;
 
+        // 슬롯 컨트롤, 메뉴 컨트롤 등 주요 참조 객체 선언.
         #region main reference
         [SerializeField]
         private SlotMenuController menuController;
@@ -37,6 +39,7 @@ namespace Mkey
         public Text toalBetSumText;
         #endregion main reference
 
+        // 슬롯 머신에서 사용되는 심볼(icon) 정의.
         #region icons
         [SerializeField, ArrayElementTitle("iconSprite"), NonReorderable]
         public SlotIcon[] slotIcons;
@@ -46,11 +49,13 @@ namespace Mkey
         public WinSymbolBehavior[] winSymbolBehaviors;
         #endregion icons
 
+        // 슬롯 머신의 페이라인(pay line)과 보상 데이터 정의
         #region payTable
         public List<PayLine> payTable;
         internal List<PayLine> payTableFull; // extended  if useWild
         #endregion payTable
 
+        // 와일드 심볼(wild), 스캐터(scatter) 심볼 등 특별 기능 심볼.
         #region special major
         public int scatter_id;
         public int wild_id;
@@ -58,10 +63,12 @@ namespace Mkey
         public bool useScatter;
         #endregion special major
 
+        // 스캐터 심볼에 대한 페이아웃(pay-out) 정의.
         #region scatter paytable
         public List<ScatterPay> scatterPayTable;
         #endregion scatter paytable
 
+        // 슬롯 머신에서 사용하는 게임 오브젝트(prefab) 참조.
         #region prefabs
         public GameObject tilePrefab;
         public GameObject particlesStars;
@@ -79,6 +86,7 @@ namespace Mkey
         public Transform topJumpTarget;
         #endregion tweenTargets
 
+        // 슬롯 회전(스핀) 애니메이션 옵션 정의.
         #region spin options
         [SerializeField]
         private EaseAnim inRotType = EaseAnim.EaseLinear; // in rotation part
@@ -125,6 +133,7 @@ namespace Mkey
         private bool debugPredictSymbols = false;
         #endregion options 
 
+        // 팟 로직(미니, 맥시, 메가) 구현.
         #region jack pots
         [Space(8)]
         public int jp_symbol_id=-1;
@@ -154,6 +163,7 @@ namespace Mkey
         public float winSpinLevelProgress = 2.0f;
         #endregion level progress
 
+        // 임시 변수 선언.
         #region temp vars
         private int slotTilesCount = 30;
         private WaitForSeconds wfs1_0;
@@ -166,8 +176,6 @@ namespace Mkey
         private bool playFreeSpins = false;
         private bool isFreeSpin = false;
         private GameObject miniGame;
-        const string url = "http://155.248.199.174:80/Wheel";
-        const string winurl = "http://155.248.199.174:80/Win";
 
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
@@ -178,6 +186,7 @@ namespace Mkey
         private int jackPotWinCoins = 0;
         #endregion temp vars
 
+        // 슬롯 머신의 주요 이벤트(스핀 시작, 끝 등) 정의.
         #region events
         public Action SpinPressEvent;
         public Action StartSpinEvent;
@@ -197,27 +206,30 @@ namespace Mkey
         public bool useWildInFirstPosition = false;
 
         #region regular
-        private void OnValidate()
+        private void OnValidate() // Unity 에디터에서 Inspector에서 값이 변경될 때 호출
         {
             Validate();
         }
 
+        /// <summary>
+        /// 클래스 변수 값의 유효성을 보장하기 위해 제한을 설정하거나 조건을 검사
+        /// </summary>
         void Validate()
         {
-            jackPotIncValue = 0;
-            mainRotateTime = (float)Mathf.Clamp(mainRotateTime, 0, 0.7f);
-            mainRotateTimeRandomize = (int)Mathf.Clamp(mainRotateTimeRandomize, 0, 20);
+            jackPotIncValue = 0; // jackPotIncValue 값을 항상 0으로 초기화
+            mainRotateTime = (float)Mathf.Clamp(mainRotateTime, 0, 0.7f); // mainRotateTime 값을 0에서 0.7f 사이로 강제 제한
+            mainRotateTimeRandomize = (int)Mathf.Clamp(mainRotateTimeRandomize, 0, 20); // mainRotateTimeRandomize 값을 0에서 20 사이의 정수로 강제 제한
 
-            inRotTime = Mathf.Clamp(inRotTime, 0, 1f);
-            inRotAngle = Mathf.Clamp(inRotAngle, 0, 10);
+            inRotTime = Mathf.Clamp(inRotTime, 0, 1f); // inRotTime 값을 0에서 1f 사이로 제한합니다.
+            inRotAngle = Mathf.Clamp(inRotAngle, 0, 10); // inRotAngle 값을 0에서 10 사이로 제한합니다.
 
             outRotTime = Mathf.Clamp(outRotTime, 0, 1f);
             outRotAngle = Mathf.Clamp(outRotAngle, 0, 10);
             jackPotIncValue = Mathf.Max(0, jackPotIncValue);
 
-            miniJackPotCount = Mathf.Max(1, miniJackPotCount);
-            maxiJackPotCount = Mathf.Max( (useMiniJacPot) ? miniJackPotCount + 1 : 1, maxiJackPotCount);
-            megaJackPotCount = Mathf.Max((useMaxiJacPot) ? maxiJackPotCount + 1 : 1, megaJackPotCount);
+            miniJackPotCount = Mathf.Max(1, miniJackPotCount); // miniJackPotCount 값이 항상 1 이상이 되도록 설정
+            maxiJackPotCount = Mathf.Max((useMiniJacPot) ? miniJackPotCount + 1 : 1, maxiJackPotCount); // useMiniJacPot이 true이면 miniJackPotCount + 1 또는 maxiJackPotCount 중 더 큰 값을 적용 false이면 miniJackPotCount + 1 또는 maxiJackPotCount 중 더 큰 값을 적용
+            megaJackPotCount = Mathf.Max((useMaxiJacPot) ? maxiJackPotCount + 1 : 1, megaJackPotCount); // useMaxiJacPot이 true이면 maxiJackPotCount + 1 또는 megaJackPotCount 중 더 큰 값을 적용
             if (scatterPayTable != null)
             {
                 foreach (var item in scatterPayTable)
@@ -268,15 +280,20 @@ namespace Mkey
         #endregion regular
 
         /// <summary>
-        /// Run slots when you press the button
+        /// 슬롯을 회전시킬 때 호출되는 메서드
         /// </summary>
         internal void SpinPress()
         {
-            SpinPressEvent?.Invoke();
-            RunSlots();
+            SpinPressEvent?.Invoke(); // 이벤트 SpinPressEvent 호출
+            RunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
         }
+
+        /// <summary>
+        /// 실제 슬롯 회전 로직을 처리
+        /// </summary>
         private void RunSlots()
         {
+            // 슬롯이 이미 실행 중이라면 종료
             if (slotsRunned) return;
           
             winController.WinEffectsShow(false, false);
@@ -285,6 +302,7 @@ namespace Mkey
             winController.ResetLineWinning();
             controls.JPWinCancel();
 
+            // API 호출을 통해 서버에 베팅 금액(TotalBet) 업데이트
             StopCoroutine(RunSlotsAsync());
 
             if (!controls.AnyLineSelected)
@@ -326,7 +344,7 @@ namespace Mkey
             slotsRunned = true;
             if(controls.Auto && !isFreeSpin) controls.IncAutoSpinsCounter();
             //스핀 돌림
-            StartCoroutine(PostSpinStart(SlotControls.Instance.TotalBet));
+            StartCoroutine(RoomAPIManager.Instance.SetTotalBet(roomController.roomNumber, SlotControls.Instance.TotalBet)); // 특정 room의 totalbet 업데이트
             roomController.sessionTotalBet += double.Parse(toalBetSumText.text.ToString());
             Debug.Log("Spins count from game start: " + (++spinCount));
 
@@ -336,11 +354,11 @@ namespace Mkey
             SetInputActivity(false);
             winController.HideAllLines();
 
-            //1a ------------- sound -----------------------------------------
+            //1a ------------- 사운드 실행 -----------------------------------------
             MSound.StopAllClip(false); // stop all clips with background musik
             MSound.PlayClip(0f, true, spinSound);
 
-            //2 --------start rotating ----------------------------------------
+            //2 -------- 슬롯 애니메이션 실행 ----------------------------------------
             bool fullRotated = false;
             RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
             while (!fullRotated) yield return wfs0_2;  // wait 
@@ -348,14 +366,14 @@ namespace Mkey
             EndSpinEvent?.Invoke();
 
 
-            //3 --------check result-------------------------------------------
+            //3 -------- 결과 확인 -------------------------------------------
             BeginWinCalcEvent?.Invoke();
             winController.SearchWinSymbols();
             bool hasLineWin = false;
             bool hasScatterWin = false;
             bool bigWin = false;
 
-            // 3a ----- increase jackpots ----
+            // 3a ----- 잭팟 금액을 증가시키는 로직 ----
             IncreaseJackPots();
 
             if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref  jackPotType))
@@ -399,9 +417,9 @@ namespace Mkey
                 Debug.Log("plus wincoins: " + winCoins);
                 MPlayer.SetWinCoinsCount(jackPotWinCoins + winCoins);
                 MPlayer.AddCoins(winCoins);
-                Debug.Log("total: " + (jackPotWinCoins+ winCoins));
+                Debug.Log("total: " + (jackPotWinCoins + winCoins));
                 //bet coin
-                StartCoroutine(PostWin(jackPotWinCoins + winCoins));
+                StartCoroutine(RoomAPIManager.Instance.SetTotalPayout(roomController.roomNumber, jackPotWinCoins + winCoins)); // 특정 room의 totalbpayout 업데이트
                 Debug.Log(jackPotWinCoins + winCoins);
                 if (winCoins > 0)
                 {
@@ -498,8 +516,12 @@ namespace Mkey
             }
         }
 
+        /// <summary>
+        /// 잭팟 금액 증가 메서드
+        /// </summary>
         private void IncreaseJackPots()
         {
+            // useMiniJacPot, useMaxiJacPot, useMegaJacPot 플래그에 따라 잭팟 종류 결정
             if (useMiniJacPot) controls.AddMiniJackPot((jackPotIncType == JackPotIncType.Const) ?
                      jackPotIncValue : (int)((float)controls.MiniJackPotStart * (float)jackPotIncValue / 100f));
             if (useMaxiJacPot) controls.AddMaxiJackPot((jackPotIncType == JackPotIncType.Const) ?
@@ -508,6 +530,10 @@ namespace Mkey
                   jackPotIncValue : (int)((float)controls.MegaJackPotStart * (float)jackPotIncValue / 100f));
         }
 
+        /// <summary>
+        /// 슬롯 애니메이션
+        /// </summary>
+        /// <param name="rotCallBack"></param>
         private void RotateSlots(Action rotCallBack)
         {
             ParallelTween pT = new ParallelTween();
@@ -715,42 +741,8 @@ namespace Mkey
                 if (useWild) payTableFull.AddRange(payTable[j].GetWildLines(this));
             }
         }
-        public IEnumerator PostSpinStart(int bet)
-        {
-            using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{roomController.roomNumber}/{bet}"))
-            {
-                Debug.Log(bet);
-                yield return request.SendWebRequest();
 
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    Debug.Log("fail");
-                    string errmsg = request.downloadHandler.text;
-                }
-                else
-                {
-                    Debug.Log("suc");
-                    string sucmsg = request.downloadHandler.text;
-                }
-                
-            }
-        }
-        public IEnumerator PostWin(int bet)
-        {
-            using (UnityWebRequest request = UnityWebRequest.Get($"{winurl}/{roomController.roomNumber}/{bet}"))
-            {
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    string errmsg = request.downloadHandler.text;
-                }
-                else
-                {
-                    string sucmsg = request.downloadHandler.text;
-                }
-            }
-        }
+        // 페이라인, 잭팟, 확률 계산 로직.
         #region calculate
         public void CreatTripleCombos()
         {
