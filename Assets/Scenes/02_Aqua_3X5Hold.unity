@@ -3954,7 +3954,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2623106, y: 1.2623106, z: 1.2623106}
+  m_LocalScale: {x: 1.1913586, y: 1.1913586, z: 1.1913586}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -3978,7 +3978,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6788732
+  currRatio: 1.584507
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -7783,6 +7783,10 @@ PrefabInstance:
     - target: {fileID: 1516987088609334742, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -35.24499
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516987088609334743, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
+      propertyPath: m_Text
+      value: 00.00%
       objectReference: {fileID: 0}
     - target: {fileID: 1516987088609334743, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
       propertyPath: m_FontData.m_Alignment
@@ -11726,7 +11730,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 1
-  currRatio: 1.6788732
+  currRatio: 1.584507
   lerpRatio: 2.056
   lerpScale: 1
 --- !u!1 &1709115112
@@ -12630,7 +12634,6 @@ MonoBehaviour:
   resultPayout: 0
   sessionTotalBet: 0
   roomNumber: 1
-  basePayout: 89.163
   PayoutText: {fileID: 1113583633}
 --- !u!4 &1783356598
 Transform:
@@ -14420,6 +14423,10 @@ PrefabInstance:
       value: -16.899994
       objectReference: {fileID: 0}
     - target: {fileID: 1516987088609334743, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
+      propertyPath: m_Text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516987088609334743, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 5
       objectReference: {fileID: 0}
@@ -15365,14 +15372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade820d1fd084394fa71de200fd6dfb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defCoinsCount: 5000
-  jam: 500
-  defFBCoinsCount: 100
-  useLevelUpReward: 1
-  levelUpReward: 3000
-  useBigWinCongratulation: 1
-  minWin: 5000
-  saveData: 1
 --- !u!4 &2508946763180256520
 Transform:
   m_ObjectHideFlags: 0

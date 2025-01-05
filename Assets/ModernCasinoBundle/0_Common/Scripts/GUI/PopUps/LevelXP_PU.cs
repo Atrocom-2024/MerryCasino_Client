@@ -16,7 +16,7 @@ namespace Mkey
 
         public override void  RefreshWindow()
         {
-            if(XPValue) XPValue.text = MPlayer.LevelProgress.ToString("00.0");
+            //if(XPValue) XPValue.text = MPlayer.LevelProgress.ToString("00.0");
             base.RefreshWindow();
         }
     }

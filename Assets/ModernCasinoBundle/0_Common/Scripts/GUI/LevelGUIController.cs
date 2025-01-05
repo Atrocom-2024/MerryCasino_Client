@@ -43,7 +43,7 @@ namespace Mkey
             }
             MPlayer.ChangeLevelProgressEvent += ChangeLevelProgressHandler;
             MPlayer.ChangeLevelEvent += ChangeLevelHandler;
-            RefreshLevel();
+            //RefreshLevel();
             if (!gameStarted)
             {
                 level = MPlayer.Level;
@@ -51,10 +51,10 @@ namespace Mkey
             }
             else // in lobby behavior
             {
-                if (level < MPlayer.Level && MPlayer.UseLevelUpReward && MPlayer.LevelUpReward > 0)
-                {
-                    ShowLevelRewardPopUp(MPlayer.Level, MPlayer.LevelUpReward * (MPlayer.Level - level));
-                }
+                //if (level < MPlayer.Level && MPlayer.UseLevelUpReward && MPlayer.LevelUpReward > 0)
+                //{
+                //    ShowLevelRewardPopUp(MPlayer.Level, MPlayer.LevelUpReward * (MPlayer.Level - level));
+                //}
                 level = MPlayer.Level;
             }
         }
@@ -69,45 +69,45 @@ namespace Mkey
         /// <summary>
         /// Refresh gui level
         /// </summary>
-        private void RefreshLevel()
-        {
-            SimpleTween.Cancel(levelTweenId, false);
-            if (MPlayer)
-            {
-                if (progressSlider)
-                {
-                    levelxp = MPlayer.LevelProgress;
-                    if (levelxp > oldLevelxp)
-                    {
-                        levelTweenId = SimpleTween.Value(gameObject, oldLevelxp, levelxp, 0.3f).SetOnUpdate((float val) =>
-                        {
-                            oldLevelxp = val;
-                            progressSlider.SetFillAmount(oldLevelxp / 100f);
-                        }).ID;
-                    }
-                    else
-                    {
-                        progressSlider.SetFillAmount(levelxp / 100f);
-                        oldLevelxp = levelxp;
-                    }
-                }
-                if (LevelNumberText) LevelNumberText.text = levelNumberPrefix + MPlayer.Level.ToString();
-            }
-        }
+        //private void RefreshLevel()
+        //{
+        //    SimpleTween.Cancel(levelTweenId, false);
+        //    if (MPlayer)
+        //    {
+        //        if (progressSlider)
+        //        {
+        //            levelxp = MPlayer.LevelProgress;
+        //            if (levelxp > oldLevelxp)
+        //            {
+        //                levelTweenId = SimpleTween.Value(gameObject, oldLevelxp, levelxp, 0.3f).SetOnUpdate((float val) =>
+        //                {
+        //                    oldLevelxp = val;
+        //                    progressSlider.SetFillAmount(oldLevelxp / 100f);
+        //                }).ID;
+        //            }
+        //            else
+        //            {
+        //                progressSlider.SetFillAmount(levelxp / 100f);
+        //                oldLevelxp = levelxp;
+        //            }
+        //        }
+        //        if (LevelNumberText) LevelNumberText.text = levelNumberPrefix + MPlayer.Level.ToString();
+        //    }
+        //}
 
         #region eventhandlers
         private void ChangeLevelHandler(int newLevel, long reward, bool useLevelReward)
         {
             if (this)
             {
-                RefreshLevel();
+                //RefreshLevel();
                 if (useLevelReward && reward > 0) ShowLevelRewardPopUp(newLevel, reward);
             }
         }
 
         private void ChangeLevelProgressHandler(float newProgress)
         {
-            if (this) RefreshLevel();
+            //if (this) RefreshLevel();
           //  Debug.Log("progress: " + newProgress);
         }
         #endregion eventhandlers

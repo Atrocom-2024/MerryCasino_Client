@@ -1,230 +1,189 @@
-using Newtonsoft.Json;
-using SocketIOClient;
+using ProtoBuf;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
+using System.IO;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class RoomSocketManager : MonoBehaviour
 {
-    public static RoomSocketManager Instance { get; private set; }
-    private SocketIOUnity socket; // Socket.IO Unity 클라이언트 객체
+    public static RoomSocketManager Instance { get; private set; } // 싱글톤 인스턴스
 
-    private string domain; // 서버 도메인
+    private TcpClient _client;
+    private NetworkStream _networkStream;
+    private bool _isConnected = false;
+
+    // 이벤트 정의
+    public event Action<GameUserState> OnRoomJoinResponse;
+    public event Action<GameSession> OnGameStateUpdate;
 
     private void Awake()
     {
-        EnvReader.Load(".env");
-        domain = Environment.GetEnvironmentVariable("API_DOMAIN");
-
+        // 싱글톤 초기화
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject); // Avoid duplicates
+            Destroy(gameObject);
+        }
+    }
+
+    // Unity 종료 시 클라이언트 연결 해제
+    private void OnApplicationQuit()
+    {
+        Disconnect();
+    }
+
+    // 서버 연결 초기화
+    public async Task ConnectToServer(string ipAddress, int port)
+    {
+        try
+        {
+            _client = new TcpClient();
+            await _client.ConnectAsync(ipAddress, port);
+            _networkStream = _client.GetStream();
+            _isConnected = true;
+
+            Debug.Log("[socket] Connected to the server!");
+
+            // 서버에서 오는 메세지 수신 시작
+            //_ = Task.Run(ReceiveServerMessagesAsync);
+            StartCoroutine(ReceiveServerMessagesCoroutine());
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[socket] Error connecting to server: {ex.Message}");
+        }
+    }
+
+    // 클라이언트 연결 해제
+    public void Disconnect()
+    {
+        if (_isConnected)
+        {
+            _isConnected = false;
+            _networkStream.Close();
+            _client.Close();
+            Debug.Log("[socket] Disconnected from server");
+        }
+    }
+
+    // 룸 조인 요청
+    public async Task SendRoomJoinRequest(string userId, int roomId)
+    {
+        if (!_isConnected)
+        {
+            Debug.LogError("[socket] Not connected to server!");
             return;
         }
-    }
 
-    void Start()
-    {
-        ConnectToSocket();
-        Debug.Log("소켓 서버 연결 시도!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    }
-
-    private void OnDestroy()
-    {
-        // WebSocket 연결 종료
-        DisconnectFromSocket();
-    }
-
-    /// <summary>
-    /// 게임 룸 입장 시 WebSocket 초기화 및 연결
-    /// </summary>
-    private void ConnectToSocket()
-    {
-        // Socket.IOUnity 객체 초기화
-        socket = new SocketIOUnity(domain, new SocketIOOptions
+        var reqeust = new ClientRequest
         {
-            Reconnection = true,
-            ReconnectionAttempts = 5,
-            ReconnectionDelay = 2000,
-            //Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
-        });
-
-        socket.OnConnected += (sender, e) =>
-        {
-            Debug.Log("WebSocket connected to server!");
+            RequestType = "JoinRoom",
+            JoinRoomData = new JoinRoomRequest
+            {
+                UserId = userId,
+                RoomId = roomId
+            }
         };
 
-        socket.OnDisconnected += (sender, e) =>
+        Debug.Log($"[client] Sending RoomJoinReqeust for RoomId: {roomId}");
+
+        byte[] message = SerializeProtobuf(reqeust);
+        await _networkStream.WriteAsync(message, 0, message.Length);
+    }
+
+    // 배팅 요청
+    public async Task SendBetReqeust(string userId, int betAmount)
+    {
+        if (!_isConnected) return;
+
+        var reqeust = new ClientRequest
         {
-            Debug.Log("WebSocket disconnected from server.");
+            RequestType = "Bet",
+            BetData = new BetRequest
+            {
+                UserId = userId,
+                BetAmount = betAmount,
+                RoomType = 1
+            }
         };
 
-        socket.Connect();
+        Debug.Log($"[socket] Sending BetRequest with BetAmount: {betAmount}");
+
+        byte[] message = SerializeProtobuf(reqeust);
+        await _networkStream.WriteAsync(message, 0, message.Length);
     }
 
-    /// <summary>
-    /// 게임 룸 퇴장 시 WebSocket 연결 해제
-    /// </summary>
-    public void DisconnectFromSocket()
+    // 서버에서 오는 메세지 수신 (코루틴 버전) -> 서버에서 데이터를 받는 부분은 메인스레드에서 동작해야 함
+    private IEnumerator ReceiveServerMessagesCoroutine()
     {
-        if (socket != null)
+        while (_isConnected)
         {
-            socket.Disconnect();
-            socket.Dispose();
-            Debug.Log("WebSocket connection closed.");
+            if (_networkStream.DataAvailable)
+            {
+                ClientResponse response = null;
+                try
+                {
+                    response = DeserializeProtobuf<ClientResponse>(_networkStream);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"[socket] Error deserializing server response: {ex.Message}");
+                }
+
+                if (response != null)
+                {
+                    switch (response.ResponseType)
+                    {
+                        case "GameState":
+                            if (response.GameState != null)
+                            {
+                                Debug.Log($"[socket] GameState received");
+                                OnGameStateUpdate.Invoke(response.GameState);
+                            }
+                            break;
+                        case "GameUserState":
+                            if (response.GameUserState != null)
+                            {
+                                Debug.Log("[socket] GameUserState received");
+                                OnRoomJoinResponse.Invoke(response.GameUserState);
+                            }
+                            break;
+                        default:
+                            Debug.LogWarning($"[socket] Unknown response type received");
+                            break;
+                    }
+                }
+            }
+
+            // 대기 후 반복 (0.1초 대기)
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    /// <summary>
-    /// 코인 데이터를 서버에 반영
-    /// </summary>
-    public IEnumerator SetCoins(string playerId, long coins, Action onSuccess, Action<string> onError)
+    public async Task WaitForConnection()
     {
-        if (string.IsNullOrEmpty(playerId))
+        while (!_isConnected)
         {
-            onError?.Invoke("Player ID가 비어 있습니다.");
-            yield break;
+            Debug.Log("[socket] Waiting for server connection...");
+            await Task.Delay(100); // 0.1초 대기
         }
-
-        // 서버에 요청 데이터 생성
-        var data = new { playerId, coins };
-        bool responseReceived = false;
-        string responseData = null;
-
-        // 서버에 요청 전송
-        socket.EmitAsync("updatePlayer", data);
-
-        // 응답 이벤트 등록
-        socket.On("setCoinsResponse", response =>
-        {
-            responseData = response.ToString();
-            responseReceived = true;
-        });
-
-        // 응답이 올 때까지 대기
-        yield return new WaitUntil(() => responseReceived);
-
-        // 응답 처리
-        if (responseData == "success")
-        {
-            onSuccess?.Invoke(); // 성공 콜백 호출
-        }
-        else
-        {
-            onError?.Invoke("Failed to update coins on server."); // 실패 콜백 호출
-        }
+        Debug.Log("[socket] Server connection established.");
     }
 
-    /// <summary>
-    /// 특정 룸의 지급률(payout) 조회
-    /// </summary>
-    public void GetPayout(int roomNumber, Action<string> onSuccess, Action<string> onError)
+    private static byte[] SerializeProtobuf<T>(T obj)
     {
-        socket.EmitAsync("getPayout", roomNumber);
-
-        socket.On("getPayoutResponse", response =>
-        {
-            try
-            {
-                var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(response.ToString());
-                if (data.ContainsKey("resultplusPercent"))
-                {
-                    string payout = data["resultplusPercent"].ToString();
-                    onSuccess?.Invoke(payout);
-                }
-                else
-                {
-                    onError?.Invoke("Invalid response format.");
-                }
-            }
-            catch (Exception ex)
-            {
-                onError?.Invoke($"Error parsing response: {ex.Message}");
-            }
-        });
+        using var memoryStream = new MemoryStream();
+        Serializer.SerializeWithLengthPrefix(memoryStream, obj, PrefixStyle.Base128);
+        return memoryStream.ToArray();
     }
 
-    /// <summary>
-    /// 특정 룸의 목표 지급률(targetPayout) 조회
-    /// </summary>
-    public void GetTargetPayout(int roomNumber, Action<double> onSuccess, Action<string> onError)
+    private static T DeserializeProtobuf<T>(NetworkStream networkStream)
     {
-        socket.EmitAsync("getTargetPayout", roomNumber);
-
-        socket.On("getTargetPayoutResponse", response =>
-        {
-            try
-            {
-                var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(response.ToString());
-                if (data.ContainsKey("targetPayout"))
-                {
-                    double targetPayout = Convert.ToDouble(data["targetPayout"]);
-                    onSuccess?.Invoke(targetPayout);
-                }
-                else
-                {
-                    onError?.Invoke("Invalid response format.");
-                }
-            }
-            catch (Exception ex)
-            {
-                onError?.Invoke($"Error parsing response: {ex.Message}");
-            }
-        });
-    }
-
-    /// <summary>
-    /// 특정 룸의 Total Bet 갱신
-    /// </summary>
-    public void SetTotalBet(int roomNumber, int bet)
-    {
-        var data = new { roomNumber, betCoin = bet };
-        socket.EmitAsync("updateTotalBet", data);
-
-        socket.On("updateTotalBetResponse", response =>
-        {
-            Debug.Log($"Total bet updated response: {response}");
-        });
-    }
-
-    /// <summary>
-    /// 특정 룸의 Total Payout 갱신
-    /// </summary>
-    public void SetTotalPayout(int roomNumber, int payout)
-    {
-        var data = new { roomNumber, payoutCoin = payout };
-        socket.EmitAsync("updateTotalPayout", data);
-
-        socket.On("updateTotalPayoutResponse", response =>
-        {
-            Debug.Log($"Total payout updated response: {response}");
-        });
-    }
-
-    /// <summary>
-    /// 서버 조건을 감시하며 특정 조건 발생 시 이벤트 호출
-    /// </summary>
-    public void MonitorServerCondition(int roomNumber, Action onReturnEvent)
-    {
-        socket.EmitAsync("monitorCondition", roomNumber);
-
-        socket.On("monitorConditionResponse", response =>
-        {
-            if (response.ToString() == "true")
-            {
-                Debug.Log("Condition met: triggering return event");
-                onReturnEvent?.Invoke();
-            }
-            else
-            {
-                Debug.Log("Condition not met: " + response);
-            }
-        });
+        return Serializer.DeserializeWithLengthPrefix<T>(networkStream, PrefixStyle.Base128);
     }
 }

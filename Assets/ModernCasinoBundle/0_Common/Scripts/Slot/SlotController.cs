@@ -272,11 +272,6 @@ namespace Mkey
         {
             rng.Update();
         }
-
-        private void OnDestroy()
-        {
-           
-        }
         #endregion regular
 
         /// <summary>
@@ -338,14 +333,15 @@ namespace Mkey
         {
             StartSpinEvent?.Invoke();
 
+            // 잭팟 초기화
             jackPotWinCoins = 0;
             jackPotType = JackPotType.None;
 
             slotsRunned = true;
             if(controls.Auto && !isFreeSpin) controls.IncAutoSpinsCounter();
             //스핀 돌림
-            StartCoroutine(RoomAPIManager.Instance.SetTotalBet(roomController.roomNumber, SlotControls.Instance.TotalBet)); // 특정 room의 totalbet 업데이트
-            roomController.sessionTotalBet += double.Parse(toalBetSumText.text.ToString());
+            //StartCoroutine(RoomAPIManager.Instance.SetTotalBet(roomController.roomNumber, SlotControls.Instance.TotalBet)); // 특정 room의 totalbet 업데이트
+            //roomController.sessionTotalBet += double.Parse(toalBetSumText.text.ToString());
             Debug.Log("Spins count from game start: " + (++spinCount));
 
             MPlayer.SetWinCoinsCount(0);
@@ -362,21 +358,27 @@ namespace Mkey
             bool fullRotated = false;
             RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
             while (!fullRotated) yield return wfs0_2;  // wait 
-            //스핀 끝
+            
+            // 슬롯 애니메이션 종료 후 결과 확인
             EndSpinEvent?.Invoke();
 
 
             //3 -------- 결과 확인 -------------------------------------------
+            // 잭팟 관련 처리 시작
             BeginWinCalcEvent?.Invoke();
             winController.SearchWinSymbols();
+
+            // 잭팟 관련 변수 초기화
             bool hasLineWin = false;
             bool hasScatterWin = false;
             bool bigWin = false;
 
             // 3a ----- 잭팟 금액을 증가시키는 로직 ----
+            // 잭팟 금액 증가
             IncreaseJackPots();
 
-            if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref  jackPotType))
+            // 잭팟 여부를 확인
+            if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType))
             {
                 //3b ---- show particles, line flasing  -----------
                 winController.WinEffectsShow(winLineFlashing == WinLineFlashing.All, winSymbolParticles);
@@ -385,6 +387,7 @@ namespace Mkey
                
                 while (!MGUI.HasNoPopUp) yield return wfs0_1;
 
+                // 잭팟 금액 가져오기
                 jackPotWinCoins = controls.GetJackPotCoins(jackPotType);
 
                 if (jackPotType != JackPotType.None && jackPotWinCoins > 0)
@@ -394,12 +397,14 @@ namespace Mkey
 
                     if (controls.HasFreeSpin || controls.Auto)
                     {
+                        // 잭팟 UI 표시 및 처리
                         controls.JPWinShow(jackPotWinCoins, jackPotType);
                         yield return new WaitForSeconds(5.0f); // delay
                         controls.JPWinCancel(); 
                     }
                     else
                     {
+                        // 잭팟 UI 표시 및 처리
                         controls.JPWinShow(jackPotWinCoins, jackPotType);
                         yield return new WaitForSeconds(3.0f);// delay
                     }
@@ -419,7 +424,7 @@ namespace Mkey
                 MPlayer.AddCoins(winCoins);
                 Debug.Log("total: " + (jackPotWinCoins + winCoins));
                 //bet coin
-                StartCoroutine(RoomAPIManager.Instance.SetTotalPayout(roomController.roomNumber, jackPotWinCoins + winCoins)); // 특정 room의 totalbpayout 업데이트
+                //StartCoroutine(RoomAPIManager.Instance.SetTotalPayout(roomController.roomNumber, jackPotWinCoins + winCoins)); // 특정 room의 totalbpayout 업데이트
                 Debug.Log(jackPotWinCoins + winCoins);
                 if (winCoins > 0)
                 {
@@ -451,7 +456,7 @@ namespace Mkey
                 // 3d1 -------- add levelprogress --------------
                 while (!MGUI.HasNoPopUp) yield return wfs0_1; // wait for the prev popup to close
                // MPlayer.AddLevelProgress( (useLineBetProgressMultiplier)? winSpinLevelProgress * winLinesCount * controls.LineBet : winSpinLevelProgress * winLinesCount); // for each win line
-                MPlayer.AddLevelProgress(winSpinLevelProgress); 
+                //MPlayer.AddLevelProgress(winSpinLevelProgress); 
 
                 // 3d2 ------------ start line events ----------
                 winController.StartLineEvents();
@@ -522,12 +527,24 @@ namespace Mkey
         private void IncreaseJackPots()
         {
             // useMiniJacPot, useMaxiJacPot, useMegaJacPot 플래그에 따라 잭팟 종류 결정
-            if (useMiniJacPot) controls.AddMiniJackPot((jackPotIncType == JackPotIncType.Const) ?
+            if (useMiniJacPot)
+            {
+                Debug.Log("mini 잭팟 증가");
+                controls.AddMiniJackPot((jackPotIncType == JackPotIncType.Const) ?
                      jackPotIncValue : (int)((float)controls.MiniJackPotStart * (float)jackPotIncValue / 100f));
-            if (useMaxiJacPot) controls.AddMaxiJackPot((jackPotIncType == JackPotIncType.Const) ?
+            }
+            if (useMaxiJacPot)
+            {
+                Debug.Log("maxi 잭팟 증가");
+                controls.AddMaxiJackPot((jackPotIncType == JackPotIncType.Const) ?
                   jackPotIncValue : (int)((float)controls.MaxiJackPotStart * (float)jackPotIncValue / 100f));
-            if (useMegaJacPot) controls.AddMegaJackPot((jackPotIncType == JackPotIncType.Const) ?
+            }
+            if (useMegaJacPot)
+            {
+                Debug.Log("maga 잭팟 증가");
+                controls.AddMegaJackPot((jackPotIncType == JackPotIncType.Const) ?
                   jackPotIncValue : (int)((float)controls.MegaJackPotStart * (float)jackPotIncValue / 100f));
+            }
         }
 
         /// <summary>
@@ -1700,17 +1717,6 @@ namespace Mkey
                 return true;
             }
             return false;
-        }
-    }
-
-    public class postCoin
-    {
-        public int betCoin;
-        public int roomNumber;
-        public postCoin(int bet)
-        {
-            betCoin = bet;
-            roomNumber = RoomController.Instance.roomNumber;
         }
     }
 }

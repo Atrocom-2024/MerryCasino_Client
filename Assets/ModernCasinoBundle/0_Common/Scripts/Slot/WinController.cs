@@ -500,6 +500,13 @@ namespace Mkey
                 }
             }
 
+            // 디버깅용: sD 내용 출력
+            //foreach (var kvp in sD)
+            //{
+            //    Debug.Log($"sD Key: {kvp.Key}, Symbol Count: {kvp.Value.Count}");
+            //}
+            //Debug.Log($"jp_symb_id: {jp_symb_id}");
+
             // search jackPot id if symbol is any
             if (jp_symb_id == -1)
             {
@@ -536,6 +543,8 @@ namespace Mkey
             else
             {
                 int id = jp_symb_id;
+                Debug.Log($"jp_symb_id: {jp_symb_id}");
+
                 if (sD.ContainsKey(id))
                 {
                     if (useMegaJackPot && sD[id].Count >= megaJackPotCount && megaJackPotCount > 0)

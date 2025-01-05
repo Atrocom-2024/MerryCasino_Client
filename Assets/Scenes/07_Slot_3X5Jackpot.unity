@@ -937,6 +937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265648611}
   - component: {fileID: 265648610}
+  - component: {fileID: 265648612}
   m_Layer: 0
   m_Name: RoomController
   m_TagString: Untagged
@@ -959,7 +960,6 @@ MonoBehaviour:
   resultPayout: 0
   sessionTotalBet: 0
   roomNumber: 6
-  basePayout: 91.2397
   PayoutText: {fileID: 832003172}
 --- !u!4 &265648611
 Transform:
@@ -976,6 +976,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265648612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265648609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7fc59a28753b34ebff8cbd12eae5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &353486029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,7 +2882,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.2384975, y: 2.2384975, z: 2.2384975}
+  m_LocalScale: {x: 2.112676, y: 2.112676, z: 2.112676}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -2894,7 +2906,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6788732
+  currRatio: 1.584507
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -4957,7 +4969,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 40.000.000
+  m_Text: 00.00%
 --- !u!222 &832003173
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8645,7 +8657,7 @@ MonoBehaviour:
   additionalScale: 0.93
   additionalScaleOld: 0.93
   useLerpScale: 0
-  currRatio: 1.6788732
+  currRatio: 1.584507
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709115112
@@ -11279,14 +11291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade820d1fd084394fa71de200fd6dfb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defCoinsCount: 500
-  jam: 500
-  defFBCoinsCount: 100
-  useLevelUpReward: 1
-  levelUpReward: 3000
-  useBigWinCongratulation: 1
-  minWin: 5000
-  saveData: 1
 --- !u!4 &2508946763180256520
 Transform:
   m_ObjectHideFlags: 0
@@ -11831,7 +11835,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 40.000.000
+  m_Text: 0
 --- !u!224 &7671556282326536179
 RectTransform:
   m_ObjectHideFlags: 0

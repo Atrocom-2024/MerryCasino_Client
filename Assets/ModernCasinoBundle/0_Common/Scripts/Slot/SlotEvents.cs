@@ -31,13 +31,13 @@ namespace Mkey
 
         public void AddLevelProgress_100()
         {
-            MPlayer.AddLevelProgress(100f);
+            //MPlayer.AddLevelProgress(100f);
             MSound.PlayClip(0, winCoinsSound);
         }
 
         public void AddLevelProgress_50()
         {
-            MPlayer.AddLevelProgress(50f);
+            //MPlayer.AddLevelProgress(50f);
             MSound.PlayClip(0, winCoinsSound);
         }
 

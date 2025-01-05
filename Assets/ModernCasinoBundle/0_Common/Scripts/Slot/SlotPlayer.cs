@@ -7,56 +7,19 @@ namespace Mkey
 {
     public class SlotPlayer : MonoBehaviour
     {
-        #region default data
-        [Space(10, order = 0)]
-        [Header("Default data", order = 1)]
-        [Tooltip("Default coins at start")]
-        [SerializeField]
-        private int defCoinsCount = 500;
-
-        [Tooltip("Default Jams at start")]
-        [SerializeField]
-        private int jam = 500;
-
-        [Tooltip("Default facebook coins")]
-        [SerializeField]
-        private int defFBCoinsCount = 100;
-
-        [Tooltip("Check if you want to add level up reward")]
-        [SerializeField]
-        private bool useLevelUpReward = true;
-
-        [Tooltip("Default level up reward")]
-        [SerializeField]
-        private int levelUpReward = 3000;
-
-        [Tooltip("Check if you want to show big win congratulation")]
-        [SerializeField]
-        private bool useBigWinCongratulation = true;
-
-        [Tooltip("Min win to show big win congratulation")]
-        [SerializeField]
-        private int minWin = 5000;
-
-        [Space(9)]
-        [Tooltip("Check if you want to save coins, level, progress, facebook gift flag, sound settings")]
-        [SerializeField]
-        private bool saveData = false;
-
-        #endregion default data
-
-        #region keys
-        // current coins
-
-        private string saveCoinsKey = "mk_slot_coins"; // current coins
-        private string saveFbCoinsKey = "mk_slot_fbcoins"; // facebook coins
-        private string saveLevelKey = "mk_slot_level"; // current level
-        private string saveLevelProgressKey = "mk_slot_level_progress"; // progress to next level %
-        #endregion keys
+        #region properties
+        public string Id { get; set; } // 플레이어 ID
+        public string Username { get; set; } // 플레이어 닉네임
+        public long Coins { get; set; } // 코인 수
+        public int Level { get; set; } // 레벨
+        public int Experience { get; set; } // 경험치
+        public int MinWin { get { return minWin; } }
+        public bool UseBigWinCongratulation { get { return useBigWinCongratulation; } }
+        #endregion
 
         #region events
         public Action<long> ChangeCoinsEvent;
-        public Action<int> LoadCoinsEvent;
+        public Action<long> LoadCoinsEvent;
         public Action<int> ChangeJamsEvent;
         public Action<int> LoadJamsEvent;
         public Action<float> ChangeLevelProgressEvent;
@@ -67,56 +30,36 @@ namespace Mkey
         #endregion events
 
         #region properties
-
-        public string Id
-        {
-            get; set;
-        }
-        public bool SaveData
-        {
-            get { return saveData; }
-        }
-
-        public int MinWin
-        {
-            get { return minWin; }
-        }
-
-        public bool UseBigWinCongratulation
-        {
-            get { return useBigWinCongratulation; }
-        }
-
         public int WinCoins
         {
             get; private set;
         }
 
-        public long LevelUpReward => levelUpReward;
+        //public long LevelUpReward => levelUpReward;
 
-        public bool UseLevelUpReward => useLevelUpReward;
-        #endregion properties
+        //public bool UseLevelUpReward => useLevelUpReward;
+        //#endregion properties
 
-        #region saved properties
-        public long Coins // 유저의 코인 수
-        {
-            get; set;
-        }
+        //#region saved properties
+        //public long Coins // 유저의 코인 수
+        //{
+        //    get; set;
+        //}
 
         public int Jams
         {
             get; set;
         }
 
-        public int Level
-        {
-            get; private set;
-        }
+        //public int Level
+        //{
+        //    get; private set;
+        //}
 
-        public float LevelProgress
-        {
-            get; private set;
-        }
+        //public float LevelProgress
+        //{
+        //    get; private set;
+        //}
         public int UserNum
         {
             get; set;
@@ -124,6 +67,8 @@ namespace Mkey
         #endregion saved properties
 
         public static SlotPlayer Instance;
+        private int minWin = 5000;
+        private bool useBigWinCongratulation = true;
 
         #region regular
         private void Awake()
@@ -134,24 +79,38 @@ namespace Mkey
 
         private void Start()
         {
-            //Validate();
-            LoadCoins();
-            LoadLevel();
-            LoadLevelProgress();
-        }
-
-        private void OnValidate()
-        {
-            Validate();
-        }
-
-        private void Validate()
-        {
-            defCoinsCount = Math.Max(0, defCoinsCount);
-            defFBCoinsCount = Math.Max(0, defFBCoinsCount);
-            levelUpReward = Math.Max(0, levelUpReward);
+            StartCoroutine(GetPlayerInfoController());
         }
         #endregion regular
+
+        /// <summary>
+        /// 서버에서 받아온 데이터를 플레이어 속성에 저장
+        /// </summary>
+        /// <param name="data"></param>
+        private void SetPlayerData(PlayerData data)
+        {
+            Id = data.Id;
+            Username = data.Username;
+            Coins = data.Coins;
+            Level = data.Level;
+            Experience = data.Experience;
+        }
+
+        /// <summary>
+        /// 서버에서 플레이어 데이터를 로드
+        /// </summary>
+        private IEnumerator GetPlayerInfoController()
+        {
+            Debug.Log("Loading player data from server...");
+            yield return RoomAPIManager.Instance.GetPlayerInfo(Id,
+                onSuccess: data =>
+                {
+                    SetPlayerData(data);
+                    Debug.Log("Player data successfully loaded.");
+                },
+                onError: error => Debug.LogError($"Failed to load player data: {error}")
+            );
+        }
 
         #region coins
         /// <summary>
@@ -160,16 +119,51 @@ namespace Mkey
         /// <param name="count"></param>
         public void AddCoins(int count)
         {
-            SetCoinsCount(Coins + count);
+            //SetCoinsCount(Coins + count);
+            StartCoroutine(AddCoinsController(count));
         }
 
-        /// <summary>
-        /// 코인 수를 설정하고 결과를 저장
-        /// </summary>
-        /// <param name="count"></param>
-        public void SetCoinsCount(long count)
+        public IEnumerator AddCoinsController(int count)
         {
-            SetCoinsCount(count, true);
+            if (string.IsNullOrEmpty(Id))
+            {
+                Debug.LogError("Player ID is not set.");
+                yield break;
+            }
+
+            //yield return RoomSocketManager.Instance.UpdatePlayerCoins(Id, count,
+            //    onSuccess: updatedCoins =>
+            //    {
+            //        Debug.Log($"Server updated coins successfully. New coin count: {updatedCoins}");
+            //        // 로컬 상태를 서버 응답으로 동기화 (필요 시)
+            //        SetCoinsCount(updatedCoins);
+            //    },
+            //    onError: error =>
+            //    {
+            //        Debug.LogError($"Failed to update coins on server: {error}");
+            //    });
+        }
+
+        public IEnumerator UpdateBetController(int count)
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                Debug.LogError("Player ID is not set.");
+                yield break;
+            }
+            
+            //yield return RoomSocketManager.Instance.SendBetReqeust(Id, count,
+            //    onSuccess: (updatedCoins, updatedPayout) =>
+            //    {
+            //        Debug.Log($"Server updated coins successfully. New coin count: {updatedCoins}");
+            //        // 로컬 상태를 서버 응답으로 동기화 (필요 시)
+            //        SetCoinsCount(updatedCoins);
+            //        RoomController.Instance.SetPayout(updatedPayout);
+            //    },
+            //    onError: error =>
+            //    {
+            //        Debug.LogError($"Failed to update coins on server: {error}");
+            //    });
         }
 
         /// <summary>
@@ -177,49 +171,12 @@ namespace Mkey
         /// 만약 데이터 변경마다 DB의 데이터를 수정하려면 이 메서드에서 로직을 구현해야 함
         /// </summary>
         /// <param name="count"></param>
-        private void SetCoinsCount(long count, bool raiseEvent)
+        public void SetCoinsCount(long count)
         {
-            //count = Mathf.Max(0, count);
-            bool changed = (Coins != count); // 코인이 변경될 때 changed를 true로 설정
             Coins = count; // Coins 값을 새로 전달된 count 값으로 업데이트
-
-            if (SaveData && changed)
-            {
-                string key = saveCoinsKey;
-                //PlayerPrefs.SetInt(key, Coins);
-                StartCoroutine(RoomSocketManager.Instance.SetCoins(Id, Coins,
-                    onSuccess: () => Debug.Log("Coins updated successfully on server."),
-                    onError: error => Debug.LogError(error)
-                ));
-                //StartCoroutine(RoomAPIManager.Instance.SetCoins(Id, Coins,
-                //    onSuccess: () => Debug.Log("Coins updated successfully on server."),
-                //    onError: error => Debug.LogError(error)
-                //));
-            }
-            if (changed && raiseEvent) ChangeCoinsEvent?.Invoke(Coins);
+            ChangeCoinsEvent?.Invoke(Coins);
         }
 
-        /// <summary>
-        /// 직렬화된 코인 데이터를 불러오거나, 기본값으로 설정
-        /// </summary>
-        private void LoadCoins()
-        {
-            if (SaveData)
-            {
-                string key = saveCoinsKey;
-                SetCoinsCount(PlayerPrefs.GetInt(key, defCoinsCount), false);
-                StartCoroutine(RoomAPIManager.Instance.GetCoins(Id,
-                    coins => SetCoinsCount(coins, false),
-                    error => Debug.LogError(error)
-                ));
-            }
-            else
-            {
-                SetCoinsCount(defCoinsCount, false);
-            }
-
-            //LoadCoinsEvent?.Invoke(Coins);
-        }
         #endregion coins
 
         #region wincoins
@@ -260,54 +217,54 @@ namespace Mkey
         /// 레벨을 변경시키고 결과를 저장
         /// </summary>
         /// <param name="count"></param>
-        public void AddLevel(int count)
-        {
-            SetLevel(Level + count);
-        }
+        //public void AddLevel(int count)
+        //{
+        //    SetLevel(Level + count);
+        //}
 
         /// <summary>
         /// 레벨을 설정하고, 결과를 저장하고 ChangeLevelEvent를 발생시킴
         /// </summary>
         /// <param name="count"></param>
-        public void SetLevel(int count)
-        {
-            SetLevel(count, true);
-        }
+        //public void SetLevel(int count)
+        //{
+        //    SetLevel(count, true);
+        //}
 
         /// <summary>
         /// 레벨을 설정하고, 결과를 저장하고 ChangeLevelEvent를 발생시킴
         /// </summary>
         /// <param name="count"></param>
-        private void SetLevel(int count, bool raiseEvent)
-        {
-            count = Mathf.Max(0, count);
-            bool changed = (Level != count);
-            int addLevels = count - Level;
-            Level = count;
-            if (SaveData && changed)
-            {
-                string key = saveLevelKey;
-                PlayerPrefs.SetInt(key, Level);
-            }
-            if (changed && raiseEvent) ChangeLevelEvent?.Invoke(Level, Mathf.Max(0, addLevels * levelUpReward), useLevelUpReward);
-        }
+        //private void SetLevel(int count, bool raiseEvent)
+        //{
+        //    count = Mathf.Max(0, count);
+        //    bool changed = (Level != count);
+        //    int addLevels = count - Level;
+        //    Level = count;
+        //    if (SaveData && changed)
+        //    {
+        //        string key = saveLevelKey;
+        //        PlayerPrefs.SetInt(key, Level);
+        //    }
+        //    if (changed && raiseEvent) ChangeLevelEvent?.Invoke(Level, Mathf.Max(0, addLevels * levelUpReward), useLevelUpReward);
+        //}
 
         /// <summary>
         /// Load serialized level or set 0
         /// </summary>
-        private void LoadLevel()
-        {
-            if (SaveData)
-            {
-                string key = saveLevelKey;
-                SetLevel (PlayerPrefs.GetInt(key, 0), false);
-            }
-            else
-            {
-                SetLevel(0, false);
-            }
-            LoadLevelEvent?.Invoke(Level);
-        }
+        //private void LoadLevel()
+        //{
+        //    if (SaveData)
+        //    {
+        //        string key = saveLevelKey;
+        //        SetLevel (PlayerPrefs.GetInt(key, 0), false);
+        //    }
+        //    else
+        //    {
+        //        SetLevel(0, false);
+        //    }
+        //    LoadLevelEvent?.Invoke(Level);
+        //}
         #endregion Level
 
         #region LevelProgress
@@ -315,73 +272,83 @@ namespace Mkey
         /// Change level and save result
         /// </summary>
         /// <param name="count"></param>
-        public void AddLevelProgress(float count)
-        {
-            SetLevelProgress(LevelProgress + count);
-        }
+        //public void AddLevelProgress(float count)
+        //{
+        //    SetLevelProgress(LevelProgress + count);
+        //}
 
         /// <summary>
         /// Set level, save result and raise ChangeLevelProgressEvent
         /// </summary>
         /// <param name="count"></param>
-        public void SetLevelProgress(float count)
-        {
-            SetLevelProgress(count, true);
-        }
+        //public void SetLevelProgress(float count)
+        //{
+        //    SetLevelProgress(count, true);
+        //}
 
         /// <summary>
         /// Set level, save result and raise ChangeLevelProgressEvent
         /// </summary>
         /// <param name="count"></param>
-        private void SetLevelProgress(float count, bool raiseEvent)
-        {
-            count = Mathf.Max(0, count);
-            if (count >= 100)
-            {
-                int addLevels = (int)count / 100;
-                AddLevel(addLevels);
-                count = 0;
-            }
+        //private void SetLevelProgress(float count, bool raiseEvent)
+        //{
+        //    count = Mathf.Max(0, count);
+        //    if (count >= 100)
+        //    {
+        //        int addLevels = (int)count / 100;
+        //        AddLevel(addLevels);
+        //        count = 0;
+        //    }
 
-            bool changed = (LevelProgress != count);
-            LevelProgress = count;
-            if (SaveData && changed)
-            {
-                string key = saveLevelProgressKey;
-                PlayerPrefs.SetFloat(key, LevelProgress);
-            }
-            if (changed && raiseEvent) ChangeLevelProgressEvent?.Invoke(LevelProgress);
-        }
+        //    bool changed = (LevelProgress != count);
+        //    LevelProgress = count;
+        //    if (SaveData && changed)
+        //    {
+        //        string key = saveLevelProgressKey;
+        //        PlayerPrefs.SetFloat(key, LevelProgress);
+        //    }
+        //    if (changed && raiseEvent) ChangeLevelProgressEvent?.Invoke(LevelProgress);
+        //}
 
         /// <summary>
         /// Load serialized levelprogress or set 0
         /// </summary>
-        private void LoadLevelProgress()
-        {
-            if (SaveData)
-            {
-                string key = saveLevelProgressKey;
-                SetLevelProgress(PlayerPrefs.GetFloat(key, 0),false);
-            }
-            else
-            {
-                SetLevelProgress(0, false);
-            }
-            LoadLevelProgressEvent?.Invoke(LevelProgress);
-        }
+        //private void LoadLevelProgress()
+        //{
+        //    if (SaveData)
+        //    {
+        //        string key = saveLevelProgressKey;
+        //        SetLevelProgress(PlayerPrefs.GetFloat(key, 0),false);
+        //    }
+        //    else
+        //    {
+        //        SetLevelProgress(0, false);
+        //    }
+        //    LoadLevelProgressEvent?.Invoke(LevelProgress);
+        //}
         #endregion LevelProgress
 
-        public void SetDefaultData()
-        {
-            SetCoinsCount(defCoinsCount);
+        //public void SetDefaultData()
+        //{
+        //    SetCoinsCount(defCoinsCount);
 
-            SetLevel(0);
-            SetLevelProgress(0);
-        }
+        //    SetLevel(0);
+        //    SetLevelProgress(0);
+        //}
 
-        public bool HasMoneyForBet (int totalBet)
-        {
-             return totalBet <= Coins; 
-        }
+        //public bool HasMoneyForBet (int totalBet)
+        //{
+        //     return totalBet <= Coins; 
+        //}
+    }
+
+    [Serializable]
+    public class PlayerData
+    {
+        public string Id;
+        public string Username;
+        public long Coins;
+        public int Level;
+        public int Experience;
     }
 }

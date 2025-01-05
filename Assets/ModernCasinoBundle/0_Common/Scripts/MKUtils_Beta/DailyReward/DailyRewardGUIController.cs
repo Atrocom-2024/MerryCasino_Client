@@ -25,6 +25,8 @@ namespace Mkey
         private int rewDay = -1;
         #endregion temp vars
 
+        public static DailyRewardGUIController Instance;
+
         #region regular
         private IEnumerator Start()
         {
@@ -44,9 +46,16 @@ namespace Mkey
         }
         #endregion regular
 
-        private IEnumerator ShowRewardPopup()
+        public IEnumerator ShowRewardPopup()
         {
             yield return new WaitForSeconds(delay);
+            MGui.ShowPopUp(dailyRewardPUPrefab);
+        }
+
+        public IEnumerator ShowRewardPopup(float delay, int rewardDay)
+        {
+            yield return new WaitForSeconds(delay);
+            Debug.Log($"Reward Day: {rewardDay}");
             MGui.ShowPopUp(dailyRewardPUPrefab);
         }
 

@@ -35,9 +35,9 @@ namespace Mkey
             }
         }
 
-        public void ResetPlayer()
-        {
-            SlotPlayer.Instance.SetDefaultData();
-        }
+        //public void ResetPlayer()
+        //{
+        //    SlotPlayer.Instance.SetDefaultData();
+        //}
     }
 }

@@ -62,7 +62,7 @@ namespace Mkey
             }
         }
 
-        private void LoadBalanceHandler(int newBalance)
+        private void LoadBalanceHandler(long newBalance)
         {
             if (balanceAmountText) balanceAmountText.text = (newBalance > 0) ? newBalance.ToString(coinsFormat) : "0";
         }

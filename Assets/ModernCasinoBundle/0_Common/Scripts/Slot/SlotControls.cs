@@ -174,10 +174,10 @@ namespace Mkey
         #endregion events
 
         #region properties
-        public bool SaveData
-        {
-            get { return saveData; }
-        }
+        //public bool SaveData
+        //{
+        //    get { return saveData; }
+        //}
 
         public int MiniJackPotStart
         {
@@ -559,11 +559,11 @@ namespace Mkey
             count = Mathf.Max(miniStart, count);
             bool changed = (MiniJackPot != count);
             MiniJackPot = count;
-            if (SaveData && changed)
-            {
-                string key = SaveMiniJackPotKey;
-                PlayerPrefs.SetInt(key, MiniJackPot);
-            }
+            //if (SaveData && changed)
+            //{
+            //    string key = SaveMiniJackPotKey;
+            //    PlayerPrefs.SetInt(key, MiniJackPot);
+            //}
             if (changed) ChangeMiniJackPotEvent?.Invoke(MiniJackPot);
         }
 
@@ -572,16 +572,17 @@ namespace Mkey
         /// </summary>
         private void LoadMiniJackPot()
         {
-            if (SaveData)
-            {
-                string key = SaveMiniJackPotKey;
-                if (PlayerPrefs.HasKey(key)) SetMiniJackPotCount(PlayerPrefs.GetInt(key));
-                else SetMiniJackPotCount(miniStart);
-            }
-            else
-            {
-                SetMiniJackPotCount(miniStart);
-            }
+            SetMiniJackPotCount(miniStart);
+            //if (SaveData)
+            //{
+            //    string key = SaveMiniJackPotKey;
+            //    if (PlayerPrefs.HasKey(key)) SetMiniJackPotCount(PlayerPrefs.GetInt(key));
+            //    else SetMiniJackPotCount(miniStart);
+            //}
+            //else
+            //{
+            //    SetMiniJackPotCount(miniStart);
+            //}
         }
         #endregion mini jackpot
 
@@ -604,11 +605,11 @@ namespace Mkey
             count = Mathf.Max(maxiStart, count);
             bool changed = (MaxiJackPot != count);
             MaxiJackPot = count;
-            if (SaveData && changed)
-            {
-                string key = SaveMaxiJackPotKey;
-                PlayerPrefs.SetInt(key, MaxiJackPot);
-            }
+            //if (SaveData && changed)
+            //{
+            //    string key = SaveMaxiJackPotKey;
+            //    PlayerPrefs.SetInt(key, MaxiJackPot);
+            //}
             if (changed) ChangeMaxiJackPotEvent?.Invoke(MaxiJackPot);
         }
 
@@ -617,16 +618,17 @@ namespace Mkey
         /// </summary>
         private void LoadMaxiJackPot()
         {
-            if (SaveData)
-            {
-                string key = SaveMaxiJackPotKey;
-                if (PlayerPrefs.HasKey(key)) SetMaxiJackPotCount(PlayerPrefs.GetInt(key));
-                else SetMaxiJackPotCount(maxiStart);
-            }
-            else
-            {
-                SetMaxiJackPotCount(maxiStart);
-            }
+            SetMaxiJackPotCount(maxiStart);
+            //if (SaveData)
+            //{
+            //    string key = SaveMaxiJackPotKey;
+            //    if (PlayerPrefs.HasKey(key)) SetMaxiJackPotCount(PlayerPrefs.GetInt(key));
+            //    else SetMaxiJackPotCount(maxiStart);
+            //}
+            //else
+            //{
+            //    SetMaxiJackPotCount(maxiStart);
+            //}
         }
         #endregion maxi jackpot
 
@@ -649,11 +651,11 @@ namespace Mkey
             count = Mathf.Max(megaStart, count);
             bool changed = (MegaJackPot != count);
             MegaJackPot = count;
-            if (SaveData && changed)
-            {
-                string key = SaveMegaJackPotKey;
-                PlayerPrefs.SetInt(key, MegaJackPot);
-            }
+            //if (SaveData && changed)
+            //{
+            //    string key = SaveMegaJackPotKey;
+            //    PlayerPrefs.SetInt(key, MegaJackPot);
+            //}
             if (changed) ChangeMegaJackPotEvent?.Invoke(MegaJackPot);
         }
 
@@ -662,16 +664,17 @@ namespace Mkey
         /// </summary>
         private void LoadMegaJackPot()
         {
-            if (SaveData)
-            {
-                string key = SaveMegaJackPotKey;
-                if (PlayerPrefs.HasKey(key)) SetMegaJackPotCount(PlayerPrefs.GetInt(key));
-                else SetMegaJackPotCount(megaStart);
-            }
-            else
-            {
-                SetMegaJackPotCount(megaStart);
-            }
+            SetMegaJackPotCount(megaStart);
+            //if (SaveData)
+            //{
+            //    string key = SaveMegaJackPotKey;
+            //    if (PlayerPrefs.HasKey(key)) SetMegaJackPotCount(PlayerPrefs.GetInt(key));
+            //    else SetMegaJackPotCount(megaStart);
+            //}
+            //else
+            //{
+            //    SetMegaJackPotCount(megaStart);
+            //}
         }
         #endregion mega jackpot
 
@@ -721,6 +724,11 @@ namespace Mkey
             if (miniJackPotWinGO) Destroy(miniJackPotWinGO);
         }
 
+        /// <summary>
+        /// 잭팟 UI 처리
+        /// </summary>
+        /// <param name="jackPotCoins"></param>
+        /// <param name="jackPotType"></param>
         internal void JPWinShow(int jackPotCoins, JackPotType jackPotType)
         {
             switch (jackPotType)
@@ -786,14 +794,15 @@ namespace Mkey
         }
 
         /// <summary>
-        /// If has money for bet, dec money, and return true
+        /// 유저가 갖고있는 돈보다 배팅 금액이 적을 때만 배팅 진행
         /// </summary>
         /// <returns></returns>
         internal bool ApplyBet()
         {
-            if (MPlayer.HasMoneyForBet(TotalBet))
+            if (MPlayer.Coins > TotalBet)
             {
-                MPlayer.AddCoins(-TotalBet);
+                StartCoroutine(MPlayer.UpdateBetController(-TotalBet));
+                //MPlayer.AddCoins(-TotalBet);
                 return true;
             }
             else
@@ -894,11 +903,11 @@ namespace Mkey
             count = Mathf.Min(count, maxAutoSpins);
             bool changed = (AutoSpinCount != count);
             AutoSpinCount = count;
-            if (SaveData && changed)
-            {
-                string key = SaveAutoSpinsKey;
-                PlayerPrefs.SetInt(key, AutoSpinCount);
-            }
+            //if (SaveData && changed)
+            //{
+            //    string key = SaveAutoSpinsKey;
+            //    PlayerPrefs.SetInt(key, AutoSpinCount);
+            //}
             if (changed) ChangeAutoSpinsEvent?.Invoke(AutoSpinCount);
         }
 
@@ -1024,8 +1033,8 @@ namespace Mkey
                     EditorGUILayout.EndHorizontal();
                
                     EditorGUILayout.BeginVertical();
-                    normal = (Sprite)EditorGUILayout.ObjectField("normal sprite button", (UnityEngine.Object)normal, typeof(Sprite));
-                    pressed = (Sprite)EditorGUILayout.ObjectField("pressed sprite button", (UnityEngine.Object)pressed, typeof(Sprite));
+                    //normal = (Sprite)EditorGUILayout.ObjectField("normal sprite button", (UnityEngine.Object)normal, typeof(Sprite));
+                    //pressed = (Sprite)EditorGUILayout.ObjectField("pressed sprite button", (UnityEngine.Object)pressed, typeof(Sprite));
                     EditorGUILayout.EndVertical();
                     EditorGUILayout.BeginHorizontal("box");
                     if (GUILayout.Button("Set new button sprites"))

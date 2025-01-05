@@ -1,35 +1,37 @@
+using System;
+using System.Text;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using Mkey;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Rendering;
 
 public class GooglePlayGamesScript : MonoBehaviour
 {
     private saveData savedata = new saveData(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } } // SlotPlayer의 싱글톤 인스턴스. 현재 플레이어의 데이터(ID와 코인)를 저장하고 로딩하는 데 사용
     private string url;
-    //const string  url = "http://localhost:3000/api/players";
+
     void Awake()
     {
         EnvReader.Load(".env");
-        url = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/players";
-        Debug.Log("awake login");
-        PlayGamesPlatform.Activate();
+        url = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/users";
+        //Debug.Log("awake login");
+        //PlayGamesPlatform.Activate();
     }
 
-    //구글 로그인
+    void Start()
+    {
+        Debug.Log("start login");
+        PlayGamesPlatform.Activate();
+        //LoginGooglePlayGames();
+    }
+
+    //구글 로그인 -> 구글 플레이 앱 등록 후 구현
     public void LoginGooglePlayGames()
     {
+        Debug.Log("google play login");
         PlayGamesPlatform.Instance.Authenticate((success) =>
         {
             if (success == SignInStatus.Success)
@@ -76,7 +78,13 @@ public class GooglePlayGamesScript : MonoBehaviour
                 {
                     Debug.Log("유저를 찾지 못했습니다. 회원가입을 진행합니다.");
 
-                    var jsondata = JsonUtility.ToJson(savedata);
+                    SignUpData data = new SignUpData
+                    {
+                        userId = savedata.id,
+                        provider = "guest"
+                    };
+
+                    var jsondata = JsonUtility.ToJson(data);
                     yield return StartCoroutine(SignUp(jsondata));
 
                     Get();
@@ -93,10 +101,9 @@ public class GooglePlayGamesScript : MonoBehaviour
             {
                 // 서버에서 응답 받은 JSON 데이터를 파싱
                 string jsondata = request.downloadHandler.text;
-                Debug.Log("else");
-                saveData myObject = JsonUtility.FromJson<saveData>(jsondata);
+                LoginResponseDataType myObject = JsonUtility.FromJson<LoginResponseDataType>(jsondata);
                 Debug.Log(jsondata);
-                MPlayer.Id = myObject.id;
+                MPlayer.Id = myObject.userId;
                 MPlayer.Coins = myObject.coins;
                 LoadLobby();
             }
@@ -165,16 +172,28 @@ public class GooglePlayGamesScript : MonoBehaviour
             string sucmsg = request.downloadHandler.text;
         }
     }
-
-}
-
-public class saveData
-{
-    public string id;
-    public long coins;
-    public saveData()
+    public class saveData
     {
-        id = "";
-        coins = 0;
+        public string id;
+        public long coins;
+        public saveData()
+        {
+            id = "";
+            coins = 0;
+        }
+    }
+
+    public class LoginResponseDataType
+    {
+        public string userId;
+        public string nickname;
+        public int level;
+        public long coins;
+    }
+
+    public class SignUpData
+    {
+        public string userId;
+        public string provider;
     }
 }

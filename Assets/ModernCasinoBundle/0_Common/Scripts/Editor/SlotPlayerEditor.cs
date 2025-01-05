@@ -42,49 +42,49 @@ namespace Mkey
 
                     #region level
                     EditorGUILayout.BeginHorizontal("box");
-                    if (GUILayout.Button("Set 5 level"))
-                    {
-                        SlotPlayer sP = (SlotPlayer)target;
-                        if (sP)
-                            sP.SetLevel(5);
-                    }
-                    if (GUILayout.Button("Increase level"))
-                    {
-                        SlotPlayer sP = (SlotPlayer)target;
-                        if (sP)
-                            sP.AddLevel(1);
-                    }
+                    //if (GUILayout.Button("Set 5 level"))
+                    //{
+                    //    SlotPlayer sP = (SlotPlayer)target;
+                    //    if (sP)
+                    //        sP.SetLevel(5);
+                    //}
+                    //if (GUILayout.Button("Increase level"))
+                    //{
+                    //    SlotPlayer sP = (SlotPlayer)target;
+                    //    if (sP)
+                    //        sP.AddLevel(1);
+                    //}
 
-                    if (GUILayout.Button("Decrease level"))
-                    {
-                        SlotPlayer sP = (SlotPlayer)target;
-                        if (sP)
-                            sP.AddLevel(-1);
-                    }
+                    //if (GUILayout.Button("Decrease level"))
+                    //{
+                    //    SlotPlayer sP = (SlotPlayer)target;
+                    //    if (sP)
+                    //        sP.AddLevel(-1);
+                    //}
                     EditorGUILayout.EndHorizontal();
                     #endregion level
 
                     #region levelprogress
                     EditorGUILayout.BeginHorizontal("box");
-                    if (GUILayout.Button("Set 50 levprogr"))
-                    {
-                        SlotPlayer sP = (SlotPlayer)target;
-                        if (sP)
-                            sP.SetLevelProgress(50);
-                    }
-                    if (GUILayout.Button("Add 20 levprogr"))
-                    {
-                        SlotPlayer sP = (SlotPlayer)target;
-                        if (sP)
-                            sP.AddLevelProgress(20);
-                    }
+                    //if (GUILayout.Button("Set 50 levprogr"))
+                    //{
+                    //    SlotPlayer sP = (SlotPlayer)target;
+                    //    if (sP)
+                    //        sP.SetLevelProgress(50);
+                    //}
+                    //if (GUILayout.Button("Add 20 levprogr"))
+                    //{
+                    //    SlotPlayer sP = (SlotPlayer)target;
+                    //    if (sP)
+                    //        sP.AddLevelProgress(20);
+                    //}
 
-                    if (GUILayout.Button("Add -20 levprogr"))
-                    {
-                        SlotPlayer sP = (SlotPlayer)target;
-                        if (sP)
-                            sP.AddLevelProgress(-20);
-                    }
+                    //if (GUILayout.Button("Add -20 levprogr"))
+                    //{
+                    //    SlotPlayer sP = (SlotPlayer)target;
+                    //    if (sP)
+                    //        sP.AddLevelProgress(-20);
+                    //}
                     EditorGUILayout.EndHorizontal();
                     #endregion levelprogress
 
@@ -110,10 +110,10 @@ namespace Mkey
                     EditorGUILayout.EndHorizontal();
                     #endregion scenes
 
-                    if (GUILayout.Button("Reset to default"))
-                    {
-                        SlotPlayer.Instance.SetDefaultData();
-                    }
+                    //if (GUILayout.Button("Reset to default"))
+                    //{
+                    //    SlotPlayer.Instance.SetDefaultData();
+                    //}
                 }
             }
             else

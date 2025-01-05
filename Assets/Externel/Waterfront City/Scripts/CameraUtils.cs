@@ -15,8 +15,8 @@ public static class CameraUtils
         double totalHalfWidth = Mathf.Abs(getWidth(renderer) + getCamWidth(playerCam));
 
         return centerDistance - totalHalfWidth > threshold;
-        return renderer.bounds.center.x - getWidth(renderer) > position.x + getCamWidth(playerCam)
-               || renderer.bounds.center.x + getWidth(renderer) < position.x - getCamWidth(playerCam);
+        //return renderer.bounds.center.x - getWidth(renderer) > position.x + getCamWidth(playerCam)
+        //       || renderer.bounds.center.x + getWidth(renderer) < position.x - getCamWidth(playerCam);
     }
 
     /// <summary>

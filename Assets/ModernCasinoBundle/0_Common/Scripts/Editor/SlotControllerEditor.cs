@@ -478,10 +478,10 @@ namespace Mkey
             if (slotController.useMiniJacPot || slotController.useMegaJacPot|| slotController.useMaxiJacPot)
             {
                 EditorGUILayout.LabelField("Select Jackpot symbol ");
-                int choiseIndex = slotController.jp_symbol_id+1;
+                int choiseIndex = slotController.jp_symbol_id + 1;
                 int oldIndex = choiseIndex;
                 choiseIndex = EditorGUILayout.Popup(choiseIndex, sChoise);
-                slotController.jp_symbol_id = choiseIndex-1;
+                slotController.jp_symbol_id = choiseIndex - 1;
                 if (oldIndex != choiseIndex) EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             }
             EditorGUILayout.EndHorizontal();

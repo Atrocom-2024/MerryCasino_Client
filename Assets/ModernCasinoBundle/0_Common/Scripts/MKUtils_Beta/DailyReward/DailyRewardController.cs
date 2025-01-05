@@ -141,7 +141,7 @@ namespace Mkey
             IsWork = false;
             RewardDay = NextRewardDay;
             IncNextRewardDay();
-            //   StartCoroutine(ShowRewardPopup(1.5f, RewardDay));
+            StartCoroutine(DailyRewardGUIController.Instance.ShowRewardPopup(1.5f, RewardDay));
             TimePassEvent?.Invoke();
             StartNewTimer();
         }

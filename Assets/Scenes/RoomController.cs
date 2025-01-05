@@ -1,11 +1,6 @@
+using System.Threading.Tasks;
 using Mkey;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 // 특정 룸의 지급률을 계산하고, 관련된 정보를 관리하는 클래스
@@ -14,11 +9,11 @@ public class RoomController : MonoBehaviour
     public static RoomController Instance;
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
     public double resultPayout;
-    public double sessionTotalBet;
+    //public double sessionTotalBet;
     public int roomNumber;
 
-    [SerializeField]
-    private double basePayout; // 기본 지급률
+    //[SerializeField]
+    //private double basePayout; // 기본 지급률
 
     [SerializeField]
     Text PayoutText;
@@ -29,68 +24,97 @@ public class RoomController : MonoBehaviour
     private void Awake()
     {
         // 인스턴스를 설정하고 초기 값을 설정
-        StartCoroutine(RoomAPIManager.Instance.GetTargetPayout(roomNumber, basePayout, plusPayout,
-            onSuccess: plusPayout => Debug.Log($"Plus Payout: {plusPayout}"),
-            onError: error => Debug.LogError(error)));
-
         if (Instance == null) Instance = this;
-        sessionTotalBet = 1;
-        resultPayout = 0;
+        else Destroy(gameObject);
+        //sessionTotalBet = 1;
+        //resultPayout = 0;
     }
 
-    private void Start()
+    private async void Start()
     {
-        StartCoroutine(RoomAPIManager.Instance.GetServer(
-            roomNumber,
-            returnEvent // 조건이 충족되면 호출될 메서드
-        ));
-        StartCoroutine(PayoutRoutine());
+        // 서버 연결
+        await RoomSocketManager.Instance.ConnectToServer("127.0.0.1", 4000);
+
+        // 이벤트 구독
+        RoomSocketManager.Instance.OnRoomJoinResponse += HandleRoomJoinResponse;
+        RoomSocketManager.Instance.OnGameStateUpdate += HandleGameStateUpdate;
+
+        // 룸 조인 요청
+        await JoinRoom(MPlayer.Id, roomNumber);
     }
 
-    private IEnumerator PayoutRoutine()
+    private void OnDestroy()
     {
-        while (true)
-        {
-            yield return RoomAPIManager.Instance.GetPayout(
-                roomNumber,
-                sucmsg =>
-                {
-                    // Success callback - call calculResultPayout logic
-                    calculResultPayout(sucmsg);
-                },
-                errmsg =>
-                {
-                    // Error callback - log or handle error
-                    Debug.LogError(errmsg);
-                }
-            );
-
-            yield return new WaitForSeconds(1); // 1초 대기
-        }
+        // 룸 퇴장 시 WebSocket 연결 해제
+        RoomSocketManager.Instance.Disconnect();
+        RoomSocketManager.Instance.OnRoomJoinResponse -= HandleRoomJoinResponse;
+        RoomSocketManager.Instance.OnGameStateUpdate -= HandleGameStateUpdate;
     }
 
-    private void calculResultPayout(string sucmsg)
+    private async Task JoinRoom(string userId, int roomId)
     {
-        Debug.Log($"특정 room payout은 {sucmsg}입니다.");
-        // Process result payout logic here
-        double randomProbe = double.Parse(sucmsg) <= 1 ? double.Parse(sucmsg) : 1;
-        double betProbe = (sessionTotalBet / 10000) <= 1 ? (sessionTotalBet / 10000) : 1;
-        resultPayout = (plusPayout / 2) * (randomProbe + betProbe);
+        Debug.Log($"Joining room {roomId}");
+
+        // 서버에 룸 조인 요청
+        await RoomSocketManager.Instance.WaitForConnection();
+        await RoomSocketManager.Instance.SendRoomJoinRequest(userId, roomId);
+    }
+
+    private void HandleRoomJoinResponse(GameUserState userState)
+    {
+        Debug.Log($"[RoomController] User joined room: UserId = {userState.GameUserId}");
+        SetPayout(userState.CurrentPayout);
+    }
+
+    private void HandleGameStateUpdate(GameSession gameState)
+    {
+        Debug.Log($"[RoomControoler] Game state updated");
+    }
+
+    public void SetPayout(double payout)
+    {
+        resultPayout = payout;
         Debug.Log($"result Payout: {resultPayout}");
 
         // Update the UI
+        //Color lowColor = new Color(0.0f, 1.0f, 0.0f); // Green
+        Color lowColor = new Color(0.0f, 0.5f, 0.0f); // 어두운 초록색
+        Color midColor = new Color(1.0f, 0.5f, 0.0f); // Orange
+        Color highColor = new Color(1.0f, 0.0f, 0.0f); // Red
+        float normalizedPayout = (float)(resultPayout / 100.0); // Normalize resultPayout (0 to 100 -> 0.0 to 1.0)
+        Debug.Log($"Normalized Payout: {normalizedPayout}");
         PayoutText.text = resultPayout.ToString("F2") + "%";
-        double percentage = 1d - resultPayout / plusPayout;
-        PayoutText.color = new Color(1.0f, (float)percentage, 0.0f);
+
+        if (normalizedPayout < 0.25f)
+        {
+            // Green to Orange (0.0 to 0.25)
+            PayoutText.color = Color.Lerp(lowColor, midColor, normalizedPayout / 0.25f);
+        }
+        else if (normalizedPayout < 0.75f)
+        {
+            // Orange to Red (0.25 to 0.75)
+            PayoutText.color = Color.Lerp(midColor, highColor, (normalizedPayout - 0.25f) / 0.5f);
+        }
+        else
+        {
+            // Red for high values (0.75 to 1.0)
+            PayoutText.color = highColor;
+        }
     }
 
+    ///
+    /// 아래 코드들은 payout이 초기화될 때 실행되는 동작
+    ///
+
+    /// <summary>
+    /// 플레이어의 코인을 증가시키고, 관련된 상태(sessionTotalBet)를 초기화
+    /// </summary>
     private void returnEvent()
     {
         // 플레이어의 코인을 추가하고, sessionTotalBet과 resultPayout 값을 초기화
-        MPlayer.AddCoins((int)sessionTotalBet / 10);
-        Debug.Log("sessionTotalBet: " + sessionTotalBet + "return Value: " + (int)sessionTotalBet / 10);
-        sessionTotalBet = 1;
-        resultPayout = 0;
+        //MPlayer.AddCoins((int)sessionTotalBet / 10);
+        //Debug.Log("sessionTotalBet: " + sessionTotalBet + "return Value: " + (int)sessionTotalBet / 10);
+        //sessionTotalBet = 1;
         returnPopOn();
     }
 
