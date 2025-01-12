@@ -3954,7 +3954,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1913586, y: 1.1913586, z: 1.1913586}
+  m_LocalScale: {x: 1.087932, y: 1.087932, z: 1.087932}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -3978,7 +3978,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4469496
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -11730,7 +11730,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 1
-  currRatio: 1.584507
+  currRatio: 1.4469496
   lerpRatio: 2.056
   lerpScale: 1
 --- !u!1 &1709115112
@@ -12631,8 +12631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls: {fileID: 0}
   resultPayout: 0
-  sessionTotalBet: 0
   roomNumber: 1
   PayoutText: {fileID: 1113583633}
 --- !u!4 &1783356598
@@ -15442,6 +15442,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: JackPotsControl
       objectReference: {fileID: 0}
+    - target: {fileID: 2943440251639841692, guid: 6fe2b4139b9345f98b109fe7dc8db4c0, type: 3}
+      propertyPath: jackPotTitle
+      value: 
+      objectReference: {fileID: 2943440250863681786}
+    - target: {fileID: 2943440251639841692, guid: 6fe2b4139b9345f98b109fe7dc8db4c0, type: 3}
+      propertyPath: jackPotAmount
+      value: 
+      objectReference: {fileID: 1351113230}
     - target: {fileID: 2943440251639841693, guid: 6fe2b4139b9345f98b109fe7dc8db4c0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -15503,6 +15511,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fe2b4139b9345f98b109fe7dc8db4c0, type: 3}
+--- !u!102 &2943440250863681786 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 5133756178209078649, guid: 6fe2b4139b9345f98b109fe7dc8db4c0, type: 3}
+  m_PrefabInstance: {fileID: 2943440250863681785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3218549340950132740
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -248,7 +248,7 @@ namespace Mkey
             wfs0_2 = new WaitForSeconds(0.2f);
             wfs0_1 = new WaitForSeconds(0.1f);
 
-            controls.SetJackPotCount(1000000, JackPotType.Mega);
+            //controls.SetJackPotCount(1000000, JackPotType.Mega);
 
             // create reels
             int slotsGrCount = slotGroupsBeh.Length;
@@ -280,7 +280,32 @@ namespace Mkey
         internal void SpinPress()
         {
             SpinPressEvent?.Invoke(); // 이벤트 SpinPressEvent 호출
+            //CheckJackpotChange();
             RunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
+        }
+
+        /// <summary>
+        /// 일정 확률로 잭팟을 발생시키는 메서드
+        /// </summary>
+        private void CheckJackpotChange()
+        {
+            float jackpotChange = 0.5f; // 잭팟 발생 확률 50%
+            float randomValue = UnityEngine.Random.Range(0f, 1f);
+
+            if (randomValue <= jackpotChange)
+            {
+                TriggerJackpot(); // 잭팟 발생
+            }
+        }
+
+        private void TriggerJackpot()
+        {
+            Debug.Log("🎉 잭팟 발생!");
+            JackPotType jackpotType = JackPotType.Mega;
+            int jackpotCoins = controls.GetJackPotCoins(jackpotType);
+
+            // UI에 잭팟 보상 지급
+            controls.JPWinShow(jackpotCoins, jackpotType);
         }
 
         /// <summary>

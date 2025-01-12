@@ -29,7 +29,8 @@ public class EnvReader
         //}
 
 #if UNITY_EDITOR
-        Environment.SetEnvironmentVariable("API_DOMAIN", "http://localhost:3000");
+        Environment.SetEnvironmentVariable("API_DOMAIN", "https://atrocom.com");
+        //Environment.SetEnvironmentVariable("API_DOMAIN", "http://localhost:3000");
 #else
         Environment.SetEnvironmentVariable("API_DOMAIN", "https://atrocom.com");
 #endif

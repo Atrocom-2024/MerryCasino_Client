@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 namespace Mkey
 {
@@ -120,50 +121,25 @@ namespace Mkey
         public void AddCoins(int count)
         {
             //SetCoinsCount(Coins + count);
-            StartCoroutine(AddCoinsController(count));
+            StartCoroutine(AddCoinsController(Id, count));
         }
 
-        public IEnumerator AddCoinsController(int count)
+        public IEnumerator AddCoinsController(string userId, int count)
         {
-            if (string.IsNullOrEmpty(Id))
+            if (string.IsNullOrEmpty(userId))
             {
                 Debug.LogError("Player ID is not set.");
                 yield break;
             }
 
-            //yield return RoomSocketManager.Instance.UpdatePlayerCoins(Id, count,
-            //    onSuccess: updatedCoins =>
-            //    {
-            //        Debug.Log($"Server updated coins successfully. New coin count: {updatedCoins}");
-            //        // 로컬 상태를 서버 응답으로 동기화 (필요 시)
-            //        SetCoinsCount(updatedCoins);
-            //    },
-            //    onError: error =>
-            //    {
-            //        Debug.LogError($"Failed to update coins on server: {error}");
-            //    });
-        }
+            // 배팅 요청 비동기 작업 시작
+            Task sendAddCoinsTask = RoomSocketManager.Instance.SendAddCoinsRequest(userId, count);
 
-        public IEnumerator UpdateBetController(int count)
-        {
-            if (string.IsNullOrEmpty(Id))
+            // Task가 완료될 때까지 대기
+            while (!sendAddCoinsTask.IsCompleted)
             {
-                Debug.LogError("Player ID is not set.");
-                yield break;
+                yield return null; // 다음 프레임까지 대기
             }
-            
-            //yield return RoomSocketManager.Instance.SendBetReqeust(Id, count,
-            //    onSuccess: (updatedCoins, updatedPayout) =>
-            //    {
-            //        Debug.Log($"Server updated coins successfully. New coin count: {updatedCoins}");
-            //        // 로컬 상태를 서버 응답으로 동기화 (필요 시)
-            //        SetCoinsCount(updatedCoins);
-            //        RoomController.Instance.SetPayout(updatedPayout);
-            //    },
-            //    onError: error =>
-            //    {
-            //        Debug.LogError($"Failed to update coins on server: {error}");
-            //    });
         }
 
         /// <summary>

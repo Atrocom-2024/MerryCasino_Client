@@ -15,8 +15,10 @@ public class RoomSocketManager : MonoBehaviour
     private bool _isConnected = false;
 
     // 이벤트 정의
-    public event Action<GameUserState> OnRoomJoinResponse;
-    public event Action<GameSession> OnGameStateUpdate;
+    public event Action<GameUserState> OnGameUserStateResponse;
+    public event Action<GameState> OnGameStateResponsee;
+    public event Action<BetResponse> OnBetResponse;
+    public event Action<AddCoinsResponse> onAddCoinsResponse;
 
     private void Awake()
     {
@@ -31,11 +33,11 @@ public class RoomSocketManager : MonoBehaviour
         }
     }
 
-    // Unity 종료 시 클라이언트 연결 해제
-    private void OnApplicationQuit()
-    {
-        Disconnect();
-    }
+    //// Unity 종료 시 클라이언트 연결 해제
+    //private void OnApplicationQuit()
+    //{
+    //    Disconnect();
+    //}
 
     // 서버 연결 초기화
     public async Task ConnectToServer(string ipAddress, int port)
@@ -55,6 +57,7 @@ public class RoomSocketManager : MonoBehaviour
         }
         catch (Exception ex)
         {
+            _isConnected = false; // 연결 실패 시 플래그 설정
             Debug.LogError($"[socket] Error connecting to server: {ex.Message}");
         }
     }
@@ -65,8 +68,10 @@ public class RoomSocketManager : MonoBehaviour
         if (_isConnected)
         {
             _isConnected = false;
-            _networkStream.Close();
-            _client.Close();
+            _networkStream?.Close();
+            _client?.Close();
+
+            StopAllCoroutines(); // 모든 코루틴 중지
             Debug.Log("[socket] Disconnected from server");
         }
     }
@@ -82,7 +87,7 @@ public class RoomSocketManager : MonoBehaviour
 
         var reqeust = new ClientRequest
         {
-            RequestType = "JoinRoom",
+            RequestType = "JoinRoomRequest",
             JoinRoomData = new JoinRoomRequest
             {
                 UserId = userId,
@@ -103,7 +108,7 @@ public class RoomSocketManager : MonoBehaviour
 
         var reqeust = new ClientRequest
         {
-            RequestType = "Bet",
+            RequestType = "BetRequest",
             BetData = new BetRequest
             {
                 UserId = userId,
@@ -115,6 +120,26 @@ public class RoomSocketManager : MonoBehaviour
         Debug.Log($"[socket] Sending BetRequest with BetAmount: {betAmount}");
 
         byte[] message = SerializeProtobuf(reqeust);
+        await _networkStream.WriteAsync(message, 0, message.Length);
+    }
+
+    public async Task SendAddCoinsRequest(string userId, int coins)
+    {
+        if (!_isConnected) return;
+
+        var request = new ClientRequest
+        {
+            RequestType = "AddCoinsRequest",
+            AddCoinsData = new AddCoinsRequest
+            {
+                UserId = userId,
+                AddCoinsAmount = coins
+            }
+        };
+
+        Debug.Log($"[socket] Sending AddCoinsRequest with CoinsAmount: {coins}");
+
+        byte[] message = SerializeProtobuf(request);
         await _networkStream.WriteAsync(message, 0, message.Length);
     }
 
@@ -143,14 +168,27 @@ public class RoomSocketManager : MonoBehaviour
                             if (response.GameState != null)
                             {
                                 Debug.Log($"[socket] GameState received");
-                                OnGameStateUpdate.Invoke(response.GameState);
+                                OnGameStateResponsee.Invoke(response.GameState);
                             }
                             break;
                         case "GameUserState":
                             if (response.GameUserState != null)
                             {
                                 Debug.Log("[socket] GameUserState received");
-                                OnRoomJoinResponse.Invoke(response.GameUserState);
+                                OnGameUserStateResponse.Invoke(response.GameUserState);
+                            }
+                            break;
+                        case "BetResponse":
+                            if (response.BetResponseData != null)
+                            {
+                                OnBetResponse.Invoke(response.BetResponseData);
+                            }
+                            break;
+                        case "AddCoinsResponse":
+                            if (response.AddCoinsResponseData != null)
+                            {
+                                Debug.Log("[socket] AddCoinsResponse received");
+                                onAddCoinsResponse.Invoke(response.AddCoinsResponseData);
                             }
                             break;
                         default:

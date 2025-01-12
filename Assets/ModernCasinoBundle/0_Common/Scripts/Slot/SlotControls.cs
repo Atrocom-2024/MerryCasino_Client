@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
+
 
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
 #endif
 
 namespace Mkey
@@ -801,8 +803,7 @@ namespace Mkey
         {
             if (MPlayer.Coins > TotalBet)
             {
-                StartCoroutine(MPlayer.UpdateBetController(-TotalBet));
-                //MPlayer.AddCoins(-TotalBet);
+                StartCoroutine(RoomController.Instance.HandleBet(MPlayer.Id, TotalBet));
                 return true;
             }
             else

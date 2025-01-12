@@ -35,7 +35,49 @@ namespace Mkey
         #region regular
         private void Awake()
         {
-          
+            // 잭팟 타이틀 자동 할당
+            if (jackPotTitle == null)
+            {
+                jackPotTitle = GetComponentInChildren<TextMesh>();
+                if (jackPotTitle == null)
+                {
+                    Debug.LogWarning("❗ JackPotTitle이 할당되지 않았습니다.");
+                }
+            }
+
+            // 잭팟 금액 자동 할당
+            if (jackPotAmount == null)
+            {
+                jackPotAmount = GetComponentInChildren<TextMesh>();
+                if (jackPotAmount == null)
+                {
+                    Debug.LogWarning("❗ JackPotAmount가 할당되지 않았습니다.");
+                }
+            }
+
+            // 램프 자동 할당
+            if (lamps == null || lamps.Length == 0)
+            {
+                lamps = GetComponentsInChildren<LampsController>();
+                if (lamps.Length == 0)
+                    Debug.LogWarning("❗ Lamps가 할당되지 않았습니다.");
+            }
+
+            // 코인 효과 자동 할당
+            if (coinsFountains == null || coinsFountains.Length == 0)
+            {
+                coinsFountains = GetComponentsInChildren<CoinProcAnim>();
+                if (coinsFountains.Length == 0)
+                    Debug.LogWarning("❗ CoinsFoutains가 할당되지 않았습니다.");
+            }
+
+            // 잭팟 이펙트 자동 할당
+            if (winRenderers == null || winRenderers.Length == 0)
+            {
+                winRenderers = GetComponentsInChildren<SpriteRenderer>();
+                if (winRenderers.Length == 0)
+                    Debug.LogWarning("❗ WinRenderers가 할당되지 않았습니다.");
+            }
         }
 		
 		private void Start()
