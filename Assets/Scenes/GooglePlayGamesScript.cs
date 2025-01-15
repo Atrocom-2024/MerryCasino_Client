@@ -69,7 +69,6 @@ public class GooglePlayGamesScript : MonoBehaviour
             // yield return을 사용해 비동기적으로 요청을 기다리면서 메인 스레드가 멈추지 않고 다른 작업을 할 수 있게 함
             yield return request.SendWebRequest(); // 코루틴의 일시 정지 역할을 하며, 네트워크 응답이 오면 다시 실행을 재개
 
-            Debug.Log("start");
             // 서버에서 유저 데이터를 찾지 못한 경우 회원가입 코루틴을 통해 유저를 생성하고 다시 GET을 통해 유저 데이터를 불러옴
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {

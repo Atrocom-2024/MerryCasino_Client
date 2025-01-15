@@ -77,11 +77,6 @@ namespace Mkey
             if (Instance == null) Instance = this;
             else Destroy(gameObject);
         }
-
-        private void Start()
-        {
-            StartCoroutine(GetPlayerInfoController());
-        }
         #endregion regular
 
         /// <summary>
@@ -95,22 +90,6 @@ namespace Mkey
             Coins = data.Coins;
             Level = data.Level;
             Experience = data.Experience;
-        }
-
-        /// <summary>
-        /// 서버에서 플레이어 데이터를 로드
-        /// </summary>
-        private IEnumerator GetPlayerInfoController()
-        {
-            Debug.Log("Loading player data from server...");
-            yield return RoomAPIManager.Instance.GetPlayerInfo(Id,
-                onSuccess: data =>
-                {
-                    SetPlayerData(data);
-                    Debug.Log("Player data successfully loaded.");
-                },
-                onError: error => Debug.LogError($"Failed to load player data: {error}")
-            );
         }
 
         #region coins
