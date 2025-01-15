@@ -23,27 +23,61 @@ public class GooglePlayGamesScript : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("start login");
-        PlayGamesPlatform.Activate();
-        //LoginGooglePlayGames();
+        //PlayGamesPlatform.Activate();
+
+        Debug.Log("Starting Google Play Games initialization");
+
+        if (!PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            PlayGamesPlatform.Activate();
+            Debug.Log("PlayGamesPlatform activated");
+        }
     }
 
     //구글 로그인 -> 구글 플레이 앱 등록 후 구현
+    //public void LoginGooglePlayGames()
+    //{
+    //    Debug.Log("google play login");
+    //    PlayGamesPlatform.Instance.Authenticate((success) =>
+    //    {
+    //        if (success == SignInStatus.Success)
+    //        {
+    //            savedata.id= Social.localUser.id;
+    //            Get();
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Failed to retrieve Google play games authorization code");
+    //        }
+    //    });
+    //}
+
     public void LoginGooglePlayGames()
     {
-        Debug.Log("google play login");
-        PlayGamesPlatform.Instance.Authenticate((success) =>
+        Debug.Log("Attempting Google Play Games login");
+
+        if (!PlayGamesPlatform.Instance.IsAuthenticated())
         {
-            if (success == SignInStatus.Success)
+            PlayGamesPlatform.Instance.Authenticate((success) =>
             {
-                savedata.id= Social.localUser.id;
-                Get();
-            }
-            else
-            {
-                Debug.Log("Failed to retrieve Google play games authorization code");
-            }
-        });
+                if (success == SignInStatus.Success)
+                {
+                    Debug.Log("Login successful. User ID: " + Social.localUser.id);
+                    savedata.id = Social.localUser.id;
+                    Get();
+                }
+                else
+                {
+                    Debug.LogError("Login failed. Error: " + SignInStatus.InternalError);
+                }
+            });
+        }
+        else
+        {
+            Debug.Log("Already authenticated");
+            savedata.id = Social.localUser.id;
+            Get();
+        }
     }
 
     // 디바이스 고유 ID를 이용한 게스트 로그인
