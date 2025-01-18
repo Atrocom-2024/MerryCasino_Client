@@ -31,7 +31,7 @@ namespace Mkey
     public class SceneLoader : MonoBehaviour
     {
         [SerializeField]
-        private PopUpsController LoadGroupPrefab;
+        public PopUpsController LoadGroupPrefab;
 
         private float loadProgress;
 

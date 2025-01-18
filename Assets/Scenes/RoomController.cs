@@ -75,13 +75,6 @@ public class RoomController : MonoBehaviour
         await RoomSocketManager.Instance.SendRoomJoinRequest(userId, roomId);
     }
 
-    //public async Task HandleBet(string userId, int betAmount)
-    //{
-    //    Debug.Log($"Betting: {betAmount}");
-
-    //    // 배팅 요청 비동기 작업 시작
-    //    await  RoomSocketManager.Instance.SendBetReqeust(userId, betAmount);
-    //}
     public IEnumerator HandleBet(string userId, int betAmount)
     {
         Debug.Log($"Betting: {betAmount}");
@@ -110,7 +103,6 @@ public class RoomController : MonoBehaviour
     private void HandleGameStateUpdate(GameState gameState)
     {
         Debug.Log($"[RoomController] Game state updated");
-        Debug.Log($"Jackpot amount is {gameState.TotalJackpotAmount}");
         controls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
     }
 

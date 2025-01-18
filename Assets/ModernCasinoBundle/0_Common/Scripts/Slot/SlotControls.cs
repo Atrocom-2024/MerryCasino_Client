@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -135,7 +133,6 @@ namespace Mkey
         private int levelTweenId;
         private SceneButton[] buttons;
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
-        private RoomController roomController { get { return RoomController.Instance; } }
         private GuiController MGUI { get { return GuiController.Instance; } }
         private TweenIntValue balanceTween;
         private TweenIntValue winCoinsTween;
@@ -559,14 +556,8 @@ namespace Mkey
         public void SetMiniJackPotCount(int count)
         {
             count = Mathf.Max(miniStart, count);
-            bool changed = (MiniJackPot != count);
             MiniJackPot = count;
-            //if (SaveData && changed)
-            //{
-            //    string key = SaveMiniJackPotKey;
-            //    PlayerPrefs.SetInt(key, MiniJackPot);
-            //}
-            if (changed) ChangeMiniJackPotEvent?.Invoke(MiniJackPot);
+            ChangeMiniJackPotEvent?.Invoke(MiniJackPot);
         }
 
         /// <summary>
@@ -575,16 +566,6 @@ namespace Mkey
         private void LoadMiniJackPot()
         {
             SetMiniJackPotCount(miniStart);
-            //if (SaveData)
-            //{
-            //    string key = SaveMiniJackPotKey;
-            //    if (PlayerPrefs.HasKey(key)) SetMiniJackPotCount(PlayerPrefs.GetInt(key));
-            //    else SetMiniJackPotCount(miniStart);
-            //}
-            //else
-            //{
-            //    SetMiniJackPotCount(miniStart);
-            //}
         }
         #endregion mini jackpot
 
@@ -605,14 +586,8 @@ namespace Mkey
         public void SetMaxiJackPotCount(int count)
         {
             count = Mathf.Max(maxiStart, count);
-            bool changed = (MaxiJackPot != count);
             MaxiJackPot = count;
-            //if (SaveData && changed)
-            //{
-            //    string key = SaveMaxiJackPotKey;
-            //    PlayerPrefs.SetInt(key, MaxiJackPot);
-            //}
-            if (changed) ChangeMaxiJackPotEvent?.Invoke(MaxiJackPot);
+            ChangeMaxiJackPotEvent?.Invoke(MaxiJackPot);
         }
 
         /// <summary>
@@ -621,16 +596,6 @@ namespace Mkey
         private void LoadMaxiJackPot()
         {
             SetMaxiJackPotCount(maxiStart);
-            //if (SaveData)
-            //{
-            //    string key = SaveMaxiJackPotKey;
-            //    if (PlayerPrefs.HasKey(key)) SetMaxiJackPotCount(PlayerPrefs.GetInt(key));
-            //    else SetMaxiJackPotCount(maxiStart);
-            //}
-            //else
-            //{
-            //    SetMaxiJackPotCount(maxiStart);
-            //}
         }
         #endregion maxi jackpot
 
@@ -651,14 +616,8 @@ namespace Mkey
         public void SetMegaJackPotCount(int count)
         {
             count = Mathf.Max(megaStart, count);
-            bool changed = (MegaJackPot != count);
             MegaJackPot = count;
-            //if (SaveData && changed)
-            //{
-            //    string key = SaveMegaJackPotKey;
-            //    PlayerPrefs.SetInt(key, MegaJackPot);
-            //}
-            if (changed) ChangeMegaJackPotEvent?.Invoke(MegaJackPot);
+            ChangeMegaJackPotEvent?.Invoke(MegaJackPot);
         }
 
         /// <summary>
@@ -667,16 +626,6 @@ namespace Mkey
         private void LoadMegaJackPot()
         {
             SetMegaJackPotCount(megaStart);
-            //if (SaveData)
-            //{
-            //    string key = SaveMegaJackPotKey;
-            //    if (PlayerPrefs.HasKey(key)) SetMegaJackPotCount(PlayerPrefs.GetInt(key));
-            //    else SetMegaJackPotCount(megaStart);
-            //}
-            //else
-            //{
-            //    SetMegaJackPotCount(megaStart);
-            //}
         }
         #endregion mega jackpot
 
@@ -870,7 +819,7 @@ namespace Mkey
         /// If has free spins, dec free spin and return true.
         /// </summary>
         /// <returns></returns>
-        internal bool ApllyFreeSpin()
+        internal bool ApplyFreeSpin()
         {
             if (HasFreeSpin)
             {
@@ -902,14 +851,8 @@ namespace Mkey
         {
             count = Mathf.Max(1, count);
             count = Mathf.Min(count, maxAutoSpins);
-            bool changed = (AutoSpinCount != count);
             AutoSpinCount = count;
-            //if (SaveData && changed)
-            //{
-            //    string key = SaveAutoSpinsKey;
-            //    PlayerPrefs.SetInt(key, AutoSpinCount);
-            //}
-            if (changed) ChangeAutoSpinsEvent?.Invoke(AutoSpinCount);
+            ChangeAutoSpinsEvent?.Invoke(AutoSpinCount);
         }
 
         /// <summary>

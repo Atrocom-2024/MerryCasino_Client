@@ -99,7 +99,6 @@ namespace Mkey
         /// <param name="count"></param>
         public void AddCoins(int count)
         {
-            //SetCoinsCount(Coins + count);
             StartCoroutine(AddCoinsController(Id, count));
         }
 
@@ -151,10 +150,8 @@ namespace Mkey
         public void SetWinCoinsCount(int count)
         {
             count = Mathf.Max(0, count);
-            bool changed = (WinCoins != count);
             WinCoins = count;
-            if (changed)
-                ChangeWinCoinsEvent?.Invoke(WinCoins);
+            ChangeWinCoinsEvent?.Invoke(WinCoins);
         }
 
         /// <summary>

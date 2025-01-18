@@ -33,12 +33,6 @@ public class RoomSocketManager : MonoBehaviour
         }
     }
 
-    //// Unity 종료 시 클라이언트 연결 해제
-    //private void OnApplicationQuit()
-    //{
-    //    Disconnect();
-    //}
-
     // 서버 연결 초기화
     public async Task ConnectToServer(string ipAddress, int port)
     {
@@ -52,7 +46,6 @@ public class RoomSocketManager : MonoBehaviour
             Debug.Log("[socket] Connected to the server!");
 
             // 서버에서 오는 메세지 수신 시작
-            //_ = Task.Run(ReceiveServerMessagesAsync);
             StartCoroutine(ReceiveServerMessagesCoroutine());
         }
         catch (Exception ex)

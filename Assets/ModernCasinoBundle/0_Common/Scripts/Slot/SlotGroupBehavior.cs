@@ -24,7 +24,7 @@ namespace Mkey
         [SerializeField]
         private int spinStartRandomize = 0;
         [SerializeField]
-        private int spinSpeedMultiplier = 1;
+        private int spinSpeedMultiplier = 3;
 
         [Space(16, order = 0)]
         [SerializeField]
@@ -84,7 +84,7 @@ namespace Mkey
         private void OnValidate()
         {
             spinStartRandomize = (int)Mathf.Clamp(spinStartRandomize, 0, 20);
-            spinStartDelay = Mathf.Max(0,spinStartDelay);
+            spinStartDelay = Mathf.Max(0, spinStartDelay);
             spinSpeedMultiplier = Mathf.Max(0, spinSpeedMultiplier);
             addRotateTime = Mathf.Max(0, addRotateTime);
         }

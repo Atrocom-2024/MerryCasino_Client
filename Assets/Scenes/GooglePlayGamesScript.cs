@@ -9,22 +9,20 @@ using Mkey;
 
 public class GooglePlayGamesScript : MonoBehaviour
 {
-    private saveData savedata = new saveData(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } } // SlotPlayer의 싱글톤 인스턴스. 현재 플레이어의 데이터(ID와 코인)를 저장하고 로딩하는 데 사용
+    
+    private readonly UserInfo userInfo = new UserInfo(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
     private string url;
+    private PopUpsController loadingPopup;
 
     void Awake()
     {
         EnvReader.Load(".env");
         url = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/users";
-        //Debug.Log("awake login");
-        //PlayGamesPlatform.Activate();
     }
 
     void Start()
     {
-        //PlayGamesPlatform.Activate();
-
         Debug.Log("Starting Google Play Games initialization");
 
         if (!PlayGamesPlatform.Instance.IsAuthenticated())
@@ -35,26 +33,11 @@ public class GooglePlayGamesScript : MonoBehaviour
     }
 
     //구글 로그인 -> 구글 플레이 앱 등록 후 구현
-    //public void LoginGooglePlayGames()
-    //{
-    //    Debug.Log("google play login");
-    //    PlayGamesPlatform.Instance.Authenticate((success) =>
-    //    {
-    //        if (success == SignInStatus.Success)
-    //        {
-    //            savedata.id= Social.localUser.id;
-    //            Get();
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Failed to retrieve Google play games authorization code");
-    //        }
-    //    });
-    //}
-
     public void LoginGooglePlayGames()
     {
         Debug.Log("Attempting Google Play Games login");
+
+        ShowLoadingPopup();
 
         if (!PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -63,42 +46,39 @@ public class GooglePlayGamesScript : MonoBehaviour
                 if (success == SignInStatus.Success)
                 {
                     Debug.Log("Login successful. User ID: " + Social.localUser.id);
-                    savedata.id = Social.localUser.id;
-                    Get();
+                    userInfo.id = Social.localUser.id;
+                    StartCoroutine(SignIn("google"));
                 }
                 else
                 {
                     Debug.LogError("Login failed. Error: " + SignInStatus.InternalError);
+                    CloseLoadingPopup();
                 }
             });
         }
         else
         {
             Debug.Log("Already authenticated");
-            savedata.id = Social.localUser.id;
-            Get();
+            userInfo.id = Social.localUser.id;
+            StartCoroutine(SignIn("google"));
         }
     }
 
     // 디바이스 고유 ID를 이용한 게스트 로그인
     public void LoginGuest()
     {
-        savedata.id = SystemInfo.deviceUniqueIdentifier;
-        Debug.Log(savedata.id);
-        Get();
+        Debug.Log("Attempting guest login");
+
+        ShowLoadingPopup();
+
+        userInfo.id = SystemInfo.deviceUniqueIdentifier;
+        StartCoroutine(SignIn("guest"));
     }
 
-    // 코루틴을 통한 비동기 Login 요청
-    public void Get()
-    {
-        // 서버와 비동기 통신을 통해 유저 데이터를 불러오기 위해 코루틴을 시작
-        StartCoroutine(Login());
-    }
-
-    public IEnumerator Login()
+    public IEnumerator SignIn(string provider)
     {
         // 서버에 로그인 요청을 보내고, 유저 정보를 가져오기 위한 코루틴
-        using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{savedata.id}")) // 메모리 누수 방지를 위해 using 사용
+        using (UnityWebRequest request = UnityWebRequest.Get($"{url}/{userInfo.id}")) // 메모리 누수 방지를 위해 using 사용
         {
             // yield return을 사용해 비동기적으로 요청을 기다리면서 메인 스레드가 멈추지 않고 다른 작업을 할 수 있게 함
             yield return request.SendWebRequest(); // 코루틴의 일시 정지 역할을 하며, 네트워크 응답이 오면 다시 실행을 재개
@@ -110,22 +90,17 @@ public class GooglePlayGamesScript : MonoBehaviour
                 if (request.responseCode == 404)
                 {
                     Debug.Log("유저를 찾지 못했습니다. 회원가입을 진행합니다.");
+                    yield return StartCoroutine(SignUp(provider));
 
-                    SignUpData data = new SignUpData
-                    {
-                        userId = savedata.id,
-                        provider = "guest"
-                    };
-
-                    var jsondata = JsonUtility.ToJson(data);
-                    yield return StartCoroutine(SignUp(jsondata));
-
-                    Get();
+                    // 회원가입 후 로그인
+                    StartCoroutine(SignIn(provider));
                 }
                 else
                 {
                     // 다른 에러 처리
                     Debug.Log($"Error: {request.error})");
+
+                    CloseLoadingPopup();
                 }
                 
             }
@@ -144,12 +119,21 @@ public class GooglePlayGamesScript : MonoBehaviour
     }
 
     // 유저 데이터를 JSON 형식으로 서버에 보내어 회원가입을 처리하는 코루틴
-    IEnumerator SignUp(string jsondata)
+    IEnumerator SignUp(string provider)
     {
+        SignUpData data = new SignUpData
+        {
+            userId = userInfo.id,
+            provider = provider,
+            deviceId = SystemInfo.deviceUniqueIdentifier
+        };
+
+        var requestData = JsonUtility.ToJson(data);
+
         var request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsondata);
-        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(requestData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
 
@@ -157,6 +141,8 @@ public class GooglePlayGamesScript : MonoBehaviour
         {
             string errmsg = request.downloadHandler.text;
             Debug.Log(errmsg);
+
+            CloseLoadingPopup();
         }
         else
         {
@@ -168,48 +154,34 @@ public class GooglePlayGamesScript : MonoBehaviour
     // 로비 씬으로 이동하는 메서드
     private void LoadLobby()
     {
-        //GoLobby
         Debug.Log("go Lobby");
         SceneLoader.Instance.LoadScene(1); // 씬의 인덱스를 1로 설정
     }
 
-    // 앱이 백그라운드로 전환될 때 호출되는 메서드
-    private void OnApplicationPause(bool pause)
+    private void ShowLoadingPopup()
     {
-        // 앱이 일시정지(pause) 상태로 전환되면 SendRequestAndCloseApp() 코루틴을 호출하여 서버에 데이터 저장 요청
-        if (pause)
+        if (loadingPopup == null)
         {
-            StartCoroutine(SendRequestAndCloseApp());
+            loadingPopup = SceneLoader.Instance.LoadGroupPrefab;
+            Mkey.GuiController guiController = FindObjectOfType<Mkey.GuiController>();
+            guiController.ShowPopUp(loadingPopup);
         }
     }
 
-    // 앱이 일시정지 상태로 들어갈 때, 현재 유저의 코인 데이터를 서버에 저장하는 코루틴
-    IEnumerator SendRequestAndCloseApp()
+    private void CloseLoadingPopup()
     {
-        // MPlayer.Coins 값을 savedata.COIN에 저장하고, JSON 형식으로 변환하여 서버에 전송
-        var request = new UnityWebRequest($"{url}/{savedata.id}", "PATCH");
-        savedata.coins = MPlayer.Coins;
-        var jsondata = JsonUtility.ToJson(savedata);
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsondata);
-        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        if (loadingPopup != null)
         {
-            string errmsg = request.downloadHandler.text;
-        }
-        else
-        {
-            string sucmsg = request.downloadHandler.text;
+            loadingPopup.CloseWindow();
+            loadingPopup = null;
         }
     }
-    public class saveData
+
+    public class UserInfo
     {
         public string id;
         public long coins;
-        public saveData()
+        public UserInfo()
         {
             id = "";
             coins = 0;
@@ -228,5 +200,6 @@ public class GooglePlayGamesScript : MonoBehaviour
     {
         public string userId;
         public string provider;
+        public string? deviceId;
     }
 }
