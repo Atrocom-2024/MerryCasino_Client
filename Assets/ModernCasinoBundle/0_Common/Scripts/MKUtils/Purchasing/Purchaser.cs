@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Networking;
-using UnityEngine.Purchasing;
-using UnityEngine.UI;
 
 /* changes
  28032019
@@ -233,22 +228,22 @@ namespace Mkey
                 return;
             }
 
-            // If we are running on an Apple device ... 
-            if (Application.platform == RuntimePlatform.IPhonePlayer ||
-                Application.platform == RuntimePlatform.OSXPlayer)
-            {
-                // ... begin restoring purchases
-                Debug.Log("RestorePurchases started ...");
+            // 애플 유저
+            //if (Application.platform == RuntimePlatform.IPhonePlayer ||
+            //    Application.platform == RuntimePlatform.OSXPlayer)
+            //{
+            //    // ... begin restoring purchases
+            //    Debug.Log("RestorePurchases started ...");
 
-                // Fetch the Apple store-specific subsystem.
-                var apple = m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
-                // Begin the asynchronous process of restoring purchases. Expect a confirmation response in the Action<bool> below, and ProcessPurchase if there are previously purchased products to restore.
-                apple.RestoreTransactions((result) =>
-                {
-                // The first phase of restoration. If no more responses are received on ProcessPurchase then no purchases are available to be restored.
-                Debug.Log("RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
-                });
-            }
+            //    // Fetch the Apple store-specific subsystem.
+            //    var apple = m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
+            //    // Begin the asynchronous process of restoring purchases. Expect a confirmation response in the Action<bool> below, and ProcessPurchase if there are previously purchased products to restore.
+            //    apple.RestoreTransactions((result) =>
+            //    {
+            //    // The first phase of restoration. If no more responses are received on ProcessPurchase then no purchases are available to be restored.
+            //    Debug.Log("RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
+            //    });
+            //}
             // Otherwise ...
             else
             {
@@ -413,7 +408,7 @@ namespace Mkey
             // 소비성 제품 배열 초기화
             consumable = new ShopThingData[4];
             consumable[0] = new ShopThingData() {
-                name = "100000 Coins",
+                name = "500000 Coins",
                 kProductID = "coin_pack_1",
                 PurchaseEvent = new UnityEvent(),
                 clickEvent = new Button.ButtonClickedEvent()
