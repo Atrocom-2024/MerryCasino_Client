@@ -15,17 +15,13 @@ namespace Mkey
         public string name;
 
         public string kProductID;
+
         [Space(8, order = 0)]
         [Header("Purchase Event: ", order = 1)]
         public UnityEvent PurchaseEvent;
 
         [HideInInspector]
         public Button.ButtonClickedEvent clickEvent;
-
-        public ShopThingData()
-        {
-            // 기본 생성자 내용
-        }
 
         public ShopThingData(ShopThingData prod)
         {

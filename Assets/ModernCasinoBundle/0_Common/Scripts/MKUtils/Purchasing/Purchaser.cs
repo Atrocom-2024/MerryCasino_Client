@@ -35,6 +35,7 @@ using UnityEngine;
  */
 #if ((UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID) && ADDIAP)
 using UnityEngine.Purchasing;
+using UnityEngine.Purchasing.Extension;
 #endif
 /*
  Integrating Unity IAP In Your Game 
@@ -47,7 +48,7 @@ namespace Mkey
 
 #if ((UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID) && ADDIAP)
     // Deriving the Purchaser class from IStoreListener enables it to receive messages from Unity Purchasing.
-    public class Purchaser : MonoBehaviour, IStoreListener
+    public class Purchaser : MonoBehaviour, IDetailedStoreListener
 #else
     public class Purchaser : MonoBehaviour  // 인앱 결제와 관련된 주요 로직을 담당하는 클래스
 #endif
@@ -56,11 +57,11 @@ namespace Mkey
         [Header("Consumables: ", order = 1)]
         public ShopThingData[] consumable; // 소비성 제품: 구매 후 사용할 수 있는 제품(게임 내 코인, 아이템 등)
 
-        [Header("Non consumables: ", order = 1)]
-        public ShopThingData[] nonConsumable;  // 비소비성 제품: 한 번 구매하면 영구적으로 사용할 수 있는 제품(특정 기능 해제, 광고 제거 등)
+        //[Header("Non consumables: ", order = 1)]
+        //public ShopThingData[] nonConsumable;  // 비소비성 제품: 한 번 구매하면 영구적으로 사용할 수 있는 제품(특정 기능 해제, 광고 제거 등)
 
-        [Header("Subscriptions: ", order = 1)]
-        public ShopThingData[] subscriptions; // 구독형 제품
+        //[Header("Subscriptions: ", order = 1)]
+        //public ShopThingData[] subscriptions; // 구독형 제품
 
         public static Purchaser Instance;  // 싱글톤 패턴 -> 게임에서 이 클래스를 하나의 인스턴스만 유지하기 위해 사용
 
@@ -73,13 +74,13 @@ namespace Mkey
 
 #if ((UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID) && ADDIAP)
 
-        private static IStoreController m_StoreController;          // Reference to the Purchasing system.
-        private static IExtensionProvider m_StoreExtensionProvider;  // Reference to store-specific Purchasing subsystems.
+        private static IStoreController m_StoreController; // 구매 과정을 제어하는 함수 제공자
+        private static IExtensionProvider m_StoreExtensionProvider; // 여러 플랫폼을 위한 확장 처리 제공자
 
         [Space(8, order = 0)]
         [Header("Store keys: ", order = 1)]
-        public string appKey = "com.company.bubblegame"; 
-        public string googleKey = "com.company.bubblegame";
+        public string appKey = "com.Atrocom.MerryCasino"; 
+        public string googleKey = "com.Atrocom.MerryCasino";
 
         void Awake()
         {
@@ -99,71 +100,27 @@ namespace Mkey
             }
         }
 
-        [Obsolete]
         public void InitializePurchasing()
         {
-            // If we have already connected to Purchasing ...
-            if (IsInitialized())
+            if (IsInitialized()) // If we have already connected to Purchasing ...
             {
-                // ... we are done here.
                 return;
             }
 
             // Create a builder, first passing in a suite of Unity provided stores.
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-            // Add a product to sell / restore by way of its identifier, associating the general identifier with its store-specific identifiers.
-        #region build consumables
-
-            if (consumable != null && consumable.Length > 0)
+            #region build consumables
+            for (int i = 0; i < consumable.Length; i++)
             {
-                for (int i = 0; i < consumable.Length; i++)
-                {
-                    if (consumable[i] != null && !string.IsNullOrEmpty(consumable[i].kProductID))
-                    {
-                        string prodID = consumable[i].kProductID;
-                        builder.AddProduct(prodID, ProductType.Consumable, new IDs() {
-                            { appKey + "." + prodID, AppleAppStore.Name },
-                            { googleKey + "." + prodID, GooglePlay.Name } }); // com.company.slotgame.productID
-                        consumable[i].clickEvent.RemoveAllListeners();
-                        consumable[i].clickEvent.AddListener(() => { BuyProductID(prodID); });
-                    }
-                }
+                string productId = consumable[i].kProductID;
+                builder.AddProduct(productId, ProductType.Consumable, new IDs() { { productId, GooglePlay.Name } });
             }
 
-            if (nonConsumable != null && nonConsumable.Length > 0)
-            {
-                for (int i = 0; i < nonConsumable.Length; i++)
-                {
-                    if (nonConsumable[i] != null && !string.IsNullOrEmpty(nonConsumable[i].kProductID))
-                    {
-                        string prodID = nonConsumable[i].kProductID;
-                        builder.AddProduct(prodID, ProductType.NonConsumable, new IDs() {
-                            { appKey + "." + prodID, AppleAppStore.Name },
-                            { googleKey + "." + prodID, GooglePlay.Name }});
-
-                        nonConsumable[i].clickEvent.RemoveAllListeners();
-                        nonConsumable[i].clickEvent.AddListener(() => { BuyProductID(prodID); });
-                    }
-                }
-            }
-            if (subscriptions != null && subscriptions.Length > 0)
-            {
-                for (int i = 0; i < subscriptions.Length; i++)
-                {
-                    if (subscriptions[i] != null && !string.IsNullOrEmpty(subscriptions[i].kProductID))
-                    {
-                        string prodID = subscriptions[i].kProductID;
-
-                        builder.AddProduct(prodID, ProductType.Subscription, new IDs() {
-                            { appKey + "." + prodID, AppleAppStore.Name },
-                            { googleKey + "." + prodID, GooglePlay.Name }, });// Kick off the remainder of the set-up with an asynchrounous call, passing the configuration and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
-
-                        nonConsumable[i].clickEvent.RemoveAllListeners();
-                        nonConsumable[i].clickEvent.AddListener(() => { BuyProductID(prodID); });
-                    }
-                }
-            }
+            //builder.AddProduct("coin_pack_1", ProductType.Consumable, new IDs() { { "coin_pack_1", GooglePlay.Name } });
+            //builder.AddProduct("coin_pack_2", ProductType.Consumable, new IDs() { { "coin_pack_2", GooglePlay.Name } });
+            //builder.AddProduct("coin_pack_3", ProductType.Consumable, new IDs() { { "coin_pack_3", GooglePlay.Name } });
+            //builder.AddProduct("coin_pack_4", ProductType.Consumable, new IDs() { { "coin_pack_4", GooglePlay.Name } });
             #endregion build consumables
 
             UnityPurchasing.Initialize(this, builder);
@@ -267,7 +224,7 @@ namespace Mkey
         public void OnInitializeFailed(InitializationFailureReason error)
         {
             // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
-            Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
+            Debug.Log("OnInitializeFailed" + error);
         }
 
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
@@ -318,25 +275,30 @@ namespace Mkey
                             return consumable[i];
                 }
 
-            if (nonConsumable != null && nonConsumable.Length > 0)
-                for (int i = 0; i < nonConsumable.Length; i++)
-                {
-                    if (nonConsumable[i] != null)
-                        if (String.Equals(id, nonConsumable[i].kProductID, StringComparison.Ordinal))
-                            return nonConsumable[i];
-                }
+            //if (nonConsumable != null && nonConsumable.Length > 0)
+            //    for (int i = 0; i < nonConsumable.Length; i++)
+            //    {
+            //        if (nonConsumable[i] != null)
+            //            if (String.Equals(id, nonConsumable[i].kProductID, StringComparison.Ordinal))
+            //                return nonConsumable[i];
+            //    }
 
-            if (subscriptions != null && subscriptions.Length > 0)
-                for (int i = 0; i < subscriptions.Length; i++)
-                {
-                    if (subscriptions[i] != null)
-                        if (String.Equals(id, subscriptions[i].kProductID, StringComparison.Ordinal))
-                            return subscriptions[i];
-                }
+            //if (subscriptions != null && subscriptions.Length > 0)
+            //    for (int i = 0; i < subscriptions.Length; i++)
+            //    {
+            //        if (subscriptions[i] != null)
+            //            if (String.Equals(id, subscriptions[i].kProductID, StringComparison.Ordinal))
+            //                return subscriptions[i];
+            //    }
             return null;
         }
 
         public void OnInitializeFailed(InitializationFailureReason error, string message) {
+            throw new NotImplementedException();
+        }
+
+        public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
+        {
             throw new NotImplementedException();
         }
 

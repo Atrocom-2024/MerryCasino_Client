@@ -405,7 +405,7 @@ namespace Mkey
 
         #region get win
         /// <summary>
-        /// Return true if slot has any winning
+        /// 슬롯에서 승리했는지, 패배했는지 반환하는 메서드
         /// </summary>
         internal bool HasAnyWinn(ref bool hasLineWin, ref bool hasScatterWin, ref JackPotType jackPotType)
         {

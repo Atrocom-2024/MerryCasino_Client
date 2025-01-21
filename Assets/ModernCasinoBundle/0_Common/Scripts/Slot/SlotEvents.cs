@@ -19,7 +19,7 @@ namespace Mkey
         public bool MiniGameStarted { get { return (Instantiator && Instantiator.MiniGame); } }
 
         #region temp vars
-        private Mkey.SlotPlayer MPlayer { get { return Mkey.SlotPlayer.Instance; } }
+        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
         private GuiController MGUI { get { return GuiController.Instance; } }
         #endregion temp vars

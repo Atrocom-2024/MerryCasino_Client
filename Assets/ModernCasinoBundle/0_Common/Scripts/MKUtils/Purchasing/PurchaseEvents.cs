@@ -48,7 +48,8 @@ namespace Mkey
         {
             if (MPlayer != null)
             {
-                MPlayer.AddCoins(count);
+                //MPlayer.AddCoins(count);
+                Debug.Log($"added {count}");
             }
         }
 

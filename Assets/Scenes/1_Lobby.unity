@@ -6542,8 +6542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consumable:
-  - name: 5000 coins
-    kProductID: coin_5000
+  - name: 500,000 coins
+    kProductID: coin_pack_1
     PurchaseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -6554,7 +6554,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 5000
+            m_IntArgument: 500000
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -6562,8 +6562,8 @@ MonoBehaviour:
     clickEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: 11000 coins
-    kProductID: coin_11000
+  - name: 1,000,000 coins
+    kProductID: coin_pack_2
     PurchaseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -6574,7 +6574,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 11000
+            m_IntArgument: 1000000
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -6582,8 +6582,8 @@ MonoBehaviour:
     clickEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: 27000 coins
-    kProductID: coin_27000
+  - name: 5,000,000 coins
+    kProductID: coin_pack_3
     PurchaseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -6594,7 +6594,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 27000
+            m_IntArgument: 5000000
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -6602,8 +6602,8 @@ MonoBehaviour:
     clickEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: 110000 coins
-    kProductID: coin_110000
+  - name: 10,000,000 coins
+    kProductID: coin_pack_4
     PurchaseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -6614,7 +6614,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 110000
+            m_IntArgument: 10000000
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -6622,49 +6622,9 @@ MonoBehaviour:
     clickEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: 110000 coins sale
-    kProductID: coinsale_110000
-    PurchaseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7582862432166061360}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: AddCoins
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 110000
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    clickEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 27000 coins sale
-    kProductID: coinsale_27000
-    PurchaseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7582862432166061360}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: AddCoins
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 27000
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    clickEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  nonConsumable: []
-  subscriptions: []
   purchaseProduct: {fileID: 0}
+  appKey: com.Atrocom.MerryCasino
+  googleKey: com.Atrocom.MerryCasino
 --- !u!114 &114962611217186981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7378,11 +7338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f964696522179104cba06320b1257452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginText: {fileID: 0}
-  connectString: LOGIN WITH
-  disConnectString: LOGOUT
-  fbPhoto: {fileID: 2668899510779030338}
-  avatarGroup: {fileID: 2668899510043092899}
 --- !u!1 &7206803115075123888
 GameObject:
   m_ObjectHideFlags: 0

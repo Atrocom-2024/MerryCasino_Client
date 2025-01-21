@@ -1,13 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Linq;
+using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Networking;
 using UnityEngine.UI;
-using System.Text;
-using Newtonsoft.Json;
 
 namespace Mkey
 {
@@ -19,6 +15,7 @@ namespace Mkey
     {
         //  public string machineID;
         private Coroutine runSlotsCoroutine;
+        private int loseCount = 0; // 진 횟수를 저장하는 변수
 
         // 슬롯 컨트롤, 메뉴 컨트롤 등 주요 참조 객체 선언.
         #region main reference
@@ -403,8 +400,10 @@ namespace Mkey
             //IncreaseJackPots();
 
             // 잭팟 여부를 확인
-            if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType))
+            if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType)) // 승리했다면
             {
+                loseCount = 0; // 진 횟수 초기화
+
                 //3b ---- show particles, line flasing  -----------
                 winController.WinEffectsShow(winLineFlashing == WinLineFlashing.All, winSymbolParticles);
 
@@ -433,8 +432,6 @@ namespace Mkey
                         controls.JPWinShow(jackPotWinCoins, jackPotType);
                         yield return new WaitForSeconds(3.0f);// delay
                     }
-                    //controls.SetJackPotCount(1000000, jackPotType); // reset jack pot amoun
-                    //                                          // t
                 }
 
                 //3c0 -----------------calc coins -------------------
@@ -521,8 +518,16 @@ namespace Mkey
                        );
                 while (!showEnd) yield return wfs0_2;  // wait for show end
             } // end win
-            else // lose
+            else // 패배했다면
             {
+                loseCount++;
+
+                if (loseCount > 3) // 연속으로 4번 졌을 때 미니게임 시작
+                {
+                    SlotEvents.Instance.ShowChestMiniGame();
+                    loseCount = 0;
+                }
+
                 //MSound.PlayClip(0, looseSound); // 졌을 때 소리가 너무 이상함 귀가 아픔
 
                 //MPlayer.AddLevelProgress(loseSpinLevelProgress);
