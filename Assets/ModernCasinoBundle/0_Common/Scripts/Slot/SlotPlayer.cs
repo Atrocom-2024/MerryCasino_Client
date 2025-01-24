@@ -80,10 +80,10 @@ namespace Mkey
         #endregion regular
 
         /// <summary>
-        /// 서버에서 받아온 데이터를 플레이어 속성에 저장
+        /// 서버에서 받아온 데이터를 유저 속성에 저장
         /// </summary>
         /// <param name="data"></param>
-        private void SetPlayerData(PlayerData data)
+        private void SetUserData(UserData data)
         {
             Id = data.Id;
             Username = data.Username;
@@ -295,7 +295,7 @@ namespace Mkey
     }
 
     [Serializable]
-    public class PlayerData
+    public class UserData
     {
         public string Id;
         public string Username;

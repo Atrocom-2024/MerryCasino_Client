@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 /* changes
@@ -229,21 +230,37 @@ namespace Mkey
 
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
-            ShopThingData prod = GetProductById(args.purchasedProduct.definition.id);
-            if (prod != null)
+            ShopThingData product = GetProductById(args.purchasedProduct.definition.id);
+            if (product != null)
             {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", prod.kProductID));
-                if (prod.PurchaseEvent != null)
+                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", product.kProductID));
+
+                // 영수증 데이터 가져오기
+                string receipt = args.purchasedProduct.receipt;
+
+                Debug.Log(receipt);
+
+                if (!string.IsNullOrEmpty(receipt))
                 {
-                    prod.PurchaseEvent.Invoke();
+                    // APIManager를 이용해 서버로 영수증 데이터 전송 및 콜백 처리
+                    StartCoroutine(APIManager.Instance.ValidateGoogleReceipt(receipt, product.kProductID,
+                        onSuccess: () =>
+                        {
+                            Debug.Log("Purchase validated successfully on the server.");
+                            product.PurchaseEvent.Invoke();
+                            GoodPurchaseEvent.Invoke(product.kProductID, product.name);
+                        },
+                        onFailure: (errorMessage) =>
+                        {
+                            Debug.LogError(errorMessage);
+                        }
+                    ));
                 }
                 else
                 {
-                    Debug.Log("PurchaseEvent failed");
+                    Debug.LogError("Receipt is empty or null!");
                 }
-                GoodPurchaseEvent?.Invoke(prod.kProductID, prod.name);
             }
-
             else // Or ... an unknown product has been purchased by this user. Fill in additional products here.
             {
                 Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
