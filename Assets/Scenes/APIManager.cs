@@ -1,21 +1,16 @@
-using Mkey;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class APIManager : MonoBehaviour
 {
     public static APIManager Instance { get; private set; }
-    private string usersApiUrl;
-    private string paymentsApiUrl;
 
     private void Awake()
     {
-        EnvReader.Load(".env");
-        usersApiUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/users";
-        paymentsApiUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/payments";
-
         if (Instance == null)
         {
             Instance = this;
@@ -27,112 +22,64 @@ public class APIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator GetPlayerInfo(string userId, Action<UserData> onSuccess, Action<string> onError)
+    public IEnumerator GetRequest(string url, Action<string> onSuccess, Action<UnityWebRequest> onError)
     {
-        if (string.IsNullOrEmpty(userId))
+        using var request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            onError.Invoke("User ID cannot be null or empty.");
-            yield break;
+            onError.Invoke(request);
         }
-
-        // Construct the URL for the API endpoint
-        string url = $"{usersApiUrl}/{userId}";
-
-        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        else
         {
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            // Send the request
-            yield return request.SendWebRequest();
-
-            // Check for network or server errors
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                string errorMessage = $"Error retrieving user data: {request.error}";
-                onError?.Invoke(errorMessage);
-                Debug.LogError(errorMessage);
-            }
-            else
-            {
-                // Successfully received a response
-                try
-                {
-                    string responseText = request.downloadHandler.text;
-                    UserData userData = JsonUtility.FromJson<UserData>(responseText);
-
-                    onSuccess?.Invoke(userData); // Callback with parsed player data
-                }
-                catch (Exception ex)
-                {
-                    onError?.Invoke($"Error parsing user data: {ex.Message}");
-                }
-            }
+            onSuccess.Invoke(request.downloadHandler.text);
         }
     }
 
-    public IEnumerator PutUserAddCoins(string userId, int addCoins, Action<UserData> onSuccess, Action<string> onError)
+    public IEnumerator PostRequest(string requestUrl, string jsonData, Action<string> onSuccess, Action<UnityWebRequest> onError)
     {
-        if (string.IsNullOrEmpty(userId))
-        {
-            onError.Invoke("User ID cannot be null or empty.");
-            yield break;
-        }
+        var request = new UnityWebRequest(requestUrl, "POST");
 
-        string url = $"{usersApiUrl}/{userId}";
-        UnityWebRequest request = new UnityWebRequest(url, "PUT");
-        PutUserRequest bodyData = new PutUserRequest
-        {
-            UserId = userId,
-            AddCoins = addCoins
-        };
-        string jsonBodyData = JsonUtility.ToJson(bodyData);
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBodyData);
+        // 요청 바디 설정
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        // 요청을 보낸 후 응답 기다리기
         yield return request.SendWebRequest();
 
-        // 응답 처리
-        if (request.result == UnityWebRequest.Result.Success)
+        // 에러 처리
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log("PUT request completed successfully!");
-            try
-            {
-                UserData responseData = JsonUtility.FromJson<UserData>(request.downloadHandler.text);
-                onSuccess.Invoke(responseData);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("Failed to parse response: " + ex.Message);
-                onError.Invoke("Failed to parse response data.");
-            }
+            onError.Invoke(request);
         }
         else
         {
-            Debug.LogError("PUT request failed: " + request.error);
-            onError.Invoke(request.error);
+            onSuccess.Invoke(request.downloadHandler.text);
         }
     }
 
-    public IEnumerator ValidateGoogleReceipt(string receipt, string productId, Action onSuccess, Action<string> onFailure)
+    public IEnumerator ProcessGooglePayment(string requestUrl, string userId, string receipt, Action<long> onSuccess, Action<string> onFailure)
     {
-        // 서버 URL 설정
-        string url = $"{paymentsApiUrl}/validate-receipt";
-        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        // 영수증 JSON 파싱
+        var googleReceiptRoot = JsonConvert.DeserializeObject<GooglePlayReceipt>(receipt) ?? throw new JsonException("Failed to deserialize Google Play receipt.");
+        var googleReceiptPayload = JsonConvert.DeserializeObject<GooglePlayReceiptPayload>(googleReceiptRoot.Payload) ?? throw new JsonException("Failed to deserialize Google Play receipt.");
+        var googleReceipt = JsonConvert.DeserializeObject<GooglePlayReceiptJson>(googleReceiptPayload.json) ?? throw new JsonException("Failed to deserialize Google Play receipt.");
+        
 
         // 요청 데이터 생성
-        var bodyData = new
+        var bodyData = new ProcessGooglePaymentRequest
         {
-            Receipt = receipt,
-            ProductId = productId,
+            UserId = userId,
+            Receipt = googleReceipt,
             Store = "Google"
         };
 
-        // JSON 데이터 직렬화
-        string jsonBodyData = JsonUtility.ToJson(bodyData);
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBodyData);
+        var jsonBodyData = JsonUtility.ToJson(bodyData);
+
+        var request = new UnityWebRequest(requestUrl, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonBodyData);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -144,13 +91,11 @@ public class APIManager : MonoBehaviour
         {
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Server Response: " + request.downloadHandler.text);
-
                 // 서버 응답 검증
-                var validationResponse = JsonUtility.FromJson<ValidationResponse>(request.downloadHandler.text);
-                if (validationResponse.IsValid)
+                var processPaymentResponse = JsonConvert.DeserializeObject<ProcessGooglePaymentResponse>(request.downloadHandler.text);
+                if (processPaymentResponse.IsProcessed)
                 {
-                    onSuccess.Invoke();
+                    onSuccess.Invoke(processPaymentResponse.ProcessedResultCoins);
                 }
                 else
                 {
@@ -159,7 +104,7 @@ public class APIManager : MonoBehaviour
             }
             else
             {
-                onFailure.Invoke(request.error);
+                onFailure.Invoke($"Request Error: {request.error}");
             }
 
         }
@@ -171,16 +116,40 @@ public class APIManager : MonoBehaviour
 }
 
 [Serializable]
-public class PutUserRequest
+public class ProcessGooglePaymentRequest
 {
     public string UserId;
-    public int AddCoins;
+    public GooglePlayReceiptJson Receipt;
+    public string Store;
 }
 
 [Serializable]
-public class ValidationResponse
+public class ProcessGooglePaymentResponse
 {
-    public bool IsValid;
+    public bool IsProcessed;
     public string TransactionId;
-    public int PurchasedCoins;
+    public long ProcessedResultCoins;
+    public string Message;
+}
+
+[Serializable]
+public class GooglePlayReceipt
+{
+    public string Payload;
+}
+
+[Serializable]
+public class GooglePlayReceiptPayload
+{
+    public string json;
+    public string signature;
+}
+
+[Serializable]
+public class GooglePlayReceiptJson
+{
+    public string orderId;
+    public string packageName;
+    public string productId;
+    public string purchaseToken;
 }

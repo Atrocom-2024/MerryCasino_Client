@@ -275,7 +275,7 @@ namespace Mkey
         /// </summary>
         internal void SpinPress()
         {
-            SpinPressEvent?.Invoke(); // 이벤트 SpinPressEvent 호출
+            SpinPressEvent?.Invoke(); // 스핀 버튼을 눌렸을 때 SpinPressEvent 호출
             RunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
             //CheckJackpotChange();
         }
@@ -354,7 +354,7 @@ namespace Mkey
        
         private IEnumerator RunSlotsAsync()
         {
-            StartSpinEvent?.Invoke();
+            StartSpinEvent?.Invoke(); // 스핀 시작 이벤트 호출
 
             // 잭팟 초기화
             jackPotWinCoins = 0;
@@ -379,16 +379,12 @@ namespace Mkey
             //2 -------- 슬롯 애니메이션 실행 ----------------------------------------
             bool fullRotated = false;
             RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
-            while (!fullRotated) yield return wfs0_2;  // wait 
+            while (!fullRotated) yield return wfs0_2;  // 슬롯 회전 완료 대기
             
             // 슬롯 애니메이션 종료 후 결과 확인
-            EndSpinEvent?.Invoke();
-
-
-            //3 -------- 결과 확인 -------------------------------------------
-            // 잭팟 관련 처리 시작
-            BeginWinCalcEvent?.Invoke();
-            winController.SearchWinSymbols();
+            EndSpinEvent?.Invoke(); // 스핀 종료 이벤트 호출
+            BeginWinCalcEvent?.Invoke(); // 이벤트 호출
+            winController.SearchWinSymbols(); // 페이라인과 일치하는 심볼이 있는지 검사
 
             // 잭팟 관련 변수 초기화
             bool hasLineWin = false;

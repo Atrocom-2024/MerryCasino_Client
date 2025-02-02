@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -82,9 +83,13 @@ namespace Mkey
         [Header("Store keys: ", order = 1)]
         public string appKey = "com.Atrocom.MerryCasino"; 
         public string googleKey = "com.Atrocom.MerryCasino";
+        private string paymentsApiUrl;
 
         void Awake()
         {
+            EnvReader.Load(".env");
+            paymentsApiUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/payments";
+
             if (Instance) Destroy(gameObject);
             else
             {
@@ -117,11 +122,6 @@ namespace Mkey
                 string productId = consumable[i].kProductID;
                 builder.AddProduct(productId, ProductType.Consumable, new IDs() { { productId, GooglePlay.Name } });
             }
-
-            //builder.AddProduct("coin_pack_1", ProductType.Consumable, new IDs() { { "coin_pack_1", GooglePlay.Name } });
-            //builder.AddProduct("coin_pack_2", ProductType.Consumable, new IDs() { { "coin_pack_2", GooglePlay.Name } });
-            //builder.AddProduct("coin_pack_3", ProductType.Consumable, new IDs() { { "coin_pack_3", GooglePlay.Name } });
-            //builder.AddProduct("coin_pack_4", ProductType.Consumable, new IDs() { { "coin_pack_4", GooglePlay.Name } });
             #endregion build consumables
 
             UnityPurchasing.Initialize(this, builder);
@@ -238,17 +238,19 @@ namespace Mkey
                 // 영수증 데이터 가져오기
                 string receipt = args.purchasedProduct.receipt;
 
-                Debug.Log(receipt);
-
                 if (!string.IsNullOrEmpty(receipt))
                 {
+                    // 요청 URL 설정
+                    string requestUrl = $"{paymentsApiUrl}/verify";
+
                     // APIManager를 이용해 서버로 영수증 데이터 전송 및 콜백 처리
-                    StartCoroutine(APIManager.Instance.ValidateGoogleReceipt(receipt, product.kProductID,
-                        onSuccess: () =>
+                    StartCoroutine(APIManager.Instance.ProcessGooglePayment(requestUrl, SlotPlayer.Instance.Id, receipt,
+                        onSuccess: (processedResultCoins) =>
                         {
                             Debug.Log("Purchase validated successfully on the server.");
                             product.PurchaseEvent.Invoke();
                             GoodPurchaseEvent.Invoke(product.kProductID, product.name);
+                            SlotPlayer.Instance.SetCoinsCount(processedResultCoins);
                         },
                         onFailure: (errorMessage) =>
                         {
@@ -510,6 +512,5 @@ namespace Mkey
         //    }
         //}
 #endif
-
     }
 }

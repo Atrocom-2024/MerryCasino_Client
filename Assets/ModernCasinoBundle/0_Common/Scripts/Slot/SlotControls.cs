@@ -466,6 +466,9 @@ namespace Mkey
             SetMaxLineBet();
         }
 
+        /// <summary>
+        /// 사용자가 Spin 버튼을 눌렀을 때 실행되는 메서드
+        /// </summary>
         public void Spin_Click()
         {
             if (Auto) { ResetAutoSpinsMode(); return; }

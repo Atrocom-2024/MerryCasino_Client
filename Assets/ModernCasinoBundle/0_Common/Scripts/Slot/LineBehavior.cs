@@ -193,24 +193,25 @@ namespace Mkey
         #endregion linerender
 
         /// <summary>
-        /// Find  and fill winning symbols list  from left to right, according pay lines
+        /// 페이라인과 현재 슬롯 결과를 비교하고, 가장 높은 보상을 가진 승리를 결정하는 메서드
         /// </summary>
         internal void FindWin(List<PayLine> payTable)
         {
             win = null;
             WinData winTemp = null;
-            foreach (var item in payTable)
+            foreach (var item in payTable) // 모든 페이라인 검사
             {
-                // find max win
-                winTemp = GetPayLineWin(item);
-                if (winTemp != null)
+                // 현재 페이라인이 승리했는지 확인
+                winTemp = GetPayLineWin(item); // 개별 페이라인과 비교
+                if (winTemp != null) // 승리한 경우
                 {
-                    if(win==null)
+                    if(win == null)
                     {
-                        win = winTemp;
+                        win = winTemp; // 첫 번째 승리 저장
                     }
                     else
                     {
+                        // 현재 저장된 승리보다 더 높은 보상이 있다면 갱신
                         if(win.Pay < winTemp.Pay || win.FreeSpins < winTemp.FreeSpins)
                         {
                             win = winTemp;
@@ -222,26 +223,28 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Check if line is wonn, according payline
+        /// 현재 슬롯 결과와 페이라인을 비교하는 메서드
         /// </summary>
         /// <param name="payLine"></param>
         /// <returns></returns>
         private WinData GetPayLineWin(PayLine payLine)
         {
+            // 페이라인이 null이거나 payLine.line.Length이 rayCasters.Length보다 작으면 릴의 개수보다 페이라인이 작으므로 유효하지 않음
             if (payLine == null || payLine.line.Length < rayCasters.Length) return null;
-            List<SlotSymbol> winnSymbols = new List<SlotSymbol>();
+
+            List<SlotSymbol> winnSymbols = new List<SlotSymbol>(); // 승리한 심볼을 저장할 리스트
             SlotSymbol s;
             for (int i = 0; i < rayCasters.Length; i++)
             {
-                s = rayCasters[i].GetSymbol();
-                //Debug.Log(s.iconID);
+                s = rayCasters[i].GetSymbol(); // 현재 릴의 심볼 가져오기
+
                 if (payLine.line[i] >= 0 && s.IconID != payLine.line[i])
                 {
-                    return null;
+                    return null; // 페이라인과 심볼이 불일치하면 패배 처리
                 }
                 else if (payLine.line[i] >= 0 && s.IconID == payLine.line[i])
                 {
-                    winnSymbols.Add(s);
+                    winnSymbols.Add(s); // 일치하는 경우 승리한 심볼 리스트에 추가
                 }
             }
             return new WinData(winnSymbols, payLine.freeSpins, payLine.pay, payLine.payMult, payLine.freeSpinsMult, payLine.LineEvent);

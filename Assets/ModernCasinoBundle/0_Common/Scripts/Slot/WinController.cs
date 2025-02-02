@@ -430,43 +430,47 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Search win symbols (paylines, scatter)
+        /// 페이라인과 일치하는 심볼이 있는지 검사하는 메서드
         /// </summary>
         internal void SearchWinSymbols()
         {
-            foreach (var lb in linesController.Lines)
+            foreach (var lb in linesController.Lines) // 등록된 페이라인들을 순회
             {
+                // // 사용자가 선택한 라인인지 확인
                 if (lb.IsSelected)
                 {
-                    lb.FindWin(payTable);
+                    lb.FindWin(payTable); // 해당 라인의 승리 여부 확인
                 }
             }
 
-            // search scatters
+            // 스캐터(Scatter) 심볼이 존재하는지 확인하고, 해당 심볼이 특정 개수 이상이면 추가 보상 지급
             scatterWinSymbols = new List<SlotSymbol>();
             List<SlotSymbol> scatterSymbolsTemp = new List<SlotSymbol>();
             scatterWin = null;
-            foreach (var item in slotGroupsBeh)
+            foreach (var item in slotGroupsBeh) // 슬롯의 각 릴(Reel) 검사
             {
+                // 릴에 스캐터 심볼이 있는지 검사
                 if (!item.HasSymbolInAnyRayCaster(scatter_id, ref scatterSymbolsTemp))
                 {
-
+                    // 스캐터 심볼이 없는 경우 아무 작업도 하지 않음
                 }
                 else
                 {
-                    scatterWinSymbols.AddRange(scatterSymbolsTemp);
+                    scatterWinSymbols.AddRange(scatterSymbolsTemp); // 발견된 스캐터 심볼을 리스트에 추가
                 }
             }
 
-            if (useScatter)
-                foreach (var item in scatterPayTable)
+            if (useScatter) // 스캐터 기능을 사용 중이라면
+                foreach (var item in scatterPayTable) // 스캐터 페이라인 테이블을 순회
                 {
+                    // 특정 개수의 스캐터가 있으면 승리
                     if (item.scattersCount > 0 && item.scattersCount == scatterWinSymbols.Count)
                     {
                         scatterWin = new WinData(scatterWinSymbols, item.freeSpins, item.pay, item.payMult, item.freeSpinsMult, item.WinEvent);
                     }
                 }
-            if (scatterWin == null) scatterWinSymbols = new List<SlotSymbol>();
+            // 스캐터 승리가 없으면 리스트를 비워서 초기화 -> 이전 회전에서 감지된 스캐터 심볼이 남아있는 것을 방지
+            if (scatterWin == null) scatterWinSymbols = new List<SlotSymbol>(); 
         }
 
         private bool HasScatterWin()
