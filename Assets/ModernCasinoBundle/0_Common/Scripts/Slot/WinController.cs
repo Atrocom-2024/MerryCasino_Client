@@ -592,6 +592,7 @@ namespace Mkey
 
         /// <summary>
         /// Return line win spins + sctater win spins
+        /// 페이라인과 스캐터 심볼에 대한 프리스핀을 계산
         /// </summary>
         /// <returns></returns>
         public int GetWinSpins()
@@ -615,7 +616,7 @@ namespace Mkey
         /// <returns></returns>
         public int GetPayMultiplier()
         {
-            int res = 1;
+            int res = 1; // 기본 배수는 1 (곱셈을 위한 초기값)
             foreach (LineBehavior lB in linesController.Lines)
             {
                 if (lB.IsWinningLine && lB.win.PayMult > 0)
@@ -624,26 +625,29 @@ namespace Mkey
                 }
             }
 
-            if (scatterWin != null && scatterWin.PayMult > 0) res *= scatterWin.PayMult;
+            if (scatterWin != null && scatterWin.PayMult > 0)
+                res *= scatterWin.PayMult;
             return res;
         }
 
         /// <summary>
         /// Return product of lines free spins multipliers, scatter free spins multiplier
+        /// 페이라인(Winning Line)과 스캐터(Scatter) 승리에서 적용되는 프리스핀 배수를 모두 곱하여 반환
         /// </summary>
         /// <returns></returns>
         public int GetFreeSpinsMultiplier()
         {
-            int res = 1;
+            int res = 1; // 기본 배수는 1 (곱셈을 위한 초기값)
             foreach (LineBehavior lB in linesController.Lines)
             {
                 if (lB.IsWinningLine && lB.win.FreeSpinsMult != 0)
                 {
-                    res *= lB.win.FreeSpinsMult;
+                    res *= lB.win.FreeSpinsMult; // 승리한 페이라인의 프리스핀 배수 적용
                 }
             }
 
-            if (scatterWin != null && scatterWin.FreeSpinsMult > 0) res *= scatterWin.FreeSpinsMult;
+            if (scatterWin != null && scatterWin.FreeSpinsMult > 0)
+                res *= scatterWin.FreeSpinsMult; // 스캐터 승리의 프리스핀 배수 적용
             return res;
         }
 

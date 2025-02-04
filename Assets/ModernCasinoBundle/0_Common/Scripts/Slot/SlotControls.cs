@@ -790,7 +790,7 @@ namespace Mkey
 
         #region FreeSpins
         /// <summary>
-        /// Change free spins count and save result
+        /// 프리스핀의 개수를 더하는 메서드
         /// </summary>
         /// <param name="count"></param>
         public void AddFreeSpins(int count)
@@ -799,7 +799,7 @@ namespace Mkey
         }
 
         /// <summary>
-        /// Set Free spins count and save result
+        /// 프리스핀의 수를 설정하고 저장하는 메서드
         /// </summary>
         /// <param name="count"></param>
         public void SetFreeSpinsCount(int count)

@@ -397,7 +397,10 @@ namespace Mkey
             // 잭팟 금액 증가
             //IncreaseJackPots();
 
-            // 잭팟 여부를 확인
+            int winSpinsTest = winController.GetWinSpins();
+            Debug.Log($"프리스핀 개수: {winSpinsTest}");
+
+            // 승리 여부 확인
             if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType)) // 승리했다면
             {
                 loseCount = 0; // 진 횟수 초기화
@@ -405,13 +408,12 @@ namespace Mkey
                 //3b ---- show particles, line flasing  -----------
                 winController.WinEffectsShow(winLineFlashing == WinLineFlashing.All, winSymbolParticles);
 
-                //3b --------- check Jack pot -------------
-               
                 while (!MGUI.HasNoPopUp) yield return wfs0_1;
 
                 // 잭팟 금액 가져오기
                 jackPotWinCoins = controls.GetJackPotCoins(jackPotType);
 
+                // 잭팟 체크
                 if (jackPotType != JackPotType.None && jackPotWinCoins > 0)
                 {
                     MPlayer.SetWinCoinsCount(jackPotWinCoins);
@@ -462,6 +464,7 @@ namespace Mkey
 
                 // 프리 스핀 처리
                 int winSpins = winController.GetWinSpins();
+                Debug.Log($"프리스핀 개수: {winSpins}");
                 int freeSpinsMultiplier = winController.GetFreeSpinsMultiplier();
                 winSpins *= freeSpinsMultiplier;
                 int winLinesCount = winController.GetWinLinesCount();
