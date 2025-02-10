@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -436,7 +437,7 @@ namespace Mkey
         {
             foreach (var lb in linesController.Lines) // 등록된 페이라인들을 순회
             {
-                // // 사용자가 선택한 라인인지 확인
+                // 사용자가 선택한 라인인지 확인
                 if (lb.IsSelected)
                 {
                     lb.FindWin(payTable); // 해당 라인의 승리 여부 확인

@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls: {fileID: 0}
   resultPayout: 0
-  sessionTotalBet: 0
   roomNumber: 4
   PayoutText: {fileID: 450477207}
 --- !u!4 &21921044
@@ -2385,6 +2385,46 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - scattersCount: 4
+    pay: 0
+    freeSpins: 0
+    payMult: 1
+    freeSpinsMult: 1
+    WinEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2138985127807880777}
+          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
+          m_MethodName: ShowFortuneWheel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - scattersCount: 3
+    pay: 0
+    freeSpins: 0
+    payMult: 1
+    freeSpinsMult: 1
+    WinEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2138985127807880777}
+          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
+          m_MethodName: ShowFortuneWheel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   tilePrefab: {fileID: 192170, guid: bc23bf37dabcf634fb429c9e8fecc213, type: 3}
   particlesStars: {fileID: 189374, guid: 1093c85be64599142a198843176f3fb0, type: 3}
   BigWinPrefab: {fileID: 114167515336069810, guid: afc449b28cc01e64a82687624dc3bade, type: 3}
@@ -3250,7 +3290,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1913586, y: 1.1913586, z: 1.1913586}
+  m_LocalScale: {x: 1.0806408, y: 1.0806408, z: 1.0806408}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1905386936}
@@ -3276,7 +3316,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4372523
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -6801,7 +6841,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 9.31, y: 1.69, z: 0}
-  m_LocalScale: {x: 1.1913586, y: 1.1913586, z: 1.1913586}
+  m_LocalScale: {x: 1.0806408, y: 1.0806408, z: 1.0806408}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -6825,7 +6865,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4372523
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1349173898
@@ -8202,7 +8242,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4372523
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -9310,7 +9350,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.06, y: 1.68, z: 0}
-  m_LocalScale: {x: 1.1913586, y: 1.1913586, z: 1.1913586}
+  m_LocalScale: {x: 1.0806408, y: 1.0806408, z: 1.0806408}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -9334,7 +9374,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4372523
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1905386938

@@ -923,6 +923,46 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - scattersCount: 4
+    pay: 0
+    freeSpins: 0
+    payMult: 1
+    freeSpinsMult: 1
+    WinEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2138985128014912598}
+          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
+          m_MethodName: ShowFortuneWheel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - scattersCount: 3
+    pay: 0
+    freeSpins: 0
+    payMult: 1
+    freeSpinsMult: 1
+    WinEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2138985128014912598}
+          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
+          m_MethodName: ShowFortuneWheel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   tilePrefab: {fileID: 192170, guid: 7590a844067f613428759e73782b7d20, type: 3}
   particlesStars: {fileID: 189374, guid: 1093c85be64599142a198843176f3fb0, type: 3}
   BigWinPrefab: {fileID: 114167515336069810, guid: 8464b032e7092ff49b8d58ec404eb77a, type: 3}
@@ -1255,7 +1295,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.112676, y: 2.112676, z: 2.112676}
+  m_LocalScale: {x: 1.9163364, y: 1.9163364, z: 1.9163364}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -1279,7 +1319,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4372523
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -1452,8 +1492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls: {fileID: 0}
   resultPayout: 0
-  sessionTotalBet: 0
   roomNumber: 9
   PayoutText: {fileID: 1586019685}
 --- !u!4 &660260032
@@ -3120,7 +3160,7 @@ MonoBehaviour:
   additionalScale: 0.72
   additionalScaleOld: 0.72
   useLerpScale: 0
-  currRatio: 1.584507
+  currRatio: 1.4372523
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

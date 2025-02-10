@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
-using System.Collections;
 using UnityEngine.Events;
 using System.Globalization;
 
@@ -40,7 +39,7 @@ namespace Mkey
 
         public bool IsWinningLine
         {
-            get { return win!=null; }
+            get { return win != null; }
         }
 
         /// <summary>

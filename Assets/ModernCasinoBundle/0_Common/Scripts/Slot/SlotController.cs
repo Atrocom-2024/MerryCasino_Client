@@ -324,24 +324,22 @@ namespace Mkey
                 return;
             }
 
-            // 베팅 불가능할 때
-            if (!controls.ApplyBet())
+            // 프리 스핀 여부 확인 후 베팅 적용
+            if (!controls.ApplyFreeSpin()) // 프리 스핀이 아닐 때만 베팅 적용
             {
-                MGUI.ShowMessage(null, "You have no money.", 1.5f, null);
-                controls.ResetAutoSpinsMode();
-                return;
+                if (!controls.ApplyBet()) // 베팅 가능 여부 확인
+                {
+                    MGUI.ShowMessage(null, "You have no money.", 1.5f, null);
+                    controls.ResetAutoSpinsMode();
+                    return;
+                }
+                isFreeSpin = false; // 프리 스핀이 아닌 경우 false로 설정
             }
-
-            // 프리 스핀 처리
-            if (controls.ApplyFreeSpin())
+            else
             {
                 if (!isFreeSpin)
                     StartFreeGamesEvent?.Invoke();
                 isFreeSpin = true;
-            }
-            else
-            {
-                isFreeSpin = false;
             }
 
             if (runSlotsCoroutine != null)
@@ -386,7 +384,7 @@ namespace Mkey
             // 슬롯 애니메이션 종료 후 결과 확인
             EndSpinEvent?.Invoke(); // 스핀 종료 이벤트 호출
             BeginWinCalcEvent?.Invoke(); // 승리 여부 계산 시작 이벤트
-            winController.SearchWinSymbols(); // 페이라인과 일치하는 심볼이 있는지 검사
+            winController.SearchWinSymbols(); // 페이라인과 일치하는 심볼이 있는지 검사 후 일치하는 심볼이 있다면 win 변수에 저장
 
             // 잭팟 관련 변수 초기화
             bool hasLineWin = false;
@@ -396,9 +394,6 @@ namespace Mkey
             // 3a ----- 잭팟 금액을 증가시키는 로직 ----
             // 잭팟 금액 증가
             //IncreaseJackPots();
-
-            int winSpinsTest = winController.GetWinSpins();
-            Debug.Log($"프리스핀 개수: {winSpinsTest}");
 
             // 승리 여부 확인
             if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType)) // 승리했다면
@@ -464,7 +459,6 @@ namespace Mkey
 
                 // 프리 스핀 처리
                 int winSpins = winController.GetWinSpins();
-                Debug.Log($"프리스핀 개수: {winSpins}");
                 int freeSpinsMultiplier = winController.GetFreeSpinsMultiplier();
                 winSpins *= freeSpinsMultiplier;
                 int winLinesCount = winController.GetWinLinesCount();
@@ -523,12 +517,13 @@ namespace Mkey
             else // 패배했다면
             {
                 loseCount++;
-                if (loseCount > 3) // 연속으로 4번 졌을 때 미니게임 시작
-                {
-                    //isMiniGameActive = true;  // 미니게임 활성화 상태 설정
-                    SlotEvents.Instance.ShowChestMiniGame();
-                    loseCount = 0;
-                }
+                // 미니 체스트 게임
+                //if (loseCount > 3) // 연속으로 4번 졌을 때 미니게임 시작
+                //{
+                //    //isMiniGameActive = true;  // 미니게임 활성화 상태 설정
+                //    SlotEvents.Instance.ShowChestMiniGame();
+                //    loseCount = 0;
+                //}
 
                 //MSound.PlayClip(0, looseSound); // 졌을 때 소리가 너무 이상함 귀가 아픔
 
