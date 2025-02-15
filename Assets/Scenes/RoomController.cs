@@ -45,7 +45,7 @@ public class RoomController : MonoBehaviour
         }
 
         // 서버 연결
-        await RoomSocketManager.Instance.ConnectToServer("44.202.1.36", 4000);
+        await RoomSocketManager.Instance.ConnectToServer("socket.atrocom.com", 4000);
         //await RoomSocketManager.Instance.ConnectToServer("127.0.0.1", 4000);
 
         // 이벤트 구독
