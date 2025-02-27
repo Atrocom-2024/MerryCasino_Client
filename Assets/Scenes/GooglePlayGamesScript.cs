@@ -11,13 +11,13 @@ public class GooglePlayGamesScript : MonoBehaviour
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } } // SlotPlayer의 싱글톤 인스턴스. 현재 플레이어의 데이터(ID와 코인)를 저장하고 로딩하는 데 사용
     
     private readonly UserInfo userInfo = new UserInfo(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
-    private string apiUrl;
+    private string authApiUrl;
     private PopUpsController loadingPopup;
 
     void Awake()
     {
         EnvReader.Load(".env");
-        apiUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/users";
+        authApiUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/auth";
     }
 
     void Start()
@@ -38,29 +38,32 @@ public class GooglePlayGamesScript : MonoBehaviour
 
         ShowLoadingPopup();
 
-        if (!PlayGamesPlatform.Instance.IsAuthenticated())
+        PlayGamesPlatform.Instance.Authenticate((success) =>
         {
-            PlayGamesPlatform.Instance.Authenticate((success) =>
+            if (success == SignInStatus.Success)
             {
-                if (success == SignInStatus.Success)
+                Debug.Log("Login successful. User ID: " + Social.localUser.id);
+                userInfo.id = Social.localUser.id;
+
+                // Request server auth code
+                PlayGamesPlatform.Instance.RequestServerSideAccess(false, (code) =>
                 {
-                    Debug.Log("Login successful. User ID: " + Social.localUser.id);
-                    userInfo.id = Social.localUser.id;
-                    StartCoroutine(SignIn("google"));
-                }
-                else
-                {
-                    Debug.LogError("Login failed. Error: " + SignInStatus.InternalError);
-                    CloseLoadingPopup();
-                }
-            });
-        }
-        else
-        {
-            Debug.Log("Already authenticated");
-            userInfo.id = Social.localUser.id;
-            StartCoroutine(SignIn("google"));
-        }
+                    if (string.IsNullOrEmpty(code))
+                    {
+                        Debug.LogError("Failed to get server auth code");
+                        CloseLoadingPopup();
+                        return;
+                    }
+
+                    StartCoroutine(AuthWithGooglePlayPlayGames(code));
+                });
+            }
+            else
+            {
+                Debug.LogError("Login failed. Error: " + SignInStatus.InternalError);
+                CloseLoadingPopup();
+            }
+        });
     }
 
     // 디바이스 고유 ID를 이용한 게스트 로그인
@@ -71,21 +74,27 @@ public class GooglePlayGamesScript : MonoBehaviour
         ShowLoadingPopup();
 
         userInfo.id = SystemInfo.deviceUniqueIdentifier;
-        StartCoroutine(SignIn("guest"));
+        StartCoroutine(AuthWithGuest());
     }
 
-    public IEnumerator SignIn(string provider)
+    public IEnumerator AuthWithGuest()
     {
-        // 요청 url
-        string requestUrl = $"{apiUrl}/{userInfo.id}";
+        var requestUrl = $"{authApiUrl}/guest"; // 요청 url
+        var bodyData = new GuestAuthRequestBody
+        {
+            UserId = userInfo.id
+        };
+        var bodyJsonData = JsonConvert.SerializeObject(bodyData);
 
         // APIManager를 통해 GET 요청 실행
-        yield return StartCoroutine(APIManager.Instance.GetRequest(
+        yield return StartCoroutine(APIManager.Instance.PostRequest(
             requestUrl,
+            bodyJsonData,
             onSuccess: (jsonData) =>
             {
                 // 응답받은 JSON 데이터 파싱 후 처리
-                Debug.Log("로그인 성공");
+                Debug.Log("Login successful. User ID: " + Social.localUser.id);
+
                 var userInfo = JsonConvert.DeserializeObject<LoginResponseDataType>(jsonData);
                 MPlayer.Id = userInfo.userId;
                 MPlayer.Coins = userInfo.coins;
@@ -93,53 +102,38 @@ public class GooglePlayGamesScript : MonoBehaviour
             },
             onError: (request) =>
             {
-                // 에러가 발생한 경우 HTTP 응답 코드 확인
-                if (request.responseCode == 404)
-                {
-                    Debug.Log("유저를 찾지 못했습니다. 회원가입을 진행합니다.");
-
-                    // 회원가입 코루틴 실행 후 재로그인 시도
-                    StartCoroutine(SignUp(provider));
-                }
-                else
-                {
-                    Debug.Log($"Error: {request.error}");
-                    CloseLoadingPopup();
-                }
+                Debug.Log($"Error: {request.error}");
+                CloseLoadingPopup();
             }
         ));
     }
 
-    // 유저 데이터를 JSON 형식으로 서버에 보내어 회원가입을 처리하는 코루틴
-    private IEnumerator SignUp(string provider)
+    public IEnumerator AuthWithGooglePlayPlayGames(string authCode)
     {
-        // 회원가입 데이터 생성
-        SignUpData data = new SignUpData
-        {
-            userId = userInfo.id,
-            provider = provider,
-            deviceId = SystemInfo.deviceUniqueIdentifier
+        var requestUrl = $"{authApiUrl}/google"; // 요청 url
+        var bodyData = new GoogleAuthRequestBody {
+            UserId = userInfo.id,
+            AuthCode = authCode
         };
-
-        // JSON 문자열로 변환
-        var requestData = JsonUtility.ToJson(data);
-
-        // APIManager를 통해 POST 요청 실행
-        yield return APIManager.Instance.PostRequest(
-            apiUrl,
-            requestData,
-            onSuccess: (sucmsg) =>
+        var bodyJsonData = JsonConvert.SerializeObject(bodyData);
+        yield return StartCoroutine(APIManager.Instance.PostRequest(
+            requestUrl,
+            bodyJsonData,
+            onSuccess: (jsonData) =>
             {
-                Debug.Log("회원가입 성공");
-                StartCoroutine(SignIn(provider));
+                Debug.Log("Login successful. User ID: " + Social.localUser.id);
+
+                var userInfo = JsonConvert.DeserializeObject<LoginResponseDataType>(jsonData);
+                MPlayer.Id = userInfo.userId;
+                MPlayer.Coins = userInfo.coins;
+                LoadLobby();
             },
             onError: (request) =>
             {
-                string errmsg = request.downloadHandler.text;
-                Debug.Log($"회원가입 에러: {errmsg}");
+                Debug.Log($"Error: {request.error}");
                 CloseLoadingPopup();
             }
-        );
+        ));
     }
 
     // 로비 씬으로 이동하는 메서드
@@ -187,10 +181,20 @@ public class GooglePlayGamesScript : MonoBehaviour
         public long coins;
     }
 
+    public class GoogleAuthRequestBody
+    {
+        public string UserId;
+        public string AuthCode;
+    }
+
+    public class GuestAuthRequestBody
+    {
+        public string UserId;
+    }
+
     public class SignUpData
     {
         public string userId;
         public string provider;
-        public string? deviceId;
     }
 }

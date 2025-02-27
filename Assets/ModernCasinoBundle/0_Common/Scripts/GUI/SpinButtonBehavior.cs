@@ -77,7 +77,7 @@ namespace Mkey
             while (!up && !cancel)
             {
                 dTime = Time.time - downTime;
-                if (dTime > 2.0f)
+                if (dTime > 1.0f)
                 {
                     Debug.Log("Auto Spin");
                     TrySetAutoEvent?.Invoke(true);

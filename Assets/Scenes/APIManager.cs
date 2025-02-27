@@ -62,20 +62,15 @@ public class APIManager : MonoBehaviour
 
     public IEnumerator ProcessGooglePayment(string requestUrl, string userId, string receipt, Action<long> onSuccess, Action<string> onFailure)
     {
-        // 영수증 JSON 파싱
-        var googleReceiptRoot = JsonConvert.DeserializeObject<GooglePlayReceipt>(receipt) ?? throw new JsonException("Failed to deserialize Google Play receipt.");
-        var googleReceiptPayload = JsonConvert.DeserializeObject<GooglePlayReceiptPayload>(googleReceiptRoot.Payload) ?? throw new JsonException("Failed to deserialize Google Play receipt.");
-        var googleReceipt = JsonConvert.DeserializeObject<GooglePlayReceiptJson>(googleReceiptPayload.json) ?? throw new JsonException("Failed to deserialize Google Play receipt.");
-        
-
         // 요청 데이터 생성
         var bodyData = new ProcessGooglePaymentRequest
         {
             UserId = userId,
-            Receipt = googleReceipt,
+            Receipt = receipt,
             Store = "Google"
         };
 
+        //var jsonBodyData = JsonConvert.SerializeObject(bodyData);
         var jsonBodyData = JsonUtility.ToJson(bodyData);
 
         var request = new UnityWebRequest(requestUrl, "POST");
@@ -119,7 +114,7 @@ public class APIManager : MonoBehaviour
 public class ProcessGooglePaymentRequest
 {
     public string UserId;
-    public GooglePlayReceiptJson Receipt;
+    public string Receipt;
     public string Store;
 }
 
@@ -130,26 +125,4 @@ public class ProcessGooglePaymentResponse
     public string TransactionId;
     public long ProcessedResultCoins;
     public string Message;
-}
-
-[Serializable]
-public class GooglePlayReceipt
-{
-    public string Payload;
-}
-
-[Serializable]
-public class GooglePlayReceiptPayload
-{
-    public string json;
-    public string signature;
-}
-
-[Serializable]
-public class GooglePlayReceiptJson
-{
-    public string orderId;
-    public string packageName;
-    public string productId;
-    public string purchaseToken;
 }

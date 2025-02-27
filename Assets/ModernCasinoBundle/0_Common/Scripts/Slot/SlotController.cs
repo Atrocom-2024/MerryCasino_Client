@@ -110,7 +110,7 @@ namespace Mkey
         private EaseAnim mainRotateType = EaseAnim.EaseInExpo;   // main rotation part
         [SerializeField]
         [Tooltip("Time main rotation part, sec")]
-        private float mainRotateTime = 0.1f; // 릴의 주요 회전 시간을 결정 -> 작을수록 빠르게 회전
+        private float mainRotateTime = 0.7f; // 릴의 주요 회전 시간을 결정 -> 작을수록 빠르게 회전
         [Tooltip("min 0% - max 20%, change rotateTime")]
         [SerializeField]
         private int mainRotateTimeRandomize = 0; // 회전 시간에 랜덤 요소를 추가 -> 작을수록 일정하고 빠르게 회전
@@ -549,7 +549,7 @@ namespace Mkey
                 RunSlots();
             }
         }
-
+        
         /// <summary>
         /// 잭팟 금액 증가 메서드
         /// </summary>
@@ -597,20 +597,22 @@ namespace Mkey
                 }
             }
 
+            #if UNITY_EDITOR
             #region prediction visible symbols on reels
             if (debugPredictSymbols)
-            for (int i = 0; i < rands.Length; i++)
-            {
-                    Debug.Log("------- Reel: " + i +" ------- (down up)");
-                    for (int r = 0; r < slotGroupsBeh[i].RayCasters.Length; r++)
+                for (int i = 0;i < rands.Length;i++)
+                {
+                    Debug.Log("------- Reel: " + i + " ------- (down up)");
+                    for (int r = 0;r < slotGroupsBeh[i].RayCasters.Length;r++)
                     {
                         int sO = (int)Mathf.Repeat(rands[i] + r, slotGroupsBeh[i].symbOrder.Count);
-                        int sID =  slotGroupsBeh[i].symbOrder[sO]; 
-                        string sName = slotIcons[sID].iconSprite.name; 
+                        int sID = slotGroupsBeh[i].symbOrder[sO];
+                        string sName = slotIcons[sID].iconSprite.name;
                         Debug.Log("NextSymb ID: " + sID + " ;name : " + sName);
                     }
-            }
+                }
             #endregion prediction
+            #endif
 
             for (int i = 0; i < slotGroupsBeh.Length; i++)
             {

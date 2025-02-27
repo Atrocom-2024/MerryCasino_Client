@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4144,7 +4144,7 @@ MonoBehaviour:
   fortuneWheel: {fileID: 0}
   ease: 23
   autoClose: 1
-  autoCloseTime: 5
+  autoCloseTime: 1
   CreateWheelEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7090,7 +7090,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0774134, y: 1.0774134, z: 1.0774134}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 531033908}
@@ -7115,7 +7115,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4372523
+  currRatio: 1.301189
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1305978779
@@ -9248,7 +9248,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
-  m_LocalScale: {x: 0.8276088, y: 0.8276088, z: 0.8276088}
+  m_LocalScale: {x: 0.75872684, y: 0.75872684, z: 0.75872684}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932479349}
@@ -9277,7 +9277,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4372523
+  currRatio: 1.301189
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

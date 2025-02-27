@@ -243,7 +243,6 @@ namespace Mkey
                     // 요청 URL 설정
                     string requestUrl = $"{paymentsApiUrl}/verify";
 
-                    // APIManager를 이용해 서버로 영수증 데이터 전송 및 콜백 처리
                     StartCoroutine(APIManager.Instance.ProcessGooglePayment(requestUrl, SlotPlayer.Instance.Id, receipt,
                         onSuccess: (processedResultCoins) =>
                         {
