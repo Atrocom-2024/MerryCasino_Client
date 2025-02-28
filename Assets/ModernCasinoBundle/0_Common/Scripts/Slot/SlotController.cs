@@ -173,6 +173,7 @@ namespace Mkey
         private bool slotsRunned = false;
         private bool playFreeSpins = false;
         private bool isFreeSpin = false;
+        private bool isPending = false;
         private GameObject miniGame;
 
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
@@ -453,7 +454,15 @@ namespace Mkey
                     else
                     {
                         while (!MGUI.HasNoPopUp) yield return wfs0_1;  // wait for prev popup closing
-                        MGUI.ShowMessage(BigWinPrefab, "", winCoins.ToString(), 3f, null); // aqua MGUI.ShowMessage(BigWinPrefab, " ", winCoins.ToString(), 3f, null);
+
+                        bool bigWinClosed = false;
+                        MGUI.ShowMessage(BigWinPrefab, "", winCoins.ToString(), 1f, () =>
+                        {
+                            bigWinClosed = true;
+                        }); // aqua MGUI.ShowMessage(BigWinPrefab, " ", winCoins.ToString(), 3f, null);
+                        
+                        while (!bigWinClosed)
+                            yield return wfs0_1;  // bigWin 팝업이 닫힐 때까지 대기
                     }
                 }
 

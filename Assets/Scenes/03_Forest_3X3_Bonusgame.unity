@@ -2164,26 +2164,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - scattersCount: 2
-    pay: 0
-    freeSpins: 0
-    payMult: 1
-    freeSpinsMult: 1
-    WinEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2138985127807880777}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: ShowFortuneWheel
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   tilePrefab: {fileID: 192170, guid: aa657e3bfc3e4da49a147457ad77d5f6, type: 3}
   particlesStars: {fileID: 189374, guid: 1093c85be64599142a198843176f3fb0, type: 3}
   BigWinPrefab: {fileID: 114167515336069810, guid: f2c73d75c3bb41be93277cfd06134186, type: 3}
@@ -7090,7 +7070,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0516664, y: 1.0516664, z: 1.0516664}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 531033908}
@@ -7115,7 +7095,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.301189
+  currRatio: 1.4029062
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1305978779
@@ -9248,7 +9228,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
-  m_LocalScale: {x: 0.75872684, y: 0.75872684, z: 0.75872684}
+  m_LocalScale: {x: 0.81022114, y: 0.81022114, z: 0.81022114}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932479349}
@@ -9277,7 +9257,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.301189
+  currRatio: 1.4029062
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

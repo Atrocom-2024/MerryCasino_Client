@@ -123,10 +123,10 @@ namespace Mkey
             slotSymbols = new SlotSymbol[tileCount]; // 심볼 배열 초기화
 
             // 릴 트랜스폼 생성
-            TilesGroup = (new GameObject()).transform;
-            TilesGroup.localScale = transform.lossyScale;
-            TilesGroup.parent = transform;
-            TilesGroup.localPosition = Vector3.zero;
+            TilesGroup = (new GameObject()).transform; // 새로운 GameObject 생성 및 Transform 가져오기
+            TilesGroup.localScale = transform.lossyScale; // 생성한 오브젝트의 스케일을 현재 객체의 lossless(월드 스케일) 스케일로 설정
+            TilesGroup.parent = transform; // 현재 오브젝트의 자식으로 설정
+            TilesGroup.localPosition = Vector3.zero; // 자식 오브젝트의 로컬 위치를 원점으로 설정 -> 부모(현재 오브젝트)와 동일한 위치에 배치
             TilesGroup.name = "Reel(" + name + ")";
 
             // 릴 기하학 계산
@@ -144,8 +144,8 @@ namespace Mkey
             // 시작 각도 계산 (레이캐스터 위치에 맞게 조정)
             bool isEvenRayCastersCount = (windowSize % 2 == 0); // 레이캐스터 개수가 짝수인지
             int dCount = (isEvenRayCastersCount) ? windowSize / 2 - 1 : windowSize / 2;
-            float addAnglePerTileDeg = (isEvenRayCastersCount) ? -anglePerTileDeg*dCount - anglePerTileDeg /2f : -anglePerTileDeg;
-            float addAnglePerTileRad = (isEvenRayCastersCount) ? -anglePerTileRad*dCount - anglePerTileRad /2f : -anglePerTileRad;
+            float addAnglePerTileDeg = (isEvenRayCastersCount) ? -anglePerTileDeg * dCount - anglePerTileDeg / 2f : -anglePerTileDeg;
+            float addAnglePerTileRad = (isEvenRayCastersCount) ? -anglePerTileRad * dCount - anglePerTileRad / 2f : -anglePerTileRad;
             topSector = windowSize - 1; // 최상단 섹터 설정
 
             // 릴 위치 Z축 조정 (반지름만큼 이동)
@@ -155,6 +155,7 @@ namespace Mkey
             RayCaster baseRC = rayCasters[rayCasters.Length - 1]; // 하단 레이캐스터
             float brcY = baseRC.transform.localPosition.y;
             float dArad = 0f;
+
             if (brcY > -radius && brcY < radius && baseLink)
             {
                 // 하단 레이캐스터 위치에 맞게 회전 각도 조정
