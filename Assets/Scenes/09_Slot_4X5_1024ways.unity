@@ -1199,7 +1199,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7349186, y: 1.7349186, z: 1.7349186}
+  m_LocalScale: {x: 1.8705416, y: 1.8705416, z: 1.8705416}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -1223,7 +1223,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.301189
+  currRatio: 1.4029062
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -2370,7 +2370,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1296149391}
   - component: {fileID: 1296149390}
-  - component: {fileID: 1296149392}
   m_Layer: 0
   m_Name: RoomController
   m_TagString: Untagged
@@ -2390,7 +2389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls: {fileID: 0}
   resultPayout: 0
   roomNumber: 8
   PayoutText: {fileID: 874782616}
@@ -2409,18 +2407,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1296149392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296149389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7fc59a28753b34ebff8cbd12eae5c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1333508617
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,7 +3347,7 @@ MonoBehaviour:
   additionalScale: 0.72
   additionalScaleOld: 0.72
   useLerpScale: 0
-  currRatio: 1.301189
+  currRatio: 1.4029062
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

@@ -235,7 +235,8 @@ namespace Mkey
                 {
                     if (item!=null)
                     {
-                        item.payMult = Mathf.Max(1, item.payMult);
+                        item.payMult = Mathf.Max(0, item.payMult);
+                        //item.payMult = Mathf.Max(1, item.payMult);
                     }
                 }
             }
@@ -295,15 +296,15 @@ namespace Mkey
         //    }
         //}
 
-        //private void TriggerJackpot()
-        //{
-        //    JackPotType jackpotType = JackPotType.Mega;
-        //    int jackpotCoins = controls.GetJackPotCoins(jackpotType);
-        //    Debug.Log($"잭팟 발생!!!! {jackpotCoins}");
+        private void TriggerJackpot()
+        {
+            JackPotType jackpotType = JackPotType.Mega;
+            int jackpotCoins = controls.GetJackPotCoins(jackpotType);
+            Debug.Log($"잭팟 발생!!!! {jackpotCoins}");
 
-        //    // UI에 잭팟 보상 지급
-        //    controls.JPWinShow(jackpotCoins, jackpotType);
-        //}
+            // UI에 잭팟 보상 지급
+            controls.JPWinShow(jackpotCoins, jackpotType);
+        }
 
         /// <summary>
         /// 실제 슬롯 회전 로직을 처리

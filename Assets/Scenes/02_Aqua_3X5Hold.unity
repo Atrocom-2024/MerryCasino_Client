@@ -2586,26 +2586,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - scattersCount: 3
-    pay: 0
-    freeSpins: 0
-    payMult: 1
-    freeSpinsMult: 1
-    WinEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2138985127807880777}
-          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
-          m_MethodName: ShowFortuneWheel
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   tilePrefab: {fileID: 192170, guid: ca7057e557d040ac98a24e04ca7f530b, type: 3}
   particlesStars: {fileID: 189374, guid: 1093c85be64599142a198843176f3fb0, type: 3}
   BigWinPrefab: {fileID: 114167515336069810, guid: f3dae4e0a88d43eba6e3315f0abcc3ba, type: 3}
@@ -8090,7 +8070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a3910746c77494da8cc668daf50a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  megaJackPotWinPuPrefab: {fileID: 0}
+  megaJackPotWinPuPrefab: {fileID: 114167515336069810, guid: add966f587431e74784129693d8e94f7, type: 3}
   miniJackPotWinPuPrefab: {fileID: 0}
   maxiJackPotWinPuPrefab: {fileID: 0}
   megaJackPotWinPrefab: {fileID: 1114780978164136582, guid: fe3a7b563a804a6e93c830e726f2584c, type: 3}
@@ -12651,7 +12631,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1783356598}
   - component: {fileID: 1783356597}
-  - component: {fileID: 1783356599}
   m_Layer: 0
   m_Name: RoomController
   m_TagString: Untagged
@@ -12671,7 +12650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls: {fileID: 0}
   resultPayout: 0
   roomNumber: 1
   PayoutText: {fileID: 1113583633}
@@ -12690,18 +12668,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1783356599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783356596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7fc59a28753b34ebff8cbd12eae5c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1786494258
 GameObject:
   m_ObjectHideFlags: 0

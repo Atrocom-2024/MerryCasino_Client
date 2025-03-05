@@ -3958,7 +3958,6 @@ GameObject:
   m_Component:
   - component: {fileID: 681717025}
   - component: {fileID: 681717024}
-  - component: {fileID: 681717026}
   m_Layer: 0
   m_Name: RoomController
   m_TagString: Untagged
@@ -3978,7 +3977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls: {fileID: 0}
   resultPayout: 0
   roomNumber: 2
   PayoutText: {fileID: 817228476}
@@ -3997,18 +3995,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &681717026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681717023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7fc59a28753b34ebff8cbd12eae5c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &710977442
 GameObject:
   m_ObjectHideFlags: 0
@@ -6380,7 +6366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a3910746c77494da8cc668daf50a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  megaJackPotWinPuPrefab: {fileID: 0}
+  megaJackPotWinPuPrefab: {fileID: 114167515336069810, guid: c79ee009c3e947c44afa90722e380d3c, type: 3}
   miniJackPotWinPuPrefab: {fileID: 0}
   maxiJackPotWinPuPrefab: {fileID: 0}
   megaJackPotWinPrefab: {fileID: 1114780978164136582, guid: 68ad1db8f17b4fc1ab57783a906a22c2, type: 3}
@@ -11670,11 +11656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa4c4d90e099f9469274ba4b19fd564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
-  playerID: 
-  playerFirstName: 
-  playerLastName: 
-  playerPhoto: {fileID: 0}
 --- !u!114 &758247654440697582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12232,7 +12213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2765207676879279867
 GameObject:
   m_ObjectHideFlags: 0

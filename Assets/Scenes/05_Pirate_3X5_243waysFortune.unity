@@ -239,7 +239,6 @@ GameObject:
   m_Component:
   - component: {fileID: 21921044}
   - component: {fileID: 21921043}
-  - component: {fileID: 21921045}
   m_Layer: 0
   m_Name: RoomController
   m_TagString: Untagged
@@ -259,7 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de545de853ae68142afe5e1e65787e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls: {fileID: 0}
   resultPayout: 0
   roomNumber: 4
   PayoutText: {fileID: 450477207}
@@ -278,18 +276,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &21921045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21921042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7fc59a28753b34ebff8cbd12eae5c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &60741821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,26 +2372,6 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - scattersCount: 4
-    pay: 0
-    freeSpins: 0
-    payMult: 1
-    freeSpinsMult: 1
-    WinEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2138985127807880777}
-          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
-          m_MethodName: ShowFortuneWheel
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - scattersCount: 3
     pay: 0
     freeSpins: 0
     payMult: 1
@@ -6691,7 +6657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -16}
+  m_AnchoredPosition: {x: 78, y: -16}
   m_SizeDelta: {x: 161, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325793393
@@ -12724,7 +12690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7544870061345849061
 GameObject:
   m_ObjectHideFlags: 0
@@ -12745,7 +12711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7545663852749344377
 GameObject:
   m_ObjectHideFlags: 0
@@ -12797,7 +12763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7545666244945934834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13150,7 +13116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 290, y: -16}
+  m_AnchoredPosition: {x: 2, y: -16}
   m_SizeDelta: {x: 161, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &7758816868633458169
@@ -13165,17 +13131,17 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7758859281952670069}
   - {fileID: 1325793392}
-  - {fileID: 7759215685210514179}
   - {fileID: 7758697355036376517}
+  - {fileID: 7758859281952670069}
+  - {fileID: 7759215685210514179}
   m_Father: {fileID: 5686765399182954797}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: 14}
-  m_SizeDelta: {x: 753, y: 171}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -89.5, y: 13.999939}
+  m_SizeDelta: {x: 331.14, y: 171}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &7758859281952670069
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13193,7 +13159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -142, y: -16}
+  m_AnchoredPosition: {x: 146, y: -16}
   m_SizeDelta: {x: 161, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &7759215685210514179
@@ -13213,7 +13179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 146, y: -16}
+  m_AnchoredPosition: {x: 290, y: -16}
   m_SizeDelta: {x: 161, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8540708732986006952

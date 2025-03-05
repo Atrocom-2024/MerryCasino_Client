@@ -18,14 +18,17 @@ public class RoomSocketManager : MonoBehaviour
     public event Action<GameUserState> OnGameUserStateResponse;
     public event Action<GameState> OnGameStateResponsee;
     public event Action<BetResponse> OnBetResponse;
-    public event Action<AddCoinsResponse> onAddCoinsResponse;
+    public event Action<AddCoinsResponse> OnAddCoinsResponse;
+
+    // get/set
+    public bool IsConnected { get { return _isConnected; } }
 
     private void Awake()
     {
-        // ΩÃ±€≈Ê √ ±‚»≠
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -181,7 +184,7 @@ public class RoomSocketManager : MonoBehaviour
                             if (response.AddCoinsResponseData != null)
                             {
                                 Debug.Log("[socket] AddCoinsResponse received");
-                                onAddCoinsResponse.Invoke(response.AddCoinsResponseData);
+                                OnAddCoinsResponse.Invoke(response.AddCoinsResponseData);
                             }
                             break;
                         default:
@@ -205,6 +208,17 @@ public class RoomSocketManager : MonoBehaviour
         }
         Debug.Log("[socket] Server connection established.");
     }
+
+    public IEnumerator WaitForConnectionCoroutine()
+    {
+        while (!_isConnected)
+        {
+            Debug.Log("[socket] Waiting for server connection...");
+            yield return new WaitForSeconds(0.1f); // 0.1√  ¥Î±‚
+        }
+        Debug.Log("[socket] Server connection established.");
+    }
+
 
     private static byte[] SerializeProtobuf<T>(T obj)
     {

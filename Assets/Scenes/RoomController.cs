@@ -10,9 +10,10 @@ public class RoomController : MonoBehaviour
 {
     public static RoomController Instance;
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
+    private LobbyController LobbyController { get { return LobbyController.Instance; } }
 
     [SerializeField]
-    private SlotControls controls;
+    private SlotControls SlotControls { get { return SlotControls.Instance; } }
 
     public double resultPayout;
     //public double sessionTotalBet;
@@ -30,32 +31,26 @@ public class RoomController : MonoBehaviour
     private void Awake()
     {
         // 인스턴스를 설정하고 초기 값을 설정
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
         //sessionTotalBet = 1;
         //resultPayout = 0;
     }
 
-    private async void Start()
+    private void Start()
     {
-        controls = FindObjectOfType<SlotControls>();
-        if (controls == null)
-        {
-            Debug.LogError("[RoomController] SlotControls not found in the scene.");
-        }
-
-        // 서버 연결
-        await RoomSocketManager.Instance.ConnectToServer("socket.atrocom.com", 4000);
-        //await RoomSocketManager.Instance.ConnectToServer("127.0.0.1", 4000);
-
         // 이벤트 구독
         RoomSocketManager.Instance.OnGameUserStateResponse += HandleGameUserStateUpdate;
         RoomSocketManager.Instance.OnGameStateResponsee += HandleGameStateUpdate;
         RoomSocketManager.Instance.OnBetResponse += HandleBetUpdate;
-        RoomSocketManager.Instance.onAddCoinsResponse += HandleAddCoinsResponse;
+        RoomSocketManager.Instance.OnAddCoinsResponse += HandleAddCoinsResponse;
 
-        // 룸 조인 요청
-        await HandleJoinRoom(MPlayer.Id, roomNumber);
+        // 로딩 때 받아온 데이터 설정
+        resultPayout = (double)LobbyController.gameData.CurrentPayout;
+        SetPayout(resultPayout);
+        SlotControls.SetJackPotCount(LobbyController.gameData.TotalJackpotAmount, JackPotType.Mega);
     }
 
     private void OnDestroy()
@@ -65,15 +60,6 @@ public class RoomController : MonoBehaviour
         RoomSocketManager.Instance.OnGameUserStateResponse -= HandleGameUserStateUpdate;
         RoomSocketManager.Instance.OnGameStateResponsee -= HandleGameStateUpdate;
         RoomSocketManager.Instance.OnBetResponse -= HandleBetUpdate;
-    }
-
-    private async Task HandleJoinRoom(string userId, int roomId)
-    {
-        Debug.Log($"Joining room {roomId}");
-
-        // 서버에 룸 조인 요청
-        await RoomSocketManager.Instance.WaitForConnection();
-        await RoomSocketManager.Instance.SendRoomJoinRequest(userId, roomId);
     }
 
     public IEnumerator HandleBet(string userId, int betAmount)
@@ -90,24 +76,24 @@ public class RoomController : MonoBehaviour
         }
     }
 
-    private void HandleBetUpdate(BetResponse response)
+    public void HandleBetUpdate(BetResponse response)
     {
         MPlayer.SetCoinsCount(response.UpdatedCoins);
     }
 
-    private void HandleGameUserStateUpdate(GameUserState userState)
+    public void HandleGameUserStateUpdate(GameUserState userState)
     {
         Debug.Log($"[RoomController] User joined room: UserId = {MPlayer.Id}");
         SetPayout((double)userState.CurrentPayout);
     }
 
-    private void HandleGameStateUpdate(GameState gameState)
+    public void HandleGameStateUpdate(GameState gameState)
     {
         Debug.Log($"[RoomController] Game state updated");
-        controls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
+        SlotControls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
     }
 
-    private void HandleAddCoinsResponse(AddCoinsResponse response)
+    public void HandleAddCoinsResponse(AddCoinsResponse response)
     {
         Debug.Log($"[RoomController] User coins updated: coins = {response.AddedCoinsAmount}");
         MPlayer.SetCoinsCount(response.AddedCoinsAmount);
