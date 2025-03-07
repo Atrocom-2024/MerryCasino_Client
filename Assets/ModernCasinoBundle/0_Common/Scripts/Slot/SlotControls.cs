@@ -34,15 +34,15 @@ namespace Mkey
         [Space(8)]
         [Header("Jackpot coins")]
         [Tooltip("Mini jackpot sum start value")]
-        [SerializeField]
+        //[SerializeField]
         private int miniStart = 10;
 
         [Tooltip("Maxi jackpot sum start value")]
-        [SerializeField]
+        //[SerializeField]
         private int maxiStart = 20;
 
         [Tooltip("Mega jackpot sum start value")]
-        [SerializeField]
+        //[SerializeField]
         private int megaStart = 1000;
 
         [Space(8)]
@@ -132,8 +132,6 @@ namespace Mkey
         private float oldLevelxp;
         private int levelTweenId;
         private SceneButton[] buttons;
-        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
-        private GuiController MGUI { get { return GuiController.Instance; } }
         private TweenIntValue balanceTween;
         private TweenIntValue winCoinsTween;
         private TweenIntValue infoCoinsTween;
@@ -146,7 +144,9 @@ namespace Mkey
         private string coinsFormat =  "0,0";
         private SpinButtonBehavior spinButtonBehavior;
         #endregion temp vars
-
+        public static SlotControls Instance { get; private set; }
+        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
+        private GuiController MGUI { get { return GuiController.Instance; } }
         #region references
         [SerializeField]
         private SlotController slot;
@@ -188,7 +188,7 @@ namespace Mkey
             get { return maxiStart; }
         }
 
-        public int MegaJackPotStart
+        public long MegaJackPotStart
         {
             get { return megaStart; }
         }
@@ -266,12 +266,19 @@ namespace Mkey
             get; private set;
         }
         #endregion saved properties
-        public static SlotControls Instance;
 
         #region regular
         private void Awake()
         {
-            if (Instance == null) Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
         }
         #region regular
         private IEnumerator Start()
@@ -541,6 +548,11 @@ namespace Mkey
             if (infoCoinsTween != null) infoCoinsTween.Tween(newCount, 100);
         }
         #endregion event handlers
+
+        public void SetInitJackpotCount(int jackpotAmount)
+        {
+            megaStart = jackpotAmount;
+        }
 
         #region mini jackpot
         /// <summary>

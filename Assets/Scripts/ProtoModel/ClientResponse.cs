@@ -17,4 +17,7 @@ public class ClientResponse
 
     [ProtoMember(5)]
     public AddCoinsResponse? AddCoinsResponseData { get; set; }
+
+    [ProtoMember(6)]
+    public GameSessionEndResponse? GameSessionEndData { get; set; }
 }

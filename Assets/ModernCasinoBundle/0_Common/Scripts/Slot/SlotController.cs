@@ -179,7 +179,7 @@ namespace Mkey
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
         private RoomController roomController { get { return RoomController.Instance; } }
-        private GuiController MGUI {get { return GuiController.Instance; } }
+        private GuiController MGUI { get { return GuiController.Instance; } }
         private List<List<Triple>> tripleCombos;
         private JackPotType jackPotType = JackPotType.None;
         private int jackPotWinCoins = 0;

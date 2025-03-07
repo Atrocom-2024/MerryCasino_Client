@@ -15,10 +15,11 @@ public class RoomSocketManager : MonoBehaviour
     private bool _isConnected = false;
 
     // 이벤트 정의
-    public event Action<GameUserState> OnGameUserStateResponse;
     public event Action<GameState> OnGameStateResponsee;
+    public event Action<GameUserState> OnGameUserStateResponse;
     public event Action<BetResponse> OnBetResponse;
     public event Action<AddCoinsResponse> OnAddCoinsResponse;
+    public event Action<GameSessionEndResponse> OnGameSessionEndResponse;
 
     // get/set
     public bool IsConnected { get { return _isConnected; } }
@@ -33,6 +34,7 @@ public class RoomSocketManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
@@ -64,8 +66,19 @@ public class RoomSocketManager : MonoBehaviour
         if (_isConnected)
         {
             _isConnected = false;
-            _networkStream?.Close();
-            _client?.Close();
+
+            if (_networkStream != null)
+            {
+                _networkStream.Close();
+                _networkStream.Dispose();
+                _networkStream = null;
+            }
+            if (_client != null)
+            {
+                _client.Close();
+                _client.Dispose();
+                _client = null;
+            }
 
             StopAllCoroutines(); // 모든 코루틴 중지
             Debug.Log("[socket] Disconnected from server");
@@ -75,68 +88,63 @@ public class RoomSocketManager : MonoBehaviour
     // 룸 조인 요청
     public async Task SendRoomJoinRequest(string userId, int roomId)
     {
-        if (!_isConnected)
+        await SendClientMessagesAsync("JoinRoomRequest", new JoinRoomRequest
         {
-            Debug.LogError("[socket] Not connected to server!");
-            return;
-        }
-
-        var reqeust = new ClientRequest
-        {
-            RequestType = "JoinRoomRequest",
-            JoinRoomData = new JoinRoomRequest
-            {
-                UserId = userId,
-                RoomId = roomId
-            }
-        };
-
-        Debug.Log($"[client] Sending RoomJoinReqeust for RoomId: {roomId}");
-
-        byte[] message = SerializeProtobuf(reqeust);
-        await _networkStream.WriteAsync(message, 0, message.Length);
+            UserId = userId,
+            RoomId = roomId
+        });
     }
 
     // 배팅 요청
     public async Task SendBetReqeust(string userId, int betAmount)
     {
-        if (!_isConnected) return;
-
-        var reqeust = new ClientRequest
+        await SendClientMessagesAsync("BetRequest", new BetRequest
         {
-            RequestType = "BetRequest",
-            BetData = new BetRequest
-            {
-                UserId = userId,
-                BetAmount = betAmount,
-                RoomType = 1
-            }
-        };
-
-        Debug.Log($"[socket] Sending BetRequest with BetAmount: {betAmount}");
-
-        byte[] message = SerializeProtobuf(reqeust);
-        await _networkStream.WriteAsync(message, 0, message.Length);
+            UserId = userId,
+            BetAmount = betAmount,
+            RoomType = 1
+        });
     }
 
     public async Task SendAddCoinsRequest(string userId, int coins)
     {
-        if (!_isConnected) return;
-
-        var request = new ClientRequest
+        await SendClientMessagesAsync("AddCoinsRequest", new AddCoinsRequest
         {
-            RequestType = "AddCoinsRequest",
-            AddCoinsData = new AddCoinsRequest
-            {
-                UserId = userId,
-                AddCoinsAmount = coins
-            }
-        };
+            UserId = userId,
+            AddCoinsAmount = coins
+        });
+    }
 
-        Debug.Log($"[socket] Sending AddCoinsRequest with CoinsAmount: {coins}");
+    private async Task SendClientMessagesAsync<T>(string requestType, T requestData)
+    {
+        if (!_isConnected)
+        {
+            Debug.LogError($"[socket] Cannot send {requestType}: Not connected to server!");
+            return;
+        }
+
+        var request = new ClientRequest { RequestType = requestType };
+
+        switch (requestType)
+        {
+            case "JoinRoomRequest":
+                request.JoinRoomData = requestData as JoinRoomRequest;
+                break;
+            case "BetRequest":
+                request.BetData = requestData as BetRequest;
+                break;
+            case "AddCoinsRequest":
+                request.AddCoinsData = requestData as AddCoinsRequest;
+                break;
+            default:
+                Debug.LogError($"[socket] Unknown request type: {requestType}");
+                return;
+        }
 
         byte[] message = SerializeProtobuf(request);
         await _networkStream.WriteAsync(message, 0, message.Length);
+
+        Debug.Log($"[socket] Sent {requestType}");
     }
 
     // 서버에서 오는 메세지 수신 (코루틴 버전) -> 서버에서 데이터를 받는 부분은 메인스레드에서 동작해야 함
@@ -177,6 +185,7 @@ public class RoomSocketManager : MonoBehaviour
                         case "BetResponse":
                             if (response.BetResponseData != null)
                             {
+                                Debug.Log("[socket] BetResponse received");
                                 OnBetResponse.Invoke(response.BetResponseData);
                             }
                             break;
@@ -185,6 +194,13 @@ public class RoomSocketManager : MonoBehaviour
                             {
                                 Debug.Log("[socket] AddCoinsResponse received");
                                 OnAddCoinsResponse.Invoke(response.AddCoinsResponseData);
+                            }
+                            break;
+                        case "GameSessionEndResponse":
+                            if (response.GameSessionEndData != null)
+                            {
+                                Debug.Log("[socket] GameSessionEndResponse received");
+                                OnGameSessionEndResponse.Invoke(response.GameSessionEndData);
                             }
                             break;
                         default:

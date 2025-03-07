@@ -62,7 +62,7 @@ namespace Mkey {
 
         public void OnJoinRoomButtonClick(int roomId)
         {
-            StartCoroutine(JoinRoomAndLoadScene(roomId - 2));
+            StartCoroutine(JoinRoomAndLoadScene(roomId));
         }
 
         private IEnumerator JoinRoomAndLoadScene(int roomId)
@@ -79,7 +79,7 @@ namespace Mkey {
                 yield break;
             }
 
-            Task joinRoomTask = RoomSocketManager.SendRoomJoinRequest(MPlayer.Id, roomId);
+            Task joinRoomTask = RoomSocketManager.SendRoomJoinRequest(MPlayer.Id, roomId - 2);
             yield return new WaitUntil(() => joinRoomTask.IsCompleted);
 
             SceneLoader.Instance.LoadScene(roomId);
