@@ -296,15 +296,15 @@ namespace Mkey
         //    }
         //}
 
-        private void TriggerJackpot()
-        {
-            JackPotType jackpotType = JackPotType.Mega;
-            int jackpotCoins = controls.GetJackPotCoins(jackpotType);
-            Debug.Log($"잭팟 발생!!!! {jackpotCoins}");
+        //private void TriggerJackpot()
+        //{
+        //    JackPotType jackpotType = JackPotType.Mega;
+        //    int jackpotCoins = controls.GetJackPotCoins(jackpotType);
+        //    Debug.Log($"잭팟 발생!!!! {jackpotCoins}");
 
-            // UI에 잭팟 보상 지급
-            controls.JPWinShow(jackpotCoins, jackpotType);
-        }
+        //    // UI에 잭팟 보상 지급
+        //    controls.JPWinShow(jackpotCoins, jackpotType);
+        //}
 
         /// <summary>
         /// 실제 슬롯 회전 로직을 처리
@@ -386,6 +386,7 @@ namespace Mkey
             // 슬롯 애니메이션 종료 후 결과 확인
             EndSpinEvent?.Invoke(); // 스핀 종료 이벤트 호출
             BeginWinCalcEvent?.Invoke(); // 승리 여부 계산 시작 이벤트
+
             winController.SearchWinSymbols(); // 페이라인과 일치하는 심볼이 있는지 검사 후 일치하는 심볼이 있다면 win 변수에 저장
 
             // 잭팟 관련 변수 초기화
@@ -436,7 +437,7 @@ namespace Mkey
                 int payMultiplier = winController.GetPayMultiplier();
                 winCoins *= payMultiplier;
 
-                if (useLineBetMultiplier) winCoins *= controls.LineBet;
+                if (useLineBetMultiplier) winCoins *= controls.LineBet; // 여기서 금액이 뻥튀기될 가능성이 있음
                 Debug.Log("Original wincoins: " + winCoins);
 
                 winCoins = (int)(winCoins * (1 + (roomController.resultPayout / 100.0))); // 승리했을 때 코인 값 계산

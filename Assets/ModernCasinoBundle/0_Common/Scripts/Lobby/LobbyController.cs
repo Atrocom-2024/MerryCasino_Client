@@ -6,17 +6,16 @@ using UnityEngine.UI;
 namespace Mkey {
     public class LobbyController : MonoBehaviour {
         public static LobbyController Instance { get; private set; }
+        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
+        private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
 
         #region temp vars
+        public GameData gameData = new GameData();
         private Button[] buttons;
         private string serverAddress = "socket.atrocom.com";
         private int serverPort = 4000;
         private PopUpsController loadingPopup;
         #endregion temp vars
-
-        public GameData gameData = new GameData();
-        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
-        private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
 
         #region regular
 
@@ -36,6 +35,10 @@ namespace Mkey {
         void Start()
         {
             buttons = GetComponentsInChildren<Button>();
+
+            // 기존 이벤트 제거
+            RoomSocketManager.OnGameUserStateResponse -= InitGameUserState;
+            RoomSocketManager.OnGameStateResponsee -= InitGameState;
 
             // 이벤트 구독
             RoomSocketManager.OnGameUserStateResponse += InitGameUserState;

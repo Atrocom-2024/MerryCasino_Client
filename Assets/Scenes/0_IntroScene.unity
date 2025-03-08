@@ -4273,7 +4273,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1080276814}
   - component: {fileID: 1080276813}
-  - component: {fileID: 1080276812}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4281,18 +4280,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1080276812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080276811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064cc09f32b3db44c947fa14fe0810c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1080276813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4378,7 +4365,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1103182090}
   - component: {fileID: 1103182089}
-  - component: {fileID: 1103182088}
   m_Layer: 0
   m_Name: GooglePlayGamesLogin
   m_TagString: Untagged
@@ -4386,18 +4372,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1103182088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1103182087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064cc09f32b3db44c947fa14fe0810c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1103182089
 MonoBehaviour:
   m_ObjectHideFlags: 0

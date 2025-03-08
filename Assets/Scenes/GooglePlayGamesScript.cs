@@ -98,6 +98,7 @@ public class GooglePlayGamesScript : MonoBehaviour
                 var userInfo = JsonConvert.DeserializeObject<LoginResponseDataType>(jsonData);
                 MPlayer.Id = userInfo.userId;
                 MPlayer.Coins = userInfo.coins;
+                MPlayer.SetMinWinCoins((int)(MPlayer.Coins * 0.01M));
                 LoadLobby();
             },
             onError: (request) =>
@@ -126,6 +127,7 @@ public class GooglePlayGamesScript : MonoBehaviour
                 var userInfo = JsonConvert.DeserializeObject<LoginResponseDataType>(jsonData);
                 MPlayer.Id = userInfo.userId;
                 MPlayer.Coins = userInfo.coins;
+                MPlayer.SetMinWinCoins((int)(MPlayer.Coins * 0.01M));
                 LoadLobby();
             },
             onError: (request) =>

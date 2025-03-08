@@ -8,13 +8,15 @@ namespace Mkey
 {
     public class SlotPlayer : MonoBehaviour
     {
+        public static SlotPlayer Instance { get; private set; }
+
         #region properties
         public string Id { get; set; } // 플레이어 ID
         public string Username { get; set; } // 플레이어 닉네임
         public long Coins { get; set; } // 코인 수
         public int Level { get; set; } // 레벨
         public int Experience { get; set; } // 경험치
-        public int MinWin { get { return minWin; } }
+        public int MinWin { get { return minWin; } } // 게임 내에서 빅윈의 기준을 정하기 위한 변수
         public bool UseBigWinCongratulation { get { return useBigWinCongratulation; } }
         #endregion
 
@@ -67,29 +69,32 @@ namespace Mkey
         }
         #endregion saved properties
 
-        public static SlotPlayer Instance;
         private int minWin = 5000;
         private bool useBigWinCongratulation = true;
 
         #region regular
         private void Awake()
         {
-            if (Instance == null) Instance = this;
-            else Destroy(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
         }
         #endregion regular
 
         /// <summary>
-        /// 서버에서 받아온 데이터를 유저 속성에 저장
+        /// minWin 값을 설정하는 메서드
         /// </summary>
-        /// <param name="data"></param>
-        private void SetUserData(UserData data)
+        /// <param name="count"></param>
+        public void SetMinWinCoins(int count)
         {
-            Id = data.Id;
-            Username = data.Username;
-            Coins = data.Coins;
-            Level = data.Level;
-            Experience = data.Experience;
+            minWin = count;
         }
 
         #region coins

@@ -50,12 +50,14 @@ namespace Mkey
 
 #if ((UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID) && ADDIAP)
     // Deriving the Purchaser class from IStoreListener enables it to receive messages from Unity Purchasing.
-    public class Purchaser : MonoBehaviour, IDetailedStoreListener
+    public class Purchaser: MonoBehaviour, IDetailedStoreListener
 #else
     public class Purchaser : MonoBehaviour  // 인앱 결제와 관련된 주요 로직을 담당하는 클래스
 #endif
 
     {
+        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
+
         [Header("Consumables: ", order = 1)]
         public ShopThingData[] consumable; // 소비성 제품: 구매 후 사용할 수 있는 제품(게임 내 코인, 아이템 등)
 
@@ -243,13 +245,13 @@ namespace Mkey
                     // 요청 URL 설정
                     string requestUrl = $"{paymentsApiUrl}/verify";
 
-                    StartCoroutine(APIManager.Instance.ProcessGooglePayment(requestUrl, SlotPlayer.Instance.Id, receipt,
+                    StartCoroutine(APIManager.Instance.ProcessGooglePayment(requestUrl, MPlayer.Id, receipt,
                         onSuccess: (processedResultCoins) =>
                         {
                             Debug.Log("Purchase validated successfully on the server.");
                             product.PurchaseEvent.Invoke();
                             GoodPurchaseEvent.Invoke(product.kProductID, product.name);
-                            SlotPlayer.Instance.SetCoinsCount(processedResultCoins);
+                            MPlayer.SetCoinsCount(processedResultCoins);
                         },
                         onFailure: (errorMessage) =>
                         {

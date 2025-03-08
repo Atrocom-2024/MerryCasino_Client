@@ -73,12 +73,11 @@ public class RoomController : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnsubscribeFromEvents(); // 이벤트 구독 해제
-
         // 룸 퇴장 시 WebSocket 연결 해제
         if (RoomSocketManager != null)
         {
-            RoomSocketManager.Disconnect();
+            UnsubscribeFromEvents(); // 이벤트 구독 해제
+            RoomSocketManager.Disconnect(); // 소켓 연결 해제
         }
 
         StopAllCoroutines();
@@ -89,18 +88,19 @@ public class RoomController : MonoBehaviour
     /// </summary>
     private void SubscribeToEvents()
     {
-        if (RoomSocketManager != null)
-        {
-            RoomSocketManager.OnGameStateResponsee += HandleGameStateUpdate;
-            RoomSocketManager.OnGameUserStateResponse += HandleGameUserStateUpdate;
-            RoomSocketManager.OnBetResponse += HandleBetUpdate;
-            RoomSocketManager.OnAddCoinsResponse += HandleAddCoins;
-            RoomSocketManager.OnGameSessionEndResponse += HandleGameSessionEnd;
-        }
-        else
+        if (RoomSocketManager == null)
         {
             Debug.LogError("[RoomController] RoomSocketManager.Instance is null!");
+            return;
         }
+
+        UnsubscribeFromEvents(); // 이벤트 구독 해제 후 재구독
+
+        RoomSocketManager.OnGameStateResponsee += HandleGameStateUpdate;
+        RoomSocketManager.OnGameUserStateResponse += HandleGameUserStateUpdate;
+        RoomSocketManager.OnBetResponse += HandleBetUpdate;
+        RoomSocketManager.OnAddCoinsResponse += HandleAddCoins;
+        RoomSocketManager.OnGameSessionEndResponse += HandleGameSessionEnd;
     }
 
     /// <summary>
@@ -109,7 +109,13 @@ public class RoomController : MonoBehaviour
     private void UnsubscribeFromEvents()
     {
         if (RoomSocketManager == null)
+        {
+            Debug.LogError("[RoomController] RoomSocketManager.Instance is null!");
             return;
+        }
+
+        RoomSocketManager.OnGameUserStateResponse -= LobbyController.InitGameUserState;
+        RoomSocketManager.OnGameStateResponsee -= LobbyController.InitGameState;
 
         RoomSocketManager.OnGameStateResponsee -= HandleGameStateUpdate;
         RoomSocketManager.OnGameUserStateResponse -= HandleGameUserStateUpdate;
@@ -132,6 +138,7 @@ public class RoomController : MonoBehaviour
         }
     }
 
+    #region event handler
     public void HandleBetUpdate(BetResponse response)
     {
         MPlayer.SetCoinsCount(response.UpdatedCoins);
@@ -139,29 +146,33 @@ public class RoomController : MonoBehaviour
 
     public void HandleGameUserStateUpdate(GameUserState userState)
     {
-        Debug.Log($"[RoomController] User joined room: UserId = {MPlayer.Id}");
+        Debug.Log($"[RoomController] GameUserState updated: payout = {userState.CurrentPayout}");
+
         SetPayout((double)userState.CurrentPayout);
     }
 
     public void HandleGameStateUpdate(GameState gameState)
     {
-        Debug.Log($"[RoomController] Game state updated");
+        Debug.Log($"[RoomController] GameState updated");
+
         controls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
     }
 
     public void HandleAddCoins(AddCoinsResponse response)
     {
         Debug.Log($"[RoomController] User coins updated: coins = {response.AddedCoinsAmount}");
+
         MPlayer.SetCoinsCount(response.AddedCoinsAmount);
     }
 
     public void HandleGameSessionEnd(GameSessionEndResponse response)
     {
         Debug.Log($"[RoomController] Game session ended: reward coins = {response.RewardCoins}");
+
         MPlayer.SetCoinsCount(response.RewardedCoinsAmount);
-        MGUI.ShowMessage(null, $"Game Session has ended.\nRewarded coins: {response.RewardCoins}", 5f, null);
-        //returnPopOff();
+        MGUI.ShowMessage(null, $"Game Session has ended.\nThe next session will begin soon.\nRewarded coins: {response.RewardCoins}", 5f, null);
     }
+    #endregion event handler
 
     public void SetPayout(double payout)
     {

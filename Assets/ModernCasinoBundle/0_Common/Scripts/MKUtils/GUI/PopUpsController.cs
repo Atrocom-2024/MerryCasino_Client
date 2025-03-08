@@ -239,6 +239,12 @@ namespace Mkey
 
         private bool IsSceneObject()
         {
+            if (this == null)
+            {
+                Debug.LogWarning("IsSceneObject() - this is null!");
+                return false;
+            }
+
             bool res = false;
 
 #if UNITY_EDITOR

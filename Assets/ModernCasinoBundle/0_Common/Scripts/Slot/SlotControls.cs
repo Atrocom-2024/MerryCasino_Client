@@ -12,6 +12,10 @@ namespace Mkey
 {
     public class SlotControls : MonoBehaviour
     {
+        public static SlotControls Instance { get; private set; }
+        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
+        private GuiController MGUI { get { return GuiController.Instance; } }
+
         #region main references
         [SerializeField]
         private WarningMessController megaJackPotWinPuPrefab;
@@ -106,7 +110,6 @@ namespace Mkey
         private TextMesh MiniJackpotAmountTextMesh;
         [SerializeField]
         private TextMesh MaxiJackpotAmountTextMesh;
-
         #endregion output
 
         [SerializeField]
@@ -144,9 +147,6 @@ namespace Mkey
         private string coinsFormat =  "0,0";
         private SpinButtonBehavior spinButtonBehavior;
         #endregion temp vars
-        public static SlotControls Instance { get; private set; }
-        private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
-        private GuiController MGUI { get { return GuiController.Instance; } }
         #region references
         [SerializeField]
         private SlotController slot;
