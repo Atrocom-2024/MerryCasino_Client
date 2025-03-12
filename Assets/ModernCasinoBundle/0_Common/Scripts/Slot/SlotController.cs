@@ -125,7 +125,7 @@ namespace Mkey
         public bool useLineBetMultiplier = true;
         [SerializeField]
         [Tooltip("Multiply win spins by bet multiplier")]
-        public bool useLineBetFreeSpinMultiplier = true;
+        public bool useLineBetFreeSpinMultiplier = false;
         [SerializeField]
         [Tooltip("Debug to console predicted symbols")]
         private bool debugPredictSymbols = false;
@@ -470,13 +470,16 @@ namespace Mkey
 
                 // 프리 스핀 처리
                 int winSpins = winController.GetWinSpins();
+                int winLinesCount = winController.GetWinLinesCount();
                 int freeSpinsMultiplier = winController.GetFreeSpinsMultiplier();
                 winSpins *= freeSpinsMultiplier;
-                int winLinesCount = winController.GetWinLinesCount();
+
                 if (useLineBetFreeSpinMultiplier) winSpins *= controls.LineBet;
                 if (winSpins > 0) MSound.PlayClip((winCoins > 0 || jackPotWinCoins > 0) ? 1.5f : 0, winFreeSpinSound);
+                
                 controls.AddFreeSpins(winSpins);
                 playFreeSpins = (controls.AutoPlayFreeSpins && controls.HasFreeSpin);
+                
                 if (isFreeSpin && !playFreeSpins) EndFreeGamesEvent?.Invoke();
 
                 //3d0 ----- invoke scatter win event -----------

@@ -170,7 +170,7 @@ public class RoomController : MonoBehaviour
         Debug.Log($"[RoomController] Game session ended: reward coins = {response.RewardCoins}");
 
         MPlayer.SetCoinsCount(response.RewardedCoinsAmount);
-        MGUI.ShowMessage(null, $"Game Session has ended.\nThe next session will begin soon.\nRewarded coins: {response.RewardCoins}", 5f, null);
+        MGUI.ShowMessage(null, $"Game Session has ended.\n\nThe next session will begin soon.\n\nRewarded coins: {response.RewardCoins}", 5f, null);
     }
     #endregion event handler
 
