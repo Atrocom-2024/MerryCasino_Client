@@ -39,12 +39,12 @@ public class RoomSocketManager : MonoBehaviour
     }
 
     // 서버 연결 초기화
-    public async Task ConnectToServer(string ipAddress, int port)
+    public async Task ConnectToServer(string serverAddress, int port)
     {
         try
         {
             _client = new TcpClient();
-            await _client.ConnectAsync(ipAddress, port);
+            await _client.ConnectAsync(serverAddress, port);
             _networkStream = _client.GetStream();
             _isConnected = true;
 

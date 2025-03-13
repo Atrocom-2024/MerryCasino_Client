@@ -93,11 +93,11 @@ public class GooglePlayGamesScript : MonoBehaviour
             onSuccess: (jsonData) =>
             {
                 // 응답받은 JSON 데이터 파싱 후 처리
-                Debug.Log("Login successful. User ID: " + Social.localUser.id);
+                Debug.Log("Login successful. User ID: " + userInfo.id);
 
-                var userInfo = JsonConvert.DeserializeObject<LoginResponseDataType>(jsonData);
-                MPlayer.Id = userInfo.userId;
-                MPlayer.Coins = userInfo.coins;
+                var responseData = JsonConvert.DeserializeObject<LoginResponseDataType>(jsonData);
+                MPlayer.Id = responseData.userId;
+                MPlayer.Coins = responseData.coins;
                 MPlayer.SetMinWinCoins((int)(MPlayer.Coins * 0.01M));
                 LoadLobby();
             },

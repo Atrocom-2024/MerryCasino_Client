@@ -134,7 +134,7 @@ namespace Mkey
         // 팟 로직(미니, 맥시, 메가) 구현.
         #region jack pots
         [Space(8)]
-        public int jp_symbol_id=-1;
+        public int jp_symbol_id = -1;
         public bool useMiniJacPot = false;
         [Tooltip("Count identical symbols on screen")]
         public int miniJackPotCount = 7;
@@ -216,7 +216,7 @@ namespace Mkey
         void Validate()
         {
             jackPotIncValue = 0; // jackPotIncValue 값을 항상 0으로 초기화
-            mainRotateTime = (float)Mathf.Clamp(mainRotateTime, 0, 0.7f); // mainRotateTime 값을 0에서 0.7f 사이로 강제 제한
+            mainRotateTime = (float)Mathf.Clamp(mainRotateTime, 0, 1.0f); // mainRotateTime 값을 0에서 0.7f 사이로 강제 제한
             mainRotateTimeRandomize = (int)Mathf.Clamp(mainRotateTimeRandomize, 0, 20); // mainRotateTimeRandomize 값을 0에서 20 사이의 정수로 강제 제한
 
             inRotTime = Mathf.Clamp(inRotTime, 0, 1f); // inRotTime 값을 0에서 1f 사이로 제한합니다.
@@ -597,9 +597,9 @@ namespace Mkey
         private void RotateSlots(Action rotCallBack)
         {
             ParallelTween pT = new ParallelTween();
-            int [] rands = rng.GetRandSymbols(); //next symbols for reel (bottom raycaster)
+            int [] rands = rng.GetRandSymbols(); // 각 릴에 대한 다음 정지 위치(심볼 인덱스)를 결정
 
-            //hold feature
+            // 홀드 기능
             HoldFeature hold = controls.Hold;
             bool[] holdReels = null;
             if (controls.UseHold && hold && hold.Length == rands.Length)
@@ -611,6 +611,7 @@ namespace Mkey
                 }
             }
 
+            // 디버그 모드: 다음 심볼 예측
             #if UNITY_EDITOR
             #region prediction visible symbols on reels
             if (debugPredictSymbols)

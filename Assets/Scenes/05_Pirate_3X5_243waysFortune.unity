@@ -2402,15 +2402,15 @@ MonoBehaviour:
   - {fileID: 735934459}
   bottomJumpTarget: {fileID: 1595383262}
   topJumpTarget: {fileID: 1384148026}
-  inRotType: 0
-  inRotTime: 0.1
+  inRotType: 5
+  inRotTime: 0.35
   inRotAngle: 7
-  outRotType: 0
-  outRotTime: 0.1
+  outRotType: 5
+  outRotTime: 0.4
   outRotAngle: 7
-  mainRotateType: 0
-  mainRotateTime: 0.7
-  mainRotateTimeRandomize: 10
+  mainRotateType: 5
+  mainRotateTime: 1
+  mainRotateTimeRandomize: 5
   winLineFlashing: 1
   winSymbolParticles: 1
   RandomGenerator: 1
@@ -3256,7 +3256,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2678423, y: 1.2678423, z: 1.2678423}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1905386936}
@@ -3282,7 +3282,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2523117
+  currRatio: 1.6862303
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -6804,7 +6804,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 9.31, y: 1.69, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2678423, y: 1.2678423, z: 1.2678423}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -6828,7 +6828,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2523117
+  currRatio: 1.6862303
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1349173898
@@ -8205,7 +8205,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2523117
+  currRatio: 1.6862303
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -9313,7 +9313,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.06, y: 1.68, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2678423, y: 1.2678423, z: 1.2678423}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -9337,7 +9337,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2523117
+  currRatio: 1.6862303
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1905386938

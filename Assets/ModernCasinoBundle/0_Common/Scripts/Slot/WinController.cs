@@ -427,6 +427,7 @@ namespace Mkey
             }
 
             jackPotType = GetJackPotWin();
+
             return (hasLineWin || hasScatterWin || jackPotType != JackPotType.None);
         }
 
@@ -548,7 +549,6 @@ namespace Mkey
             else
             {
                 int id = jp_symb_id;
-                Debug.Log($"jp_symb_id: {jp_symb_id}");
 
                 if (sD.ContainsKey(id))
                 {

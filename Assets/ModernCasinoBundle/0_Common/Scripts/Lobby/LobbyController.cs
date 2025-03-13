@@ -9,11 +9,14 @@ namespace Mkey {
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
         private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
 
+        #region const vars
+        private const string SERVER_ADDRESS = "socket.atrocom.com";
+        private const int SERVER_PORT = 4000;
+        #endregion
+
         #region temp vars
         public GameData gameData = new GameData();
         private Button[] buttons;
-        private string serverAddress = "socket.atrocom.com";
-        private int serverPort = 4000;
         private PopUpsController loadingPopup;
         #endregion temp vars
 
@@ -72,7 +75,7 @@ namespace Mkey {
         {
             ShowLoadingPopup();
 
-            var connectSocketTask = RoomSocketManager.ConnectToServer(serverAddress, serverPort);
+            var connectSocketTask = RoomSocketManager.ConnectToServer(SERVER_ADDRESS, SERVER_PORT);
             yield return new WaitUntil(() => connectSocketTask.IsCompleted);
 
             if (!RoomSocketManager.Instance.IsConnected)
@@ -85,7 +88,7 @@ namespace Mkey {
             Task joinRoomTask = RoomSocketManager.SendRoomJoinRequest(MPlayer.Id, roomId - 2);
             yield return new WaitUntil(() => joinRoomTask.IsCompleted);
 
-            SceneLoader.Instance.LoadScene(roomId);
+            SceneLoad(roomId);
         }
 
         private void ShowLoadingPopup()

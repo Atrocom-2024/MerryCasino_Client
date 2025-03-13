@@ -237,6 +237,10 @@ namespace Mkey
                                         int nextOrderPosition,  Action rotCallBack)
 
         {
+#if UNITY_ANDROID || UNITY_IOS
+            mainRotTime *= 0.8f;  // 모바일에서는 애니메이션 속도를 20% 빠르게
+#endif
+
             // 시뮬레이션 모드면 지정된 위치 사용, 아니면 전달된 위치 사용
             NextOrderPosition = (!simulate) ? nextOrderPosition : simPos;
 
@@ -304,10 +308,10 @@ namespace Mkey
                                       // check rotation angle 
                                       TilesGroup.Rotate(val - oldVal, 0, 0);
                                       oldVal = val;
-                                      
-                                      // 특정 범위 내에서 심볼 테이프 래핑 실행
-                                      if(val < -inRotAngle && val>= -(angleX + inRotAngle)) WrapSymbolTape(val + inRotAngle);
 
+                                      // 특정 범위 내에서 심볼 테이프 래핑 실행
+                                      if (val < -inRotAngle && val >= -(angleX + inRotAngle))
+                                          WrapSymbolTape(val + inRotAngle);
                                   })
                                   .AddCompleteCallBack(() =>
                                   {
