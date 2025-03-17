@@ -96,11 +96,12 @@ public class RoomController : MonoBehaviour
 
         UnsubscribeFromEvents(); // 이벤트 구독 해제 후 재구독
 
-        RoomSocketManager.OnGameStateResponsee += HandleGameStateUpdate;
-        RoomSocketManager.OnGameUserStateResponse += HandleGameUserStateUpdate;
         RoomSocketManager.OnBetResponse += HandleBetUpdate;
         RoomSocketManager.OnAddCoinsResponse += HandleAddCoins;
-        RoomSocketManager.OnGameSessionEndResponse += HandleGameSessionEnd;
+        RoomSocketManager.OnJackpotWinResponse += HandleJackpotWinUpdate;
+        RoomSocketManager.OnGameState += HandleGameStateUpdate;
+        RoomSocketManager.OnGameUserState += HandleGameUserStateUpdate;
+        RoomSocketManager.OnGameSessionEnd += HandleGameSessionEnd;
     }
 
     /// <summary>
@@ -114,25 +115,36 @@ public class RoomController : MonoBehaviour
             return;
         }
 
-        RoomSocketManager.OnGameUserStateResponse -= LobbyController.InitGameUserState;
-        RoomSocketManager.OnGameStateResponsee -= LobbyController.InitGameState;
+        RoomSocketManager.OnGameUserState -= LobbyController.InitGameUserState;
+        RoomSocketManager.OnGameState -= LobbyController.InitGameState;
 
-        RoomSocketManager.OnGameStateResponsee -= HandleGameStateUpdate;
-        RoomSocketManager.OnGameUserStateResponse -= HandleGameUserStateUpdate;
         RoomSocketManager.OnBetResponse -= HandleBetUpdate;
         RoomSocketManager.OnAddCoinsResponse -= HandleAddCoins;
-        RoomSocketManager.OnGameSessionEndResponse -= HandleGameSessionEnd;
+        RoomSocketManager.OnJackpotWinResponse -= HandleJackpotWinUpdate;
+        RoomSocketManager.OnGameState -= HandleGameStateUpdate;
+        RoomSocketManager.OnGameUserState -= HandleGameUserStateUpdate;
+        RoomSocketManager.OnGameSessionEnd -= HandleGameSessionEnd;
     }
 
-    public IEnumerator HandleBet(string userId, int betAmount)
+    public IEnumerator HandleBetting(string userId, int betAmount)
     {
-        Debug.Log($"Betting: {betAmount}");
-
         // 배팅 요청 비동기 작업 시작
-        var sendBetTask = RoomSocketManager.Instance.SendBetReqeust(userId, betAmount);
+        var sendBetTask = RoomSocketManager.SendBetReqeust(userId, betAmount);
 
         // Task가 완료될 때까지 대기
         while (!sendBetTask.IsCompleted)
+        {
+            yield return null; // 다음 프레임까지 대기
+        }
+    }
+
+    public IEnumerator HandleJackpotWin(JackPotType jackpotType, int jackpotCoins)
+    {
+        // 잭팟 지급 요청 비동기 작업 시작
+        var sendJackpotWinTask = RoomSocketManager.SendJackpotWinRequest(jackpotType.ToString(), jackpotCoins);
+
+        // Task가 완료될 때까지 대기
+        while (!sendJackpotWinTask.IsCompleted)
         {
             yield return null; // 다음 프레임까지 대기
         }
@@ -144,31 +156,29 @@ public class RoomController : MonoBehaviour
         MPlayer.SetCoinsCount(response.UpdatedCoins);
     }
 
+    public void HandleAddCoins(AddCoinsResponse response)
+    {
+        MPlayer.SetCoinsCount(response.AddedCoinsAmount);
+    }
+
+    public void HandleJackpotWinUpdate(JackpotWinResponse response)
+    {
+        MPlayer.SetCoinsCount(response.AddedCoinsAmount);
+    }
+
     public void HandleGameUserStateUpdate(GameUserState userState)
     {
-        Debug.Log($"[RoomController] GameUserState updated: payout = {userState.CurrentPayout}");
-
         SetPayout((double)userState.CurrentPayout);
     }
 
     public void HandleGameStateUpdate(GameState gameState)
     {
-        Debug.Log($"[RoomController] GameState updated");
-
+        Debug.Log($"잭팟 금액!!!!!!!!! {gameState.TotalJackpotAmount}");
         controls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
     }
 
-    public void HandleAddCoins(AddCoinsResponse response)
+    public void HandleGameSessionEnd(GameSessionEnd response)
     {
-        Debug.Log($"[RoomController] User coins updated: coins = {response.AddedCoinsAmount}");
-
-        MPlayer.SetCoinsCount(response.AddedCoinsAmount);
-    }
-
-    public void HandleGameSessionEnd(GameSessionEndResponse response)
-    {
-        Debug.Log($"[RoomController] Game session ended: reward coins = {response.RewardCoins}");
-
         MPlayer.SetCoinsCount(response.RewardedCoinsAmount);
         MGUI.ShowMessage(null, $"Game Session has ended.\n\nThe next session will begin soon.\n\nRewarded coins: {response.RewardCoins}", 5f, null);
     }

@@ -767,7 +767,7 @@ namespace Mkey
         {
             if (MPlayer.Coins > TotalBet)
             {
-                StartCoroutine(RoomController.Instance.HandleBet(MPlayer.Id, TotalBet));
+                StartCoroutine(RoomController.Instance.HandleBetting(MPlayer.Id, TotalBet));
                 return true;
             }
             else

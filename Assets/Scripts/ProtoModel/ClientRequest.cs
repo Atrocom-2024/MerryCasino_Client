@@ -4,7 +4,7 @@ using ProtoBuf;
 public class ClientRequest
 {
     [ProtoMember(1)]
-    public string RequestType { get; set; } = string.Empty; // JoinRoomRequest, BetRequest, AddCoinsRequest
+    public string RequestType { get; set; } = string.Empty; // BetRequest, JoinRoomRequest, AddCoinsRequest, JackpotWinRequest
 
     [ProtoMember(2)]
     public JoinRoomRequest? JoinRoomData { get; set; }
@@ -14,4 +14,7 @@ public class ClientRequest
 
     [ProtoMember(4)]
     public AddCoinsRequest? AddCoinsData { get; set; }
+
+    [ProtoMember(5)]
+    public JackpotWinRequest? JackpotWinData { get; set; }
 }

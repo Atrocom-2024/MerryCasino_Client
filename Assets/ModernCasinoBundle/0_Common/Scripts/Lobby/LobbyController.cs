@@ -10,6 +10,8 @@ namespace Mkey {
         private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
 
         #region const vars
+        //private const string SERVER_ADDRESS = "127.0.0.1";
+        //private const int SERVER_PORT = 4000;
         private const string SERVER_ADDRESS = "socket.atrocom.com";
         private const int SERVER_PORT = 4000;
         #endregion
@@ -40,12 +42,12 @@ namespace Mkey {
             buttons = GetComponentsInChildren<Button>();
 
             // 기존 이벤트 제거
-            RoomSocketManager.OnGameUserStateResponse -= InitGameUserState;
-            RoomSocketManager.OnGameStateResponsee -= InitGameState;
+            RoomSocketManager.OnGameUserState -= InitGameUserState;
+            RoomSocketManager.OnGameState -= InitGameState;
 
             // 이벤트 구독
-            RoomSocketManager.OnGameUserStateResponse += InitGameUserState;
-            RoomSocketManager.OnGameStateResponsee += InitGameState;
+            RoomSocketManager.OnGameUserState += InitGameUserState;
+            RoomSocketManager.OnGameState += InitGameState;
         }
         #endregion regular
 

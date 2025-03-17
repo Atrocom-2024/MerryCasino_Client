@@ -178,7 +178,7 @@ namespace Mkey
 
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
-        private RoomController roomController { get { return RoomController.Instance; } }
+        private RoomController RoomController { get { return RoomController.Instance; } }
         private GuiController MGUI { get { return GuiController.Instance; } }
         private List<List<Triple>> tripleCombos;
         private JackPotType jackPotType = JackPotType.None;
@@ -262,14 +262,17 @@ namespace Mkey
 
             CreateFullPaytable();
             rng = new RNG(RNGType.Unity, reelsData);
+
+            rng.Update();
+
             SetInputActivity(true);
             CurrentSlot = this;
         }
 
-        void Update()
-        {
-            rng.Update();
-        }
+        //void Update()
+        //{
+        //    rng.Update();
+        //}
         #endregion regular
 
         /// <summary>
@@ -382,7 +385,8 @@ namespace Mkey
             bool fullRotated = false;
             RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
             while (!fullRotated) yield return wfs0_2;  // 슬롯 회전 완료 대기
-            
+            rng.Update(); // 다음 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
+
             // 슬롯 애니메이션 종료 후 결과 확인
             EndSpinEvent?.Invoke(); // 스핀 종료 이벤트 호출
             BeginWinCalcEvent?.Invoke(); // 승리 여부 계산 시작 이벤트
@@ -415,7 +419,8 @@ namespace Mkey
                 if (jackPotType != JackPotType.None && jackPotWinCoins > 0)
                 {
                     MPlayer.SetWinCoinsCount(jackPotWinCoins);
-                    MPlayer.AddCoins(jackPotWinCoins);
+                    //MPlayer.AddCoins(jackPotWinCoins);
+                    StartCoroutine(RoomController.HandleJackpotWin(jackPotType, jackPotWinCoins));
 
                     if (controls.HasFreeSpin || controls.Auto)
                     {
@@ -440,7 +445,7 @@ namespace Mkey
                 if (useLineBetMultiplier) winCoins *= controls.LineBet; // 여기서 금액이 뻥튀기될 가능성이 있음
                 Debug.Log("Original wincoins: " + winCoins);
 
-                winCoins = (int)(winCoins * (1 + (roomController.resultPayout / 100.0))); // 승리했을 때 코인 값 계산
+                winCoins = (int)(winCoins * (1 + (RoomController.resultPayout / 100.0))); // 승리했을 때 코인 값 계산
                 Debug.Log("plus wincoins: " + winCoins);
 
                 MPlayer.SetWinCoinsCount(jackPotWinCoins + winCoins);
@@ -607,7 +612,7 @@ namespace Mkey
                 holdReels = hold.GetHoldReels();
                 for (int i = 0; i < rands.Length; i++)
                 {
-                    rands[i] = (holdReels[i]) ? slotGroupsBeh[i].CurrOrderPosition : rands[i]; // hold position
+                    rands[i] = holdReels[i] ? slotGroupsBeh[i].CurrOrderPosition : rands[i]; // hold position
                 }
             }
 
@@ -1072,6 +1077,7 @@ namespace Mkey
 
         public void Update()
         {
+            Debug.Log("업데이트!!!!");
             UpdateRNGAction();
         }
 
@@ -1085,6 +1091,7 @@ namespace Mkey
         {
             for (int i = 0; i < randSymb.Length; i++)
             {
+                Debug.Log($"줄 {i} 길이 : {reelsData[i].Length}");
                 rand = UnityEngine.Random.Range(0, reelsData[i].Length);
                 randSymb[i] = rand;
             }

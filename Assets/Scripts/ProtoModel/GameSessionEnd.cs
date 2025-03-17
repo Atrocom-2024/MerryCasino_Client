@@ -1,7 +1,7 @@
 using ProtoBuf;
 
 [ProtoContract]
-public class GameSessionEndResponse
+public class GameSessionEnd
 {
     [ProtoMember(1)]
     public long RewardedCoinsAmount { get; set; }

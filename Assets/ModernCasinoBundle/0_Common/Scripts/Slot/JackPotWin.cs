@@ -208,7 +208,7 @@ namespace Mkey
                 {
                     for (int i = 0; i < rend.Count; i++)
                     {
-                        if (rend[i] != null)
+                        if (rend[i] == null)
                             continue;
 
                         float k = 0.5f * (Mathf.Cos(val) + 1f);

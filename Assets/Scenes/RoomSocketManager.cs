@@ -1,3 +1,4 @@
+using Mkey;
 using ProtoBuf;
 using System;
 using System.Collections;
@@ -15,11 +16,12 @@ public class RoomSocketManager : MonoBehaviour
     private bool _isConnected = false;
 
     // 이벤트 정의
-    public event Action<GameState> OnGameStateResponsee;
-    public event Action<GameUserState> OnGameUserStateResponse;
     public event Action<BetResponse> OnBetResponse;
     public event Action<AddCoinsResponse> OnAddCoinsResponse;
-    public event Action<GameSessionEndResponse> OnGameSessionEndResponse;
+    public event Action<JackpotWinResponse> OnJackpotWinResponse;
+    public event Action<GameState> OnGameState;
+    public event Action<GameUserState> OnGameUserState;
+    public event Action<GameSessionEnd> OnGameSessionEnd;
 
     // get/set
     public bool IsConnected { get { return _isConnected; } }
@@ -115,6 +117,15 @@ public class RoomSocketManager : MonoBehaviour
         });
     }
 
+    public async Task SendJackpotWinRequest(string jackpotType, int jackpotCoins)
+    {
+        await SendClientMessagesAsync("JackpotWinRequest", new JackpotWinRequest
+        {
+            JackpotType = jackpotType,
+            JackpotWinCoins = jackpotCoins
+        });
+    }
+
     private async Task SendClientMessagesAsync<T>(string requestType, T requestData)
     {
         if (!_isConnected)
@@ -136,6 +147,9 @@ public class RoomSocketManager : MonoBehaviour
             case "AddCoinsRequest":
                 request.AddCoinsData = requestData as AddCoinsRequest;
                 break;
+            case "JackpotWinRequest":
+                request.JackpotWinData = requestData as JackpotWinRequest;
+                break;
             default:
                 Debug.LogError($"[socket] Unknown request type: {requestType}");
                 return;
@@ -152,6 +166,12 @@ public class RoomSocketManager : MonoBehaviour
     {
         while (_isConnected)
         {
+            // _client 또는 _networkStream이 null이면 종료
+            if (_client == null || _networkStream == null)
+            {
+                Debug.LogWarning("[socket] Network stream is null. Stopping ReceiveServerMessagesCoroutine.");
+                yield break; // 코루틴 종료
+            }
             if (_networkStream.DataAvailable)
             {
                 ClientResponse response = null;
@@ -168,20 +188,6 @@ public class RoomSocketManager : MonoBehaviour
                 {
                     switch (response.ResponseType)
                     {
-                        case "GameState":
-                            if (response.GameState != null)
-                            {
-                                Debug.Log($"[socket] GameState received");
-                                OnGameStateResponsee.Invoke(response.GameState);
-                            }
-                            break;
-                        case "GameUserState":
-                            if (response.GameUserState != null)
-                            {
-                                Debug.Log("[socket] GameUserState received");
-                                OnGameUserStateResponse.Invoke(response.GameUserState);
-                            }
-                            break;
                         case "BetResponse":
                             if (response.BetResponseData != null)
                             {
@@ -196,11 +202,32 @@ public class RoomSocketManager : MonoBehaviour
                                 OnAddCoinsResponse.Invoke(response.AddCoinsResponseData);
                             }
                             break;
-                        case "GameSessionEndResponse":
+                        case "JackpotWinResponse":
+                            if (response.JackpotWinResponseData != null)
+                            {
+                                Debug.Log("[socket] JackpotWinResponse received");
+                                OnJackpotWinResponse.Invoke(response.JackpotWinResponseData);
+                            }
+                            break;
+                        case "GameState":
+                            if (response.GameState != null)
+                            {
+                                Debug.Log($"[socket] GameState received");
+                                OnGameState.Invoke(response.GameState);
+                            }
+                            break;
+                        case "GameUserState":
+                            if (response.GameUserState != null)
+                            {
+                                Debug.Log("[socket] GameUserState received");
+                                OnGameUserState.Invoke(response.GameUserState);
+                            }
+                            break;
+                        case "GameSessionEnd":
                             if (response.GameSessionEndData != null)
                             {
                                 Debug.Log("[socket] GameSessionEndResponse received");
-                                OnGameSessionEndResponse.Invoke(response.GameSessionEndData);
+                                OnGameSessionEnd.Invoke(response.GameSessionEndData);
                             }
                             break;
                         default:
