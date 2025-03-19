@@ -449,12 +449,28 @@ namespace Mkey
 
         public void LineBetPlus_Click()
         {
-            AddLineBet(1* betLineNum);
+            if (LineBet == 1 && betLineNum != 1)
+            {
+                SetLineBet(betLineNum); // 처음 증가 시 5로 설정
+            }
+            else
+            {
+                AddLineBet(1 * betLineNum); // 이후부터는 5씩 증가
+            }
+            //AddLineBet(1 * betLineNum);
         }
 
         public void LineBetMinus_Click()
         {
-            AddLineBet(-1* betLineNum);
+            if (LineBet == betLineNum)
+            {
+                SetLineBet(1); // 5에서 감소 시 1로 설정
+            }
+            else
+            {
+                AddLineBet(-1 * betLineNum); // 이후부터는 5씩 감소
+            }
+            //AddLineBet(-1 * betLineNum);
         }
 
         public void AutoSpinPlus_Click()

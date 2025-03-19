@@ -3256,7 +3256,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2678423, y: 1.2678423, z: 1.2678423}
+  m_LocalScale: {x: 1.0717016, y: 1.0717016, z: 1.0717016}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1905386936}
@@ -3282,7 +3282,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -5812,9 +5812,9 @@ MonoBehaviour:
   miniJackPotWinPrefab: {fileID: 0}
   jackPotController: {fileID: 1925530469}
   saveData: 1
-  maxLineBet: 4860
-  defLineBet: 243
-  betLineNum: 243
+  maxLineBet: 20
+  defLineBet: 1
+  betLineNum: 5
   autoPlayFreeSpins: 1
   defAutoSpins: 1000
   maxAutoSpins: 1000
@@ -6804,7 +6804,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 9.31, y: 1.69, z: 0}
-  m_LocalScale: {x: 1.2678423, y: 1.2678423, z: 1.2678423}
+  m_LocalScale: {x: 1.0717016, y: 1.0717016, z: 1.0717016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -6828,7 +6828,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1349173898
@@ -8205,7 +8205,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -9313,7 +9313,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.06, y: 1.68, z: 0}
-  m_LocalScale: {x: 1.2678423, y: 1.2678423, z: 1.2678423}
+  m_LocalScale: {x: 1.0717016, y: 1.0717016, z: 1.0717016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -9337,7 +9337,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1905386938

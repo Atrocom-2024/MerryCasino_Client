@@ -1142,7 +1142,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.248307, y: 2.248307, z: 2.248307}
+  m_LocalScale: {x: 1.9004844, y: 1.9004844, z: 1.9004844}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -1166,7 +1166,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -3290,7 +3290,7 @@ MonoBehaviour:
   additionalScale: 0.72
   additionalScaleOld: 0.72
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -3837,7 +3837,7 @@ MonoBehaviour:
   miniJackPotWinPrefab: {fileID: 1114780978164136582, guid: 4b13712091a1f5d45a2d2022564438d1, type: 3}
   jackPotController: {fileID: 1546000472}
   saveData: 1
-  maxLineBet: 20
+  maxLineBet: 5
   defLineBet: 1
   betLineNum: 1
   autoPlayFreeSpins: 1
