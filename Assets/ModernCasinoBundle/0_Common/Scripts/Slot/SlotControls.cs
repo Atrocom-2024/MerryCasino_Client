@@ -459,12 +459,12 @@ namespace Mkey
 
         public void AutoSpinPlus_Click()
         {
-            AddAutoSpins(1);
+            AddAutoSpins(5);
         }
 
         public void AutoSpinMinus_Click()
         {
-            AddAutoSpins(-1);
+            AddAutoSpins(-5);
         }
 
         public void MaxBet_Click()
@@ -864,7 +864,7 @@ namespace Mkey
         /// <param name="count"></param>
         public void SetAutoSpinsCount(int count)
         {
-            count = Mathf.Max(1, count);
+            count = Mathf.Max(5, count);
             count = Mathf.Min(count, maxAutoSpins);
             AutoSpinCount = count;
             ChangeAutoSpinsEvent?.Invoke(AutoSpinCount);

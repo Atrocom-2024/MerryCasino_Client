@@ -282,32 +282,7 @@ namespace Mkey
         {
             SpinPressEvent?.Invoke(); // 스핀 버튼을 눌렸을 때 SpinPressEvent 호출
             RunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
-            //CheckJackpotChange();
         }
-
-        /// <summary>
-        /// 일정 확률로 잭팟을 발생시키는 메서드
-        /// </summary>
-        //private void CheckJackpotChange()
-        //{
-        //    float jackpotChange = 0.5f; // 잭팟 발생 확률 50%
-        //    float randomValue = UnityEngine.Random.Range(0f, 1f);
-
-        //    if (randomValue <= jackpotChange)
-        //    {
-        //        TriggerJackpot(); // 잭팟 발생
-        //    }
-        //}
-
-        //private void TriggerJackpot()
-        //{
-        //    JackPotType jackpotType = JackPotType.Mega;
-        //    int jackpotCoins = controls.GetJackPotCoins(jackpotType);
-        //    Debug.Log($"잭팟 발생!!!! {jackpotCoins}");
-
-        //    // UI에 잭팟 보상 지급
-        //    controls.JPWinShow(jackpotCoins, jackpotType);
-        //}
 
         /// <summary>
         /// 실제 슬롯 회전 로직을 처리
@@ -397,10 +372,6 @@ namespace Mkey
             bool hasLineWin = false;
             bool hasScatterWin = false;
             bool bigWin = false;
-
-            // 3a ----- 잭팟 금액을 증가시키는 로직 ----
-            // 잭팟 금액 증가
-            //IncreaseJackPots();
 
             // 승리 여부 확인
             if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType)) // 승리했다면
@@ -566,32 +537,6 @@ namespace Mkey
             if (controls.Auto || playFreeSpins)
             {
                 RunSlots();
-            }
-        }
-        
-        /// <summary>
-        /// 잭팟 금액 증가 메서드
-        /// </summary>
-        private void IncreaseJackPots()
-        {
-            // useMiniJacPot, useMaxiJacPot, useMegaJacPot 플래그에 따라 잭팟 종류 결정
-            if (useMiniJacPot)
-            {
-                Debug.Log("mini 잭팟 증가");
-                controls.AddMiniJackPot((jackPotIncType == JackPotIncType.Const) ?
-                     jackPotIncValue : (int)((float)controls.MiniJackPotStart * (float)jackPotIncValue / 100f));
-            }
-            if (useMaxiJacPot)
-            {
-                Debug.Log("maxi 잭팟 증가");
-                controls.AddMaxiJackPot((jackPotIncType == JackPotIncType.Const) ?
-                  jackPotIncValue : (int)((float)controls.MaxiJackPotStart * (float)jackPotIncValue / 100f));
-            }
-            if (useMegaJacPot)
-            {
-                Debug.Log("maga 잭팟 증가");
-                controls.AddMegaJackPot((jackPotIncType == JackPotIncType.Const) ?
-                  jackPotIncValue : (int)((float)controls.MegaJackPotStart * (float)jackPotIncValue / 100f));
             }
         }
 

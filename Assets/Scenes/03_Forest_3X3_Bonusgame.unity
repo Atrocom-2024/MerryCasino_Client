@@ -2174,13 +2174,13 @@ MonoBehaviour:
   bottomJumpTarget: {fileID: 1595383262}
   topJumpTarget: {fileID: 1384148026}
   inRotType: 5
-  inRotTime: 0.35
+  inRotTime: 0.175
   inRotAngle: 7
   outRotType: 5
-  outRotTime: 0.4
+  outRotTime: 0.2
   outRotAngle: 7
   mainRotateType: 5
-  mainRotateTime: 1
+  mainRotateTime: 0.5
   mainRotateTimeRandomize: 5
   winLineFlashing: 1
   winSymbolParticles: 1
@@ -7053,7 +7053,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2640558, y: 1.2640558, z: 1.2640558}
+  m_LocalScale: {x: 1.068501, y: 1.068501, z: 1.068501}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 531033908}
@@ -7078,7 +7078,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1305978779
@@ -9211,7 +9211,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
-  m_LocalScale: {x: 0.95365393, y: 0.95365393, z: 0.95365393}
+  m_LocalScale: {x: 0.82159007, y: 0.82159007, z: 0.82159007}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932479349}
@@ -9240,7 +9240,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.6862303
+  currRatio: 1.4253633
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
