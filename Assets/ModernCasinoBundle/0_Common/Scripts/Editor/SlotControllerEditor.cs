@@ -110,6 +110,45 @@ namespace Mkey
             ShowPropertiesBox(new string[] { "slotIcons", "winSymbolBehaviors" }, true);
             #endregion icons
 
+            #region jackpot symbol order
+            EditorGUILayout.BeginVertical("box");
+            EditorGUI.indentLevel += 1;
+            EditorGUILayout.Space();
+
+            // Foldout을 사용하여 섹션을 접고 펼칠 수 있도록 함
+            if (showJackPot = EditorGUILayout.Foldout(showJackPot, "Jackpot Symbol Order"))
+            {
+                // "Use Jackpot Symbol Order" 체크박스 추가
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("useJackpotSymbOrder"), new GUIContent("Use Jackpot Symb Order"));
+
+                // 체크박스가 활성화되었을 때만 리스트 표시
+                if (slotController.useJackpotSymbOrder)
+                {
+                    // 리스트 크기 조절
+                    SerializedProperty jackpotSymbOrderProperty = serializedObject.FindProperty("jackpotSymbOrder");
+                    int newSize = EditorGUILayout.IntField("Size", jackpotSymbOrderProperty.arraySize);
+
+                    // 크기가 변경되었을 경우 배열 크기 조정
+                    if (newSize != jackpotSymbOrderProperty.arraySize)
+                    {
+                        while (newSize > jackpotSymbOrderProperty.arraySize)
+                            jackpotSymbOrderProperty.InsertArrayElementAtIndex(jackpotSymbOrderProperty.arraySize);
+                        while (newSize < jackpotSymbOrderProperty.arraySize)
+                            jackpotSymbOrderProperty.DeleteArrayElementAtIndex(jackpotSymbOrderProperty.arraySize - 1);
+                    }
+
+                    // 리스트 값 편집
+                    for (int i = 0;i < jackpotSymbOrderProperty.arraySize;i++)
+                    {
+                        EditorGUILayout.PropertyField(jackpotSymbOrderProperty.GetArrayElementAtIndex(i), new GUIContent($"Element {i}"));
+                    }
+                }
+            }
+            EditorGUILayout.Space();
+            EditorGUI.indentLevel -= 1;
+            EditorGUILayout.EndVertical();
+            #endregion jackpot symbol order
+
             #region payTable
             ShowReordListBoxFoldOut("Pay Table", payTableList, ref showPayTable);
            // serializedObject.ApplyModifiedProperties();

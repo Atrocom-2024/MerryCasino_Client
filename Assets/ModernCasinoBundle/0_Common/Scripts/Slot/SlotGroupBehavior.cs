@@ -43,9 +43,9 @@ namespace Mkey
 
         #region simulate
         [SerializeField]
-        private bool simulate =false; // 시뮬레이션 모드 활성화 여부
+        private bool simulate = false; // 시뮬레이션 모드 활성화 여부
         [SerializeField]
-        public  int simPos = 0; // 시뮬레이션 위치
+        public int simPos = 0; // 시뮬레이션 위치
         #endregion simulate
 
         [Tooltip("ReelSymbols source")]

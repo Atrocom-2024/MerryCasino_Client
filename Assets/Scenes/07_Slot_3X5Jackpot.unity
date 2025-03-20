@@ -3506,9 +3506,9 @@ MonoBehaviour:
   miniJackPotWinPrefab: {fileID: 1114780978164136582, guid: 4b13712091a1f5d45a2d2022564438d1, type: 3}
   jackPotController: {fileID: 844581369}
   saveData: 1
-  maxLineBet: 400
-  defLineBet: 20
-  betLineNum: 20
+  maxLineBet: 1500
+  defLineBet: 300
+  betLineNum: 300
   autoPlayFreeSpins: 1
   defAutoSpins: 5
   maxAutoSpins: 1000

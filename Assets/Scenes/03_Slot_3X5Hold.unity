@@ -7793,8 +7793,8 @@ MonoBehaviour:
   jackPotController: {fileID: 1925530469}
   saveData: 1
   maxLineBet: 400
-  defLineBet: 20
-  betLineNum: 20
+  defLineBet: 100
+  betLineNum: 100
   autoPlayFreeSpins: 1
   defAutoSpins: 5
   maxAutoSpins: 1000

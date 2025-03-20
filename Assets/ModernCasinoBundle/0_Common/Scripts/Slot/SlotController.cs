@@ -47,6 +47,13 @@ namespace Mkey
         public WinSymbolBehavior[] winSymbolBehaviors;
         #endregion icons
 
+        #region jackpot symbol order
+        [SerializeField]
+        public bool useJackpotSymbOrder;
+        [SerializeField]
+        private List<int> jackpotSymbOrder;
+        #endregion jackpot symbol order
+
         // 슬롯 머신의 페이라인(pay line)과 보상 데이터 정의
         #region payTable
         public List<PayLine> payTable;
@@ -263,17 +270,27 @@ namespace Mkey
             CreateFullPaytable();
             rng = new RNG(RNGType.Unity, reelsData);
 
-            rng.Update();
-
             SetInputActivity(true);
             CurrentSlot = this;
         }
-
-        //void Update()
-        //{
-        //    rng.Update();
-        //}
         #endregion regular
+
+        /// <summary>
+        /// 일정 확률로 잭팟을 발생시키는 메서드
+        /// </summary>
+        private bool CheckJackpotChange()
+        {
+            Debug.Log("잭팟 발생!");
+            float jackpotChange = 0.5f; // 잭팟 발생 확률 50%
+            float randomValue = UnityEngine.Random.Range(0f, 1f);
+
+            if (randomValue <= jackpotChange)
+            {
+                return true; // 잭팟 발생
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// 슬롯을 회전시킬 때 호출되는 메서드
@@ -291,7 +308,7 @@ namespace Mkey
         {
             // 슬롯이 이미 실행 중이라면 종료
             if (slotsRunned) return;
-          
+
             winController.WinEffectsShow(false, false);
             winController.WinShowCancel();
             winController.ResetLineWinning();
@@ -358,9 +375,9 @@ namespace Mkey
 
             // 슬롯 애니메이션 실행
             bool fullRotated = false;
+            rng.Update(); // 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
             RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
             while (!fullRotated) yield return wfs0_2;  // 슬롯 회전 완료 대기
-            rng.Update(); // 다음 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
 
             // 슬롯 애니메이션 종료 후 결과 확인
             EndSpinEvent?.Invoke(); // 스핀 종료 이벤트 호출
@@ -548,6 +565,7 @@ namespace Mkey
         {
             ParallelTween pT = new ParallelTween();
             int [] rands = rng.GetRandSymbols(); // 각 릴에 대한 다음 정지 위치(심볼 인덱스)를 결정
+            bool isJackpot = (useJackpotSymbOrder && jackpotSymbOrder.Count != 0) && CheckJackpotChange(); // 일정 확률로 잭팟 발생
 
             // 홀드 기능
             HoldFeature hold = controls.Hold;
@@ -583,15 +601,17 @@ namespace Mkey
             {
                 int n = i;
                 int r = rands[i];
+                int jackpotSymb = isJackpot ? jackpotSymbOrder[i] : 0;
 
                 if (holdReels == null || (holdReels != null && !holdReels[i]))
                 {
+                    // 잭팟이 발생했을 땐 잭팟 심볼에서 멈추도록 설정
                     pT.Add((callBack) =>
                     {
                         slotGroupsBeh[n].NextRotateCylinderEase(mainRotateType, inRotType, outRotType,
                             mainRotateTime, mainRotateTimeRandomize / 100f,
                             inRotTime, outRotTime, inRotAngle, outRotAngle,
-                            r, callBack);
+                            isJackpot ? jackpotSymb - 1 : r, callBack);
                     });
                 }
             }

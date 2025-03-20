@@ -2171,6 +2171,8 @@ MonoBehaviour:
   - {fileID: 468458813477629063, guid: 21616eb4fbf749e78160349f258cf8ae, type: 3}
   - {fileID: 6507799012853428038, guid: 7024a85a44e34066a20b8529dac388b5, type: 3}
   - {fileID: 6671384726872860937, guid: 8a56b8809b0c41fc9bb6029184b3e625, type: 3}
+  useJackpotSymbOrder: 0
+  jackpotSymbOrder: 0800000003000000020000000700000015000000
   payTable:
   - line: 0e0000000e0000000e000000ffffffffffffffff
     pay: 4
@@ -6711,7 +6713,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Dollar
+  m_Text: Dallar
 --- !u!222 &897817353
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8078,9 +8080,9 @@ MonoBehaviour:
   miniJackPotWinPrefab: {fileID: 1114780978164136582, guid: fe3a7b563a804a6e93c830e726f2584c, type: 3}
   jackPotController: {fileID: 1925530469}
   saveData: 1
-  maxLineBet: 400
-  defLineBet: 20
-  betLineNum: 20
+  maxLineBet: 1000
+  defLineBet: 200
+  betLineNum: 200
   autoPlayFreeSpins: 1
   defAutoSpins: 1000
   maxAutoSpins: 1000
