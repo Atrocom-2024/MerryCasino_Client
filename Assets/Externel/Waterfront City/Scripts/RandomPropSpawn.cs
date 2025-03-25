@@ -23,7 +23,7 @@ public class RandomPropSpawn : MonoBehaviour
 
             if (random < spawnProbability)
             {
-                Debug.Log((lastPos - (Vector2) position).magnitude);
+                //Debug.Log((lastPos - (Vector2) position).magnitude);
 
                 lastPositions[layer] = position;
                 gameObject.SetActive(true);

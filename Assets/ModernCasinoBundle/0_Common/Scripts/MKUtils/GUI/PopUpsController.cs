@@ -123,13 +123,16 @@ namespace Mkey
 
         internal void CloseWindow(float delay, Action completeCallBack)
         {
-            TweenExt.DelayAction(MGui.gameObject, delay, () => { completeCallBack?.Invoke(); CloseWindow(); });
+            TweenExt.DelayAction(MGui.gameObject, delay, () => {
+                CloseWindow(playClose, completeCallBack);
+                //completeCallBack?.Invoke();
+            });
         }
 
         /// <summary>
         /// Fadeout window
         /// </summary>
-        private void CloseWindow(bool playSound)
+        private void CloseWindow(bool playSound, Action onComplete = null)
         {
             if (close) return;
 
@@ -152,6 +155,7 @@ namespace Mkey
                 {
                     IsVisible = false;
                     CloseEvent?.Invoke(this);
+                    onComplete?.Invoke();
                 }
             });
         }

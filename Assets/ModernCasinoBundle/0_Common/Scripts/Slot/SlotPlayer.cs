@@ -132,7 +132,7 @@ namespace Mkey
         /// <param name="count"></param>
         public void SetCoinsCount(long count)
         {
-            Coins = count; // Coins 값을 새로 전달된 count 값으로 업데이트
+            Coins = Math.Max(0, count); // Coins 값을 새로 전달된 count 값으로 업데이트
             ChangeCoinsEvent?.Invoke(Coins);
         }
 

@@ -10,10 +10,10 @@ namespace Mkey {
         private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
 
         #region const vars
-        //private const string SERVER_ADDRESS = "127.0.0.1";
-        //private const int SERVER_PORT = 4000;
-        private const string SERVER_ADDRESS = "socket.atrocom.com";
+        private const string SERVER_ADDRESS = "127.0.0.1";
         private const int SERVER_PORT = 4000;
+        //private const string SERVER_ADDRESS = "socket.atrocom.com";
+        //private const int SERVER_PORT = 4000;
         #endregion
 
         #region temp vars
@@ -60,6 +60,7 @@ namespace Mkey {
         {
             Debug.Log($"[RoomController] User joined room: UserId = {MPlayer.Id}");
             gameData.CurrentPayout = userState.CurrentPayout;
+            gameData.JackpotProb = userState.JackpotProb;
         }
 
         public void InitGameState(GameState gameState)
@@ -82,8 +83,8 @@ namespace Mkey {
 
             if (!RoomSocketManager.Instance.IsConnected)
             {
-                Debug.LogError("[Lobby] Failed to connect to server!");
                 CloseLoadingPopup(); // 실패 시 로딩창 끄기
+                Debug.LogError("[Lobby] Failed to connect to server!");
                 yield break;
             }
 
@@ -107,8 +108,9 @@ namespace Mkey {
         {
             if (loadingPopup != null)
             {
-                loadingPopup.CloseWindow();
-                loadingPopup = null;
+                Debug.Log("[UI] Popup fully closed!");
+                loadingPopup.CloseWindow(0.1f, () => { loadingPopup = null; });
+                //loadingPopup = null;
             }
         }
 
@@ -134,5 +136,6 @@ namespace Mkey {
         public int Coins { get; set; }
         public decimal CurrentPayout { get; set; }
         public int TotalJackpotAmount { get; set; }
+        public decimal JackpotProb { get; set; }
     }
 }

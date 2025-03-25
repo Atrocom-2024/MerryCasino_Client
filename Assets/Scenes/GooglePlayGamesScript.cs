@@ -141,7 +141,6 @@ public class GooglePlayGamesScript : MonoBehaviour
     // 로비 씬으로 이동하는 메서드
     private void LoadLobby()
     {
-        Debug.Log("go Lobby");
         SceneLoader.Instance.LoadScene(1); // 씬의 인덱스를 1로 설정
     }
 

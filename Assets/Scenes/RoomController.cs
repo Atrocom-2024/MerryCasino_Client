@@ -1,6 +1,7 @@
 using System.Collections;
 using Mkey;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 // 특정 룸의 지급률을 계산하고, 관련된 정보를 관리하는 클래스
@@ -55,7 +56,7 @@ public class RoomController : MonoBehaviour
         // 로딩 때 받아온 데이터 설정
         resultPayout = (double)LobbyController.gameData.CurrentPayout;
         SetPayout(resultPayout);
-        controls.SetInitJackpotCount(LobbyController.gameData.TotalJackpotAmount);
+        controls.SetMegaJackpotStart(LobbyController.gameData.JackpotProb);
     }
 
     private void Start()
@@ -169,25 +170,27 @@ public class RoomController : MonoBehaviour
     public void HandleGameUserStateUpdate(GameUserState userState)
     {
         SetPayout((double)userState.CurrentPayout);
+        controls.SetJackPotProb(userState.JackpotProb, JackPotType.Mega);
     }
 
     public void HandleGameStateUpdate(GameState gameState)
     {
-        Debug.Log($"잭팟 금액!!!!!!!!! {gameState.TotalJackpotAmount}");
-        controls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
+        //controls.SetJackPotProb((int)gameState.TotalJackpotAmount, JackPotType.Mega);
+        //controls.SetJackPotCount((int)gameState.TotalJackpotAmount, JackPotType.Mega);
     }
 
     public void HandleGameSessionEnd(GameSessionEnd response)
     {
+        controls.SetPendingState(true);
         MPlayer.SetCoinsCount(response.RewardedCoinsAmount);
-        MGUI.ShowMessage(null, $"Game Session has ended.\n\nThe next session will begin soon.\n\nRewarded coins: {response.RewardCoins}", 5f, null);
+        MGUI.ShowMessage(null, $"Game Session has ended.\n\nThe next session will begin soon.\n\nRewarded coins: {response.RewardCoins}", 3f, null);
+        controls.SetPendingState(false);
     }
     #endregion event handler
 
     public void SetPayout(double payout)
     {
         resultPayout = payout * 100;
-        Debug.Log($"result Payout: {resultPayout}");
 
         // Update the UI
         //Color lowColor = new Color(0.0f, 1.0f, 0.0f); // Green
@@ -195,7 +198,7 @@ public class RoomController : MonoBehaviour
         Color midColor = new Color(1.0f, 0.5f, 0.0f); // Orange
         Color highColor = new Color(1.0f, 0.0f, 0.0f); // Red
         float normalizedPayout = (float)(resultPayout / 100.0); // Normalize resultPayout (0 to 100 -> 0.0 to 1.0)
-        Debug.Log($"Normalized Payout: {normalizedPayout}");
+
         PayoutText.text = resultPayout.ToString("F2") + "%";
 
         if (normalizedPayout < 0.25f)

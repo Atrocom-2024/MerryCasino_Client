@@ -157,8 +157,6 @@ public class RoomSocketManager : MonoBehaviour
 
         byte[] message = SerializeProtobuf(request);
         await _networkStream.WriteAsync(message, 0, message.Length);
-
-        Debug.Log($"[socket] Sent {requestType}");
     }
 
     // 서버에서 오는 메세지 수신 (코루틴 버전) -> 서버에서 데이터를 받는 부분은 메인스레드에서 동작해야 함
@@ -191,42 +189,42 @@ public class RoomSocketManager : MonoBehaviour
                         case "BetResponse":
                             if (response.BetResponseData != null)
                             {
-                                Debug.Log("[socket] BetResponse received");
+                                //Debug.Log("[socket] BetResponse received");
                                 OnBetResponse.Invoke(response.BetResponseData);
                             }
                             break;
                         case "AddCoinsResponse":
                             if (response.AddCoinsResponseData != null)
                             {
-                                Debug.Log("[socket] AddCoinsResponse received");
+                                //Debug.Log("[socket] AddCoinsResponse received");
                                 OnAddCoinsResponse.Invoke(response.AddCoinsResponseData);
                             }
                             break;
                         case "JackpotWinResponse":
                             if (response.JackpotWinResponseData != null)
                             {
-                                Debug.Log("[socket] JackpotWinResponse received");
+                                //Debug.Log("[socket] JackpotWinResponse received");
                                 OnJackpotWinResponse.Invoke(response.JackpotWinResponseData);
                             }
                             break;
                         case "GameState":
                             if (response.GameState != null)
                             {
-                                Debug.Log($"[socket] GameState received");
+                                //Debug.Log($"[socket] GameState received");
                                 OnGameState.Invoke(response.GameState);
                             }
                             break;
                         case "GameUserState":
                             if (response.GameUserState != null)
                             {
-                                Debug.Log("[socket] GameUserState received");
+                                //Debug.Log("[socket] GameUserState received");
                                 OnGameUserState.Invoke(response.GameUserState);
                             }
                             break;
                         case "GameSessionEnd":
                             if (response.GameSessionEndData != null)
                             {
-                                Debug.Log("[socket] GameSessionEndResponse received");
+                                //Debug.Log("[socket] GameSessionEndResponse received");
                                 OnGameSessionEnd.Invoke(response.GameSessionEndData);
                             }
                             break;

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Mkey
 {
-    public enum WinLineFlashing {All, Sequenced, None}
+    public enum WinLineFlashing { All, Sequenced, None }
     public enum JackPotType { None, Mini, Maxi, Mega }
     public enum JackPotIncType { Const, Percent } // add const value or percent of start value
 
@@ -180,7 +180,6 @@ namespace Mkey
         private bool slotsRunned = false;
         private bool playFreeSpins = false;
         private bool isFreeSpin = false;
-        private bool isPending = false;
         private GameObject miniGame;
 
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
@@ -280,12 +279,14 @@ namespace Mkey
         /// </summary>
         private bool CheckJackpotChange()
         {
-            Debug.Log("잭팟 발생!");
-            float jackpotChange = 0.5f; // 잭팟 발생 확률 50%
+            float jackpotChange = (float)controls.MegaJackPotProb; // 잭팟 발생 확률 50%
             float randomValue = UnityEngine.Random.Range(0f, 1f);
+
 
             if (randomValue <= jackpotChange)
             {
+                Debug.Log($"잭팟 발생, 잭팟 확률: {jackpotChange}");
+                Debug.Log($"랜덤 변수 확률: {randomValue}");
                 return true; // 잭팟 발생
             }
 
@@ -301,13 +302,44 @@ namespace Mkey
             RunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
         }
 
+        private void RandomTest()
+        {
+            int sampleSize = 100000;
+            int bucketCount = 20;
+
+            int[] histogram = new int[bucketCount];
+
+            // 샘플 수집
+            for (int i = 0;i < sampleSize;i++)
+            {
+                float value = UnityEngine.Random.Range(0f, 1f); // 균등분포
+                int bucket = Mathf.FloorToInt(value * bucketCount);
+                bucket = Mathf.Clamp(bucket, 0, bucketCount - 1);
+                histogram[bucket]++;
+            }
+
+            // 결과 출력
+            Debug.Log($"샘플 수: {sampleSize}, 버킷 수: {bucketCount}");
+            for (int i = 0;i < bucketCount;i++)
+            {
+                float rangeStart = (float)i / bucketCount;
+                float rangeEnd = (float)(i + 1) / bucketCount;
+                string bar = new string('#', histogram[i] / (sampleSize / 100)); // 간단한 시각화
+                Debug.Log($"{rangeStart:F2} ~ {rangeEnd:F2}: {histogram[i]} {bar}");
+            }
+        }
+
         /// <summary>
         /// 실제 슬롯 회전 로직을 처리
         /// </summary>
         private void RunSlots()
         {
             // 슬롯이 이미 실행 중이라면 종료
-            if (slotsRunned) return;
+            if (slotsRunned)
+                return;
+
+            if (controls.IsPending)
+                return;
 
             winController.WinEffectsShow(false, false);
             winController.WinShowCancel();
@@ -324,6 +356,7 @@ namespace Mkey
             // 프리 스핀 여부 확인 후 베팅 적용
             if (!controls.ApplyFreeSpin()) // 프리 스핀이 아닐 때만 베팅 적용
             {
+                Debug.Log("!ApplyFreeSpin 조건 통과");
                 if (!controls.ApplyBet()) // 베팅 가능 여부 확인
                 {
                     MGUI.ShowMessage(null, "You have no money.", 1.5f, null);
@@ -431,17 +464,17 @@ namespace Mkey
                 winCoins *= payMultiplier;
 
                 if (useLineBetMultiplier) winCoins *= controls.LineBet; // 여기서 금액이 뻥튀기될 가능성이 있음
-                Debug.Log("Original wincoins: " + winCoins);
+                //Debug.Log("Original wincoins: " + winCoins);
 
                 winCoins = (int)(winCoins * (1 + (RoomController.resultPayout / 100.0))); // 승리했을 때 코인 값 계산
-                Debug.Log("plus wincoins: " + winCoins);
+                //Debug.Log("plus wincoins: " + winCoins);
 
                 MPlayer.SetWinCoinsCount(jackPotWinCoins + winCoins);
                 MPlayer.AddCoins(winCoins);
-                Debug.Log("total: " + (jackPotWinCoins + winCoins));
+                //Debug.Log("total: " + (jackPotWinCoins + winCoins));
 
                 // 빅윈 처리
-                Debug.Log(jackPotWinCoins + winCoins);
+                //Debug.Log(jackPotWinCoins + winCoins);
                 if (winCoins > 0)
                 {
                     bigWin = (winCoins >= MPlayer.MinWin && MPlayer.UseBigWinCongratulation);
@@ -504,7 +537,7 @@ namespace Mkey
                        (windata) => //linewin
                        {
                            //event can be interrupted by player
-                           if (windata!=null)  Debug.Log("lineWin : " +  windata.ToString());
+                           //if (windata!=null)  Debug.Log("lineWin : " +  windata.ToString());
                        },
                        () => //scatter win
                        {
@@ -1042,7 +1075,6 @@ namespace Mkey
 
         public void Update()
         {
-            Debug.Log("업데이트!!!!");
             UpdateRNGAction();
         }
 
@@ -1056,7 +1088,6 @@ namespace Mkey
         {
             for (int i = 0; i < randSymb.Length; i++)
             {
-                Debug.Log($"줄 {i} 길이 : {reelsData[i].Length}");
                 rand = UnityEngine.Random.Range(0, reelsData[i].Length);
                 randSymb[i] = rand;
             }

@@ -47,7 +47,8 @@ namespace Mkey
 
         [Tooltip("Mega jackpot sum start value")]
         //[SerializeField]
-        private int megaStart = 1000;
+        private decimal megaStart = 0.00M;
+        //private int megaStart = 1000;
 
         [Space(8)]
         [Tooltip("Check if you want to save coins, level, progress, facebook gift flag, sound settings")]
@@ -146,7 +147,9 @@ namespace Mkey
         private GameObject miniJackPotWinGO;
         private string coinsFormat =  "0,0";
         private SpinButtonBehavior spinButtonBehavior;
+        private bool isPending = false;
         #endregion temp vars
+
         #region references
         [SerializeField]
         private SlotController slot;
@@ -157,7 +160,8 @@ namespace Mkey
         #region events
         public Action<int> ChangeMiniJackPotEvent;
         public Action<int> ChangeMaxiJackPotEvent;
-        public Action<int> ChangeMegaJackPotEvent;
+        public Action<decimal> ChangeMegaJackPotEvent;
+        //public Action<int> ChangeMegaJackPotEvent;
         public Action<int> LoadMiniJackPotEvent;
         public Action<int> LoadMaxiJackPotEvent;
         public Action<int> LoadMegaJackPotEvent;
@@ -177,6 +181,11 @@ namespace Mkey
         //{
         //    get { return saveData; }
         //}
+        
+        public bool IsPending
+        {
+            get { return isPending; }
+        }
 
         public int MiniJackPotStart
         {
@@ -188,10 +197,14 @@ namespace Mkey
             get { return maxiStart; }
         }
 
-        public long MegaJackPotStart
+        public decimal MegaJackPotStart
         {
             get { return megaStart; }
         }
+        //public long MegaJackPotStart
+        //{
+        //    get { return megaStart; }
+        //}
 
         public int LineBet
         {
@@ -261,6 +274,11 @@ namespace Mkey
             get; private set;
         }
 
+        public decimal MegaJackPotProb
+        {
+            get; private set;
+        }
+
         public int AutoSpinCount
         {
             get; private set;
@@ -322,9 +340,6 @@ namespace Mkey
             ChangeMaxiJackPotEvent += ChangeMaxiJackPotHandler;
             ChangeMegaJackPotEvent += ChangeMegaJackPotHandler;
 
-            LoadMiniJackPot();
-            LoadMaxiJackPot();
-            LoadMegaJackPot();
 
             LoadLineBet();
             if (hold) hold.ChangeBetMultiplierEvent += (hm) => { RefreshBetLines(); };
@@ -338,6 +353,11 @@ namespace Mkey
             SetTextString(InfoText, (SelectedLinesCount > 0) ? "Click to SPIN to start!" : "Select any slot line!");
             ChangeSelectedLinesEvent += (l, b) => { SetTextString(InfoText, (l > 0) ? "Click to SPIN to start!" : "Select any slot line!"); };
             Refresh();
+
+            //LoadMiniJackPot();
+            //LoadMaxiJackPot();
+            LoadMegaJackPot();
+            Debug.Log($"MegaStart: {megaStart}");
         }
 
         void OnDestroy()
@@ -368,6 +388,11 @@ namespace Mkey
             defAutoSpins = Math.Min(defAutoSpins, maxAutoSpins);
         }
         #endregion regular
+
+        public void SetPendingState(bool state)
+        {
+            isPending = state;
+        }
 
         /// <summary>
         /// Set all buttons interactble = activity, but startButton = startButtonAcivity
@@ -408,7 +433,7 @@ namespace Mkey
             if (MPlayer)
             {
                 if (LineBetSumText) LineBetSumText.text = LineBet.ToString();
-                if (TotalBetSumText) TotalBetSumText.text = TotalBet>=10 ? TotalBet.ToString(coinsFormat) : TotalBet.ToString();
+                if (TotalBetSumText) TotalBetSumText.text = TotalBet >= 10 ? TotalBet.ToString(coinsFormat) : TotalBet.ToString();
                 if (LinesCountText) LinesCountText.text = SelectedLinesCount.ToString();
             }
         }
@@ -552,10 +577,19 @@ namespace Mkey
             if (this && MaxiJackpotAmountTextMesh) MaxiJackpotAmountTextMesh.text = newCount.ToString(coinsFormat);
         }
 
-        private void ChangeMegaJackPotHandler(int newCount)
+        //private void ChangeMegaJackPotHandler(int newCount)
+        //{
+        //    if (this && MegaJackpotAmountText) MegaJackpotAmountText.text = newCount.ToString(coinsFormat);
+        //    if (this && MegaJackpotAmountTextMesh) MegaJackpotAmountTextMesh.text = newCount.ToString(coinsFormat);
+        //}
+
+        private void ChangeMegaJackPotHandler(decimal newJackpotProb)
         {
-            if (this && MegaJackpotAmountText) MegaJackpotAmountText.text = newCount.ToString(coinsFormat);
-            if (this && MegaJackpotAmountTextMesh) MegaJackpotAmountTextMesh.text = newCount.ToString(coinsFormat);
+            var percent = newJackpotProb * 100;
+            if (this && MegaJackpotAmountText)
+                MegaJackpotAmountText.text = percent.ToString("F2") + "%";
+            if (this && MegaJackpotAmountTextMesh)
+                MegaJackpotAmountTextMesh.text = percent.ToString("F2") + "%";
         }
 
         private void ChangeWinCoinsHandler(int newCount)
@@ -564,11 +598,6 @@ namespace Mkey
             if (infoCoinsTween != null) infoCoinsTween.Tween(newCount, 100);
         }
         #endregion event handlers
-
-        public void SetInitJackpotCount(int jackpotAmount)
-        {
-            megaStart = jackpotAmount;
-        }
 
         #region mini jackpot
         /// <summary>
@@ -646,7 +675,8 @@ namespace Mkey
         /// <param name="count"></param>
         public void SetMegaJackPotCount(int count)
         {
-            count = Mathf.Max(megaStart, count);
+            count = Mathf.Max(0, count);
+            //count = Mathf.Max(megaStart, count);
             MegaJackPot = count;
             ChangeMegaJackPotEvent?.Invoke(MegaJackPot);
         }
@@ -656,27 +686,82 @@ namespace Mkey
         /// </summary>
         private void LoadMegaJackPot()
         {
-            SetMegaJackPotCount(megaStart);
+            //SetMegaJackPotCount(megaStart);
+            SetMegaJackPotProb(megaStart);
+        }
+
+        public void SetMegaJackpotStart(decimal jackpotProb)
+        {
+            megaStart = jackpotProb;
         }
         #endregion mega jackpot
 
         #region common jackpot
-        public void SetJackPotCount(int count, JackPotType jackPotType)
+        //public void SetJackPotCount(int count, JackPotType jackPotType)
+        //{
+        //    switch (jackPotType)
+        //    {
+        //        case JackPotType.Mini:
+        //            SetMiniJackPotCount(count);
+        //            break;
+        //        case JackPotType.Maxi:
+        //            SetMaxiJackPotCount(count);
+        //            break;
+        //        case JackPotType.Mega:
+        //            SetMegaJackPotCount(count);
+        //            break;
+        //    }
+        //}
+        public void SetJackPotProb(decimal jackpotProb, JackPotType jackPotType)
         {
             switch (jackPotType)
             {
                 case JackPotType.Mini:
-                    SetMiniJackPotCount(count);
+                    SetMiniJackPotProb(jackpotProb);
                     break;
                 case JackPotType.Maxi:
-                    SetMaxiJackPotCount(count);
+                    SetMaxiJackPotProb(jackpotProb);
                     break;
                 case JackPotType.Mega:
-                    SetMegaJackPotCount(count);
+                    SetMegaJackPotProb(jackpotProb);
                     break;
             }
         }
 
+        public void SetMiniJackPotProb(decimal count)
+        {
+            ChangeMegaJackPotEvent?.Invoke(count);
+        }
+        
+        public void SetMaxiJackPotProb(decimal count)
+        {
+            ChangeMegaJackPotEvent?.Invoke(count);
+        }
+        
+        public void SetMegaJackPotProb(decimal jackpotProb)
+        {
+            MegaJackPotProb = jackpotProb;
+            ChangeMegaJackPotEvent?.Invoke(jackpotProb);
+        }
+
+        //public int GetJackPotCoins(JackPotType jackPotType)
+        //{
+        //    int jackPotCoins = 0;
+        //    switch (jackPotType)
+        //    {
+        //        case JackPotType.Mini:
+        //            jackPotCoins = MiniJackPot;
+        //            break;
+        //        case JackPotType.Maxi:
+        //            jackPotCoins = MaxiJackPot;
+        //            break;
+        //        case JackPotType.Mega:
+        //            jackPotCoins = MegaJackPot;
+        //            break;
+        //    }
+        //    return jackPotCoins;
+        //}
+        
         public int GetJackPotCoins(JackPotType jackPotType)
         {
             int jackPotCoins = 0;
@@ -689,7 +774,7 @@ namespace Mkey
                     jackPotCoins = MaxiJackPot;
                     break;
                 case JackPotType.Mega:
-                    jackPotCoins = MegaJackPot;
+                    jackPotCoins = TotalBet * 100;
                     break;
             }
             return jackPotCoins;
@@ -781,8 +866,9 @@ namespace Mkey
         /// <returns></returns>
         internal bool ApplyBet()
         {
-            if (MPlayer.Coins > TotalBet)
+            if (MPlayer.Coins >= TotalBet)
             {
+                Debug.Log($"돈 있음: {MPlayer.Coins}");
                 StartCoroutine(RoomController.Instance.HandleBetting(MPlayer.Id, TotalBet));
                 return true;
             }
@@ -919,7 +1005,8 @@ namespace Mkey
         {
             SetMiniJackPotCount(miniStart);
             SetMaxiJackPotCount(maxiStart);
-            SetMegaJackPotCount(megaStart);
+            //SetMegaJackPotCount(megaStart);
+            SetMegaJackPotProb(megaStart);
             SetLineBet(defLineBet);
             SetAutoSpinsCount(defAutoSpins);
         }
