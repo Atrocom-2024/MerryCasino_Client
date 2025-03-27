@@ -338,8 +338,10 @@ namespace Mkey
             if (slotsRunned)
                 return;
 
-            if (controls.IsPending)
-                return;
+            //if (!RoomSocketManager.Instance.IsBetResponseReceived)
+            //{
+            //    return;
+            //}
 
             winController.WinEffectsShow(false, false);
             winController.WinShowCancel();

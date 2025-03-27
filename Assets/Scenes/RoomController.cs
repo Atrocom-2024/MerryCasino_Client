@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using Mkey;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
@@ -139,6 +140,11 @@ public class RoomController : MonoBehaviour
         }
     }
 
+    //public async Task<BetResponse> HandleBettingAsync(string userId, int betAmount)
+    //{
+    //    return await RoomSocketManager.SendBetReqeust(userId, betAmount);
+    //}
+
     public IEnumerator HandleJackpotWin(JackPotType jackpotType, int jackpotCoins)
     {
         // 잭팟 지급 요청 비동기 작업 시작
@@ -181,10 +187,8 @@ public class RoomController : MonoBehaviour
 
     public void HandleGameSessionEnd(GameSessionEnd response)
     {
-        controls.SetPendingState(true);
         MPlayer.SetCoinsCount(response.RewardedCoinsAmount);
         MGUI.ShowMessage(null, $"Game Session has ended.\n\nThe next session will begin soon.\n\nRewarded coins: {response.RewardCoins}", 3f, null);
-        controls.SetPendingState(false);
     }
     #endregion event handler
 

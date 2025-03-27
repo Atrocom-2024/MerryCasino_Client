@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -147,7 +149,6 @@ namespace Mkey
         private GameObject miniJackPotWinGO;
         private string coinsFormat =  "0,0";
         private SpinButtonBehavior spinButtonBehavior;
-        private bool isPending = false;
         #endregion temp vars
 
         #region references
@@ -181,11 +182,6 @@ namespace Mkey
         //{
         //    get { return saveData; }
         //}
-        
-        public bool IsPending
-        {
-            get { return isPending; }
-        }
 
         public int MiniJackPotStart
         {
@@ -388,11 +384,6 @@ namespace Mkey
             defAutoSpins = Math.Min(defAutoSpins, maxAutoSpins);
         }
         #endregion regular
-
-        public void SetPendingState(bool state)
-        {
-            isPending = state;
-        }
 
         /// <summary>
         /// Set all buttons interactble = activity, but startButton = startButtonAcivity
@@ -877,6 +868,23 @@ namespace Mkey
                 return false;
             }
         }
+        
+        /// <summary>
+        /// 유저가 갖고있는 돈보다 배팅 금액이 적을 때만 배팅 진행
+        /// </summary>
+        /// <returns></returns>
+        //internal async Task<BetResponse> ApplyBetAsync()
+        //{
+        //    if (MPlayer.Coins >= TotalBet)
+        //    {
+        //        Debug.Log($"돈 있음: {MPlayer.Coins}");
+        //        return await RoomController.Instance.HandleBettingAsync(MPlayer.Id, TotalBet);
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
         #endregion LineBet
@@ -941,6 +949,22 @@ namespace Mkey
             if (HasFreeSpin)
             {
                 AddFreeSpins(-1);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 프리스핀 체크 메서드
+        /// </summary>
+        /// <returns></returns>
+        internal bool CheckFreeSpin()
+        {
+            if (HasFreeSpin)
+            {
                 return true;
             }
             else

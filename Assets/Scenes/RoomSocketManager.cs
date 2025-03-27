@@ -1,4 +1,3 @@
-using Mkey;
 using ProtoBuf;
 using System;
 using System.Collections;
@@ -15,16 +14,25 @@ public class RoomSocketManager : MonoBehaviour
     private NetworkStream _networkStream;
     private bool _isConnected = false;
 
-    // 이벤트 정의
+    #region event vars
     public event Action<BetResponse> OnBetResponse;
     public event Action<AddCoinsResponse> OnAddCoinsResponse;
     public event Action<JackpotWinResponse> OnJackpotWinResponse;
     public event Action<GameState> OnGameState;
     public event Action<GameUserState> OnGameUserState;
     public event Action<GameSessionEnd> OnGameSessionEnd;
+    #endregion event vars
+
+    #region tcs vars
+    private TaskCompletionSource<BetResponse> _betResponseTcs;
+    private TaskCompletionSource<AddCoinsResponse> _addCoinsResponseTcs;
+    private TaskCompletionSource<JackpotWinResponse> _jackpotWinResponseTcs;
+    #endregion
 
     // get/set
     public bool IsConnected { get { return _isConnected; } }
+
+    //public bool IsBetResponseReceived { get { return _betResponseTcs.Task.IsCompleted; } }
 
     private void Awake()
     {
@@ -100,12 +108,16 @@ public class RoomSocketManager : MonoBehaviour
     // 배팅 요청
     public async Task SendBetReqeust(string userId, int betAmount)
     {
+        //_betResponseTcs = new TaskCompletionSource<BetResponse>();
+
         await SendClientMessagesAsync("BetRequest", new BetRequest
         {
             UserId = userId,
             BetAmount = betAmount,
             RoomType = 1
         });
+
+        //return await _betResponseTcs.Task;
     }
 
     public async Task SendAddCoinsRequest(string userId, int coins)
@@ -189,6 +201,8 @@ public class RoomSocketManager : MonoBehaviour
                         case "BetResponse":
                             if (response.BetResponseData != null)
                             {
+                                //_betResponseTcs?.TrySetResult(response.BetResponseData); // 응답 기다리던 곳 깨움
+                                //_betResponseTcs = null;
                                 //Debug.Log("[socket] BetResponse received");
                                 OnBetResponse.Invoke(response.BetResponseData);
                             }
