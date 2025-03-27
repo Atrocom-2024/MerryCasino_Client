@@ -381,44 +381,86 @@ namespace Mkey
 
             StartCoroutine(RunSlotsAsync());
         }
-       
-        private IEnumerator RunSlotsAsync()
+
+        private void PrepareSpin()
         {
-            // 스핀 시작 이벤트 호출
-            StartSpinEvent?.Invoke();
+            // 사용자 입력 비활성화
+            SetInputActivity(false);
+            winController.HideAllLines();
+
+            // 슬롯 상태를 실행 중으로 설정
+            slotsRunned = true;
+            if (controls.Auto && !isFreeSpin)
+                controls.IncAutoSpinsCounter(); // 자동 스핀 모드일 경우 자동 스핀 횟수 증가
 
             // 잭팟 초기화
             jackPotWinCoins = 0;
             jackPotType = JackPotType.None;
 
-            // 슬롯 상태를 실행 중으로 설정
-            slotsRunned = true;
-            if (controls.Auto && !isFreeSpin) controls.IncAutoSpinsCounter(); // 자동 스핀 모드일 경우 자동 스핀 횟수 증가
-
-            // 스핀 횟수 증가 및 로그 출력
-            Debug.Log("Spins count from game start: " + (++spinCount));
-
+            // 승리 코인 초기화
             MPlayer.SetWinCoinsCount(0);
 
-            // 사용자 입력 비활성화
-            SetInputActivity(false);
-            winController.HideAllLines();
-
             // 사운드 실행
-            MSound.StopAllClip(false); // stop all clips with background musik
+            MSound.StopAllClip(false); // 모든 백그라운드 음악 중지
             MSound.PlayClip(0f, true, spinSound);
 
+            // 스핀 시작 이벤트 호출
+            StartSpinEvent?.Invoke();
+        }
+
+        private IEnumerator RotateSlotAsync()
+        {
             // 슬롯 애니메이션 실행
             bool fullRotated = false;
             rng.Update(); // 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
+
             RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
-            while (!fullRotated) yield return wfs0_2;  // 슬롯 회전 완료 대기
+
+            while (!fullRotated)
+                yield return wfs0_2;  // 슬롯 회전 완료 대기
+        }
+
+        private IEnumerator HandleJackpotAsync()
+        {
+            // 잭팟 금액 가져오기
+            jackPotWinCoins = controls.GetJackPotCoins(jackPotType);
+
+            // 잭팟 체크
+            if (jackPotType != JackPotType.None && jackPotWinCoins > 0)
+            {
+                MPlayer.SetWinCoinsCount(jackPotWinCoins);
+                //MPlayer.AddCoins(jackPotWinCoins);
+                StartCoroutine(RoomController.HandleJackpotWin(jackPotType, jackPotWinCoins));
+
+                if (controls.HasFreeSpin || controls.Auto)
+                {
+                    // 잭팟 UI 표시 및 처리
+                    controls.JPWinShow(jackPotWinCoins, jackPotType);
+                    yield return new WaitForSeconds(3.0f); // delay
+                    controls.JPWinCancel();
+                }
+                else
+                {
+                    // 잭팟 UI 표시 및 처리
+                    controls.JPWinShow(jackPotWinCoins, jackPotType);
+                    yield return new WaitForSeconds(5.0f);// delay
+                }
+            }
+        }
+
+        private IEnumerator RunSlotsAsync()
+        {
+            PrepareSpin(); // 스핀 시작 준비
+
+            yield return RotateSlotAsync(); // 슬롯 애니메이션 실행
 
             // 슬롯 애니메이션 종료 후 결과 확인
             EndSpinEvent?.Invoke(); // 스핀 종료 이벤트 호출
             BeginWinCalcEvent?.Invoke(); // 승리 여부 계산 시작 이벤트
 
-            winController.SearchWinSymbols(); // 페이라인과 일치하는 심볼이 있는지 검사 후 일치하는 심볼이 있다면 win 변수에 저장
+            // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+            // 페이라인과 일치하는 심볼이 있는지 검사 후 일치하는 심볼이 있다면 win 변수에 저장
+            winController.SearchWinSymbols();
 
             // 잭팟 관련 변수 초기화
             bool hasLineWin = false;
@@ -428,37 +470,12 @@ namespace Mkey
             // 승리 여부 확인
             if (winController.HasAnyWinn(ref hasLineWin, ref hasScatterWin, ref jackPotType)) // 승리했다면
             {
-                loseCount = 0; // 진 횟수 초기화
-
                 //3b ---- show particles, line flasing  -----------
                 winController.WinEffectsShow(winLineFlashing == WinLineFlashing.All, winSymbolParticles);
 
                 while (!MGUI.HasNoPopUp) yield return wfs0_1;
 
-                // 잭팟 금액 가져오기
-                jackPotWinCoins = controls.GetJackPotCoins(jackPotType);
-
-                // 잭팟 체크
-                if (jackPotType != JackPotType.None && jackPotWinCoins > 0)
-                {
-                    MPlayer.SetWinCoinsCount(jackPotWinCoins);
-                    //MPlayer.AddCoins(jackPotWinCoins);
-                    StartCoroutine(RoomController.HandleJackpotWin(jackPotType, jackPotWinCoins));
-
-                    if (controls.HasFreeSpin || controls.Auto)
-                    {
-                        // 잭팟 UI 표시 및 처리
-                        controls.JPWinShow(jackPotWinCoins, jackPotType);
-                        yield return new WaitForSeconds(5.0f); // delay
-                        controls.JPWinCancel(); 
-                    }
-                    else
-                    {
-                        // 잭팟 UI 표시 및 처리
-                        controls.JPWinShow(jackPotWinCoins, jackPotType);
-                        yield return new WaitForSeconds(3.0f);// delay
-                    }
-                }
+                yield return HandleJackpotAsync(); // 잭팟 처리
 
                 // 일반 승리 코인 계산 -> 승리 금액을 payMultiplier와 베팅 금액을 고려하여 조정
                 int winCoins = winController.GetWinCoins();
@@ -489,7 +506,7 @@ namespace Mkey
                         MGUI.ShowMessage(BigWinPrefab, "", winCoins.ToString(), 1f, () =>
                         {
                             bigWinClosed = true;
-                        }); // aqua MGUI.ShowMessage(BigWinPrefab, " ", winCoins.ToString(), 3f, null);
+                        });
                         
                         while (!bigWinClosed)
                             yield return wfs0_1;  // bigWin 팝업이 닫힐 때까지 대기
@@ -504,28 +521,33 @@ namespace Mkey
 
                 if (useLineBetFreeSpinMultiplier) winSpins *= controls.LineBet;
                 if (winSpins > 0) MSound.PlayClip((winCoins > 0 || jackPotWinCoins > 0) ? 1.5f : 0, winFreeSpinSound);
-                
+
+                // 프리 스핀 연속 여부 확인 및 종료 처리
                 controls.AddFreeSpins(winSpins);
-                playFreeSpins = (controls.AutoPlayFreeSpins && controls.HasFreeSpin);
-                
+                playFreeSpins = controls.AutoPlayFreeSpins && controls.HasFreeSpin; // 자동 프리 스핀 모드가 켜져 있고, 아직 프리 스핀이 남아있다면 계속 프리 스핀 실행
+
+                // 지금이 프리 스핀 회차 중이었고, 추가 프리 스핀도 없으면 → 프리 스핀 종료 이벤트 호출
                 if (isFreeSpin && !playFreeSpins) EndFreeGamesEvent?.Invoke();
 
-                //3d0 ----- invoke scatter win event -----------
+                // 스캐터 승리 이벤트 처리 -> 만약 이번 승리 결과가 스캐터(winController.scatterWin)에 해당하면 -> 연결된 이벤트 호출
                 if (winController.scatterWin != null && winController.scatterWin.WinEvent != null) winController.scatterWin.WinEvent.Invoke();
 
+                // 승리 계산 종료 이벤트 호출
                 EndWinCalcEvent?.Invoke();
 
-                // 3d1 -------- add levelprogress --------------
+                // 레벨 진행도 증가 처리
                 //while (!MGUI.HasNoPopUp) yield return wfs0_1; // wait for the prev popup to close
                 //MPlayer.AddLevelProgress( (useLineBetProgressMultiplier)? winSpinLevelProgress * winLinesCount * controls.LineBet : winSpinLevelProgress * winLinesCount); // for each win line
                 //MPlayer.AddLevelProgress(winSpinLevelProgress); 
 
-                // 3d2 ------------ start line events ----------
+                // 승리 라인에 따른 이펙트 시작
                 winController.StartLineEvents();
+
+                // 미니게임, 팝업 대기
                 while (SlotEvents.Instance && SlotEvents.Instance.MiniGameStarted) yield return wfs0_1;  // wait for the mini game to close
                 while (!MGUI.HasNoPopUp) yield return wfs0_1;  // wait for the closin all popups
 
-                //3e ---- ENABLE player interaction -----------
+                // 슬롯 비활성화 해제 (다시 조작 가능하게)
                 slotsRunned = false;
                 if (!playFreeSpins)
                 {
@@ -555,25 +577,16 @@ namespace Mkey
                        }
                        );
                 while (!showEnd) yield return wfs0_2;  // wait for show end
-            } // end win
-            else // 패배했다면
+            }
+            // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+            else
             {
-                loseCount++;
-                // 미니 체스트 게임
-                //if (loseCount > 3) // 연속으로 4번 졌을 때 미니게임 시작
-                //{
-                //    //isMiniGameActive = true;  // 미니게임 활성화 상태 설정
-                //    SlotEvents.Instance.ShowChestMiniGame();
-                //    loseCount = 0;
-                //}
-
-                //MSound.PlayClip(0, looseSound); // 졌을 때 소리가 너무 이상함 귀가 아픔
-
+                // 패배 로직 처리
                 //MPlayer.AddLevelProgress(loseSpinLevelProgress);
 
                 playFreeSpins = (controls.AutoPlayFreeSpins && controls.HasFreeSpin);
 
-                //3e ---- ENABLE player interaction -----------
+                // // 슬롯 비활성화 해제 (다시 조작 가능하게)
                 slotsRunned = false;
                 SetInputActivity(true);
 				MSound.PlayCurrentMusic();

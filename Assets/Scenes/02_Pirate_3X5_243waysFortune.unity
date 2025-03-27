@@ -3284,7 +3284,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2708058
+  currRatio: 1.323646
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -6830,7 +6830,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2708058
+  currRatio: 1.323646
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1349173898
@@ -8207,7 +8207,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2708058
+  currRatio: 1.323646
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -9339,7 +9339,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2708058
+  currRatio: 1.323646
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1905386938
