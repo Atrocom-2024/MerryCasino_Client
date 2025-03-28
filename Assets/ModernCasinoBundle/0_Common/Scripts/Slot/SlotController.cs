@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEngine.Application;
+using System.Threading.Tasks;
 
 namespace Mkey
 {
@@ -360,7 +361,8 @@ namespace Mkey
             if (!controls.ApplyFreeSpin()) // 프리 스핀이 아닐 때만 베팅 적용
             {
                 Debug.Log("!ApplyFreeSpin 조건 통과");
-                if (!controls.ApplyBet()) // 베팅 가능 여부 확인
+                if (!controls.CheckBet()) // 베팅 가능 여부 확인
+                //if (!controls.ApplyBet()) // 베팅 가능 여부 확인
                 {
                     MGUI.ShowMessage(null, "You have no money.", 1.5f, null);
                     controls.ResetAutoSpinsMode();
@@ -383,6 +385,9 @@ namespace Mkey
             StartCoroutine(RunSlotsAsync());
         }
 
+        /// <summary>
+        /// 슬롯 회전 준비 메서드
+        /// </summary>
         private void PrepareSpin()
         {
             // 사용자 입력 비활성화
@@ -409,6 +414,10 @@ namespace Mkey
             StartSpinEvent?.Invoke();
         }
 
+        /// <summary>
+        /// 슬롯 회전 애니메이션 및 베팅 처리 메서드
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator RotateSlotAsync()
         {
             // 슬롯 애니메이션 실행
@@ -416,8 +425,19 @@ namespace Mkey
             rng.Update(); // 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
 
             //RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
-            RecurRotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
-            SetStopReelsOrder();
+            RecurRotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; }); // 무한 슬롯 회전 시작
+
+            // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+            // 여기서 베팅 요청을 보내고 베팅을 받은 후 SetStopReelsOrder 메서드를 호출하여 슬롯을 멈추도록 함
+            if (!controls.CheckFreeSpin())
+            {
+                Task<BetResponse> sendBetTask = RoomSocketManager.Instance.SendBetReqeust(MPlayer.Id, controls.TotalBet);
+                while (!sendBetTask.IsCompleted)
+                    yield return null;
+            }
+            // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+            SetStopReelsOrder(); // 
 
             while (!fullRotated)
                 yield return wfs0_2;  // 슬롯 회전 완료 대기

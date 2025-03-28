@@ -106,9 +106,9 @@ public class RoomSocketManager : MonoBehaviour
     }
 
     // 배팅 요청
-    public async Task SendBetReqeust(string userId, int betAmount)
+    public async Task<BetResponse> SendBetReqeust(string userId, int betAmount)
     {
-        //_betResponseTcs = new TaskCompletionSource<BetResponse>();
+        _betResponseTcs = new TaskCompletionSource<BetResponse>();
 
         await SendClientMessagesAsync("BetRequest", new BetRequest
         {
@@ -117,7 +117,7 @@ public class RoomSocketManager : MonoBehaviour
             RoomType = 1
         });
 
-        //return await _betResponseTcs.Task;
+        return await _betResponseTcs.Task;
     }
 
     public async Task SendAddCoinsRequest(string userId, int coins)
@@ -201,8 +201,8 @@ public class RoomSocketManager : MonoBehaviour
                         case "BetResponse":
                             if (response.BetResponseData != null)
                             {
-                                //_betResponseTcs?.TrySetResult(response.BetResponseData); // 응답 기다리던 곳 깨움
-                                //_betResponseTcs = null;
+                                _betResponseTcs?.TrySetResult(response.BetResponseData); // 응답 기다리던 곳 깨움
+                                _betResponseTcs = null;
                                 //Debug.Log("[socket] BetResponse received");
                                 OnBetResponse.Invoke(response.BetResponseData);
                             }

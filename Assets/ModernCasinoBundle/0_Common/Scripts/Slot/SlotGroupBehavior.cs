@@ -281,7 +281,7 @@ namespace Mkey
             if (NextOrderPosition == -1) // 특수 값 -1은 연속 회전 의미
                 tS.Add((callBack) => // 연속 회전 추가
                 {
-                    RecurRotation(mainRotTime / 1.0f, callBack); // 재귀적 회전 시작
+                    RecurRotation(mainRotTime / 2.0f, callBack); // 재귀적 회전 시작
                 });
 
             // 3. 주요 회전 부분

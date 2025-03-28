@@ -868,7 +868,19 @@ namespace Mkey
                 return false;
             }
         }
-        
+
+        internal bool CheckBet()
+        {
+            if (MPlayer.Coins >= TotalBet)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 유저가 갖고있는 돈보다 배팅 금액이 적을 때만 배팅 진행
         /// </summary>
