@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEngine.Application;
 
 namespace Mkey
 {
@@ -414,7 +415,9 @@ namespace Mkey
             bool fullRotated = false;
             rng.Update(); // 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
 
-            RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
+            //RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
+            RecurRotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
+            SetStopReelsOrder();
 
             while (!fullRotated)
                 yield return wfs0_2;  // 슬롯 회전 완료 대기
@@ -606,7 +609,74 @@ namespace Mkey
         }
 
         /// <summary>
-        /// 슬롯 애니메이션
+        /// 무한 슬롯 회전 애니메이션 실행 메서드
+        /// </summary>
+        private void RecurRotateSlots(Action rotCallBack)
+        {
+            ParallelTween pT = new ParallelTween();
+            int[] rands = { -1, -1, -1, -1, -1 };
+
+            // 홀드 기능
+            HoldFeature hold = controls.Hold;
+            bool[] holdReels = null;
+            if (controls.UseHold && hold && hold.Length == rands.Length)
+            {
+                holdReels = hold.GetHoldReels();
+                for (int i = 0;i < rands.Length;i++)
+                {
+                    rands[i] = holdReels[i] ? slotGroupsBeh[i].CurrOrderPosition : rands[i]; // hold position
+                }
+            }
+
+            for (int i = 0;i < slotGroupsBeh.Length;i++)
+            {
+                int n = i;
+                int r = rands[i];
+
+                if (holdReels == null || (holdReels != null && !holdReels[i]))
+                {
+                    // 잭팟이 발생했을 땐 잭팟 심볼에서 멈추도록 설정
+                    pT.Add((callBack) =>
+                    {
+                        slotGroupsBeh[n].NextRotateCylinderEase(mainRotateType, inRotType, outRotType,
+                            mainRotateTime, mainRotateTimeRandomize / 100f,
+                            inRotTime, outRotTime, inRotAngle, outRotAngle,
+                            r, callBack);
+                    });
+                }
+            }
+
+            pT.Start(rotCallBack);
+        }
+
+        private void SetStopReelsOrder()
+        {
+            int[] rands = rng.GetRandSymbols(); // 각 릴에 대한 다음 정지 위치(심볼 인덱스)를 결정
+            bool isJackpot = (useJackpotSymbOrder && jackpotSymbOrder.Count != 0) && CheckJackpotChange(); // 일정 확률로 잭팟 발생
+
+            // 홀드 기능
+            HoldFeature hold = controls.Hold;
+            bool[] holdReels = null;
+            if (controls.UseHold && hold && hold.Length == rands.Length)
+            {
+                holdReels = hold.GetHoldReels();
+            }
+
+            for (int i = 0;i < slotGroupsBeh.Length;i++)
+            {
+                int n = i;
+                int r = rands[i];
+                int jackpotSymb = isJackpot ? jackpotSymbOrder[i] : 0;
+                if (holdReels == null || (holdReels != null && !holdReels[i]))
+                {
+                    // 잭팟이 발생했을 땐 잭팟 심볼에서 멈추도록 설정
+                    slotGroupsBeh[n].SetNextOrder(isJackpot ? jackpotSymb - 1 : r);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 슬롯 회전 애니메이션 실행 메서드
         /// </summary>
         /// <param name="rotCallBack"></param>
         private void RotateSlots(Action rotCallBack)
