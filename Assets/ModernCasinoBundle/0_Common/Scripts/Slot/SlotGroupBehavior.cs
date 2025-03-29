@@ -240,7 +240,6 @@ namespace Mkey
 #if UNITY_ANDROID || UNITY_IOS
             mainRotTime *= 0.8f;  // 모바일에서는 애니메이션 속도를 20% 빠르게
 #endif
-            Debug.Log($"NextOrder: {NextOrderPosition}");
             // 시뮬레이션 모드면 지정된 위치 사용, 아니면 전달된 위치 사용
             NextOrderPosition = (!simulate) ? nextOrderPosition : simPos;
 

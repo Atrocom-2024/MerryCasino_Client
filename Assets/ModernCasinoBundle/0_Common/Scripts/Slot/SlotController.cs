@@ -340,11 +340,6 @@ namespace Mkey
             if (slotsRunned)
                 return;
 
-            //if (!RoomSocketManager.Instance.IsBetResponseReceived)
-            //{
-            //    return;
-            //}
-
             winController.WinEffectsShow(false, false);
             winController.WinShowCancel();
             winController.ResetLineWinning();
@@ -390,6 +385,8 @@ namespace Mkey
         /// </summary>
         private void PrepareSpin()
         {
+            Debug.Log($"스핀 횟수: {++spinCount}");
+
             // 사용자 입력 비활성화
             SetInputActivity(false);
             winController.HideAllLines();

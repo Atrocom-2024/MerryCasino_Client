@@ -578,9 +578,9 @@ namespace Mkey
         {
             var percent = newJackpotProb * 100;
             if (this && MegaJackpotAmountText)
-                MegaJackpotAmountText.text = percent.ToString("F2") + "%";
+                MegaJackpotAmountText.text = percent.ToString("F3") + "%";
             if (this && MegaJackpotAmountTextMesh)
-                MegaJackpotAmountTextMesh.text = percent.ToString("F2") + "%";
+                MegaJackpotAmountTextMesh.text = percent.ToString("F3") + "%";
         }
 
         private void ChangeWinCoinsHandler(int newCount)

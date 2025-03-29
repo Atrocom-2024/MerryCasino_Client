@@ -4342,7 +4342,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0717016, y: 1.0717016, z: 1.0717016}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1905386936}
@@ -4368,7 +4368,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4253633
+  currRatio: 1.323646
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -12375,7 +12375,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4253633
+  currRatio: 1.323646
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709115112
@@ -14646,7 +14646,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907873130}
-  m_Text: 1.936.583
+  m_Text: 0.000%
   m_OffsetZ: 0
   m_CharacterSize: 0.085
   m_LineSpacing: 1

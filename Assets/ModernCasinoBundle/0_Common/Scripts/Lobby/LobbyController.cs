@@ -10,10 +10,10 @@ namespace Mkey {
         private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
 
         #region const vars
-        private const string SERVER_ADDRESS = "127.0.0.1";
-        private const int SERVER_PORT = 4000;
-        //private const string SERVER_ADDRESS = "socket.atrocom.com";
+        //private const string SERVER_ADDRESS = "127.0.0.1";
         //private const int SERVER_PORT = 4000;
+        private const string SERVER_ADDRESS = "socket.atrocom.com";
+        private const int SERVER_PORT = 4000;
         #endregion
 
         #region temp vars
