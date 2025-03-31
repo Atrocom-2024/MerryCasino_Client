@@ -355,7 +355,6 @@ namespace Mkey
             // 프리 스핀 여부 확인 후 베팅 적용
             if (!controls.ApplyFreeSpin()) // 프리 스핀이 아닐 때만 베팅 적용
             {
-                Debug.Log("!ApplyFreeSpin 조건 통과");
                 if (!controls.CheckBet()) // 베팅 가능 여부 확인
                 //if (!controls.ApplyBet()) // 베팅 가능 여부 확인
                 {
@@ -364,6 +363,8 @@ namespace Mkey
                     return;
                 }
                 isFreeSpin = false; // 프리 스핀이 아닌 경우 false로 설정
+
+                ++spinCount; // 프리스핀이 아닐 때만 스핀 횟수 증가
             }
             else
             {
@@ -385,8 +386,6 @@ namespace Mkey
         /// </summary>
         private void PrepareSpin()
         {
-            Debug.Log($"스핀 횟수: {++spinCount}");
-
             // 사용자 입력 비활성화
             SetInputActivity(false);
             winController.HideAllLines();
@@ -452,6 +451,8 @@ namespace Mkey
                 //MPlayer.AddCoins(jackPotWinCoins);
                 StartCoroutine(RoomController.HandleJackpotWin(jackPotType, jackPotWinCoins));
 
+                spinCount = 0; // 스핀횟수 초기화
+
                 if (controls.HasFreeSpin || controls.Auto)
                 {
                     // 잭팟 UI 표시 및 처리
@@ -502,7 +503,7 @@ namespace Mkey
                 int payMultiplier = winController.GetPayMultiplier();
                 winCoins *= payMultiplier;
 
-                if (useLineBetMultiplier) winCoins *= controls.LineBet; // 여기서 금액이 뻥튀기될 가능성이 있음
+                if (useLineBetMultiplier) winCoins *= controls.LineBet;
                 //Debug.Log("Original wincoins: " + winCoins);
 
                 winCoins = (int)(winCoins * (1 + (RoomController.resultPayout / 100.0))); // 승리했을 때 코인 값 계산
@@ -565,6 +566,10 @@ namespace Mkey
 
                 // 미니게임, 팝업 대기
                 while (SlotEvents.Instance && SlotEvents.Instance.MiniGameStarted) yield return wfs0_1;  // wait for the mini game to close
+
+                Debug.Log($"스핀 횟수: {spinCount}"); // 프리스핀이 아닐 때만 카운팅하고 메세지 팝업 띄우기
+                StartCoroutine(ShowJackpotHintMessage(spinCount));
+
                 while (!MGUI.HasNoPopUp) yield return wfs0_1;  // wait for the closin all popups
 
                 // 슬롯 비활성화 해제 (다시 조작 가능하게)
@@ -606,12 +611,15 @@ namespace Mkey
 
                 playFreeSpins = (controls.AutoPlayFreeSpins && controls.HasFreeSpin);
 
-                // // 슬롯 비활성화 해제 (다시 조작 가능하게)
+                Debug.Log($"스핀 횟수: {spinCount}"); // 프리스핀이 아닐 때만 카운팅하고 메세지 팝업 띄우기
+                StartCoroutine(ShowJackpotHintMessage(spinCount));
+
+                // 슬롯 비활성화 해제 (다시 조작 가능하게)
                 slotsRunned = false;
                 SetInputActivity(true);
 				MSound.PlayCurrentMusic();
             }
-         
+
             while (!MGUI.HasNoPopUp) yield return wfs0_1;  // 모든 팝업이 닫힐 때까지 대기
 
             if (controls.Auto && controls.AutoSpinsCounter >= controls.AutoSpinCount)
@@ -622,6 +630,52 @@ namespace Mkey
             if (controls.Auto || playFreeSpins)
             {
                 RunSlots();
+            }
+        }
+
+        private IEnumerator ShowJackpotHintMessage(uint spinCount)
+        {
+            bool hintMessageClosed = false;
+            bool shouldShowMessage = true;
+
+            switch (spinCount)
+            {
+                case 25:
+                    MGUI.ShowMessage(null, "You're off to a good start!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 50:
+                    MGUI.ShowMessage(null, "Jackpot is on the horizon!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 75:
+                    MGUI.ShowMessage(null, "You're getting closer to the jackpot!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 100:
+                    MGUI.ShowMessage(null, "100 spins in — keep going, your jackpot awaits!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 120:
+                    MGUI.ShowMessage(null, "The jackpot is drawing nearer...", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 140:
+                    MGUI.ShowMessage(null, "You're more than halfway there!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 160:
+                    MGUI.ShowMessage(null, "Feeling lucky? You're closing in!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 180:
+                    MGUI.ShowMessage(null, "Almost there — the jackpot is approaching!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                case 200:
+                    MGUI.ShowMessage(null, "200 spins in! Jackpot can't hide for long!", 1.5f, () => { hintMessageClosed = true; });
+                    break;
+                default:
+                    shouldShowMessage = false;
+                    break;
+            }
+
+            if (shouldShowMessage)
+            {
+                while (!hintMessageClosed)
+                    yield return new WaitForSeconds(1.6f);
             }
         }
 

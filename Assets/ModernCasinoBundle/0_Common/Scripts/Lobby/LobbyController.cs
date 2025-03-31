@@ -58,14 +58,14 @@ namespace Mkey {
 
         public void InitGameUserState(GameUserState userState)
         {
-            Debug.Log($"[RoomController] User joined room: UserId = {MPlayer.Id}");
+            //Debug.Log($"[RoomController] User joined room: UserId = {MPlayer.Id}");
             gameData.CurrentPayout = userState.CurrentPayout;
             gameData.JackpotProb = userState.JackpotProb;
         }
 
         public void InitGameState(GameState gameState)
         {
-            Debug.Log($"[RoomController] Game state updated");
+            //Debug.Log($"[RoomController] Game state updated");
             gameData.TotalJackpotAmount = (int)gameState.TotalJackpotAmount;
         }
 
@@ -108,7 +108,7 @@ namespace Mkey {
         {
             if (loadingPopup != null)
             {
-                Debug.Log("[UI] Popup fully closed!");
+                //Debug.Log("[UI] Popup fully closed!");
                 loadingPopup.CloseWindow(0.1f, () => { loadingPopup = null; });
                 //loadingPopup = null;
             }
