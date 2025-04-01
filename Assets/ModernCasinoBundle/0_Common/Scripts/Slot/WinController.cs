@@ -408,10 +408,10 @@ namespace Mkey
         /// <summary>
         /// 슬롯에서 승리했는지, 패배했는지 반환하는 메서드
         /// </summary>
-        internal bool HasAnyWinn(ref bool hasLineWin, ref bool hasScatterWin, ref JackPotType jackPotType)
+        internal bool HasAnyWinn(ref JackPotType jackPotType)
         {
-            hasLineWin = false;
-            hasScatterWin = false;
+            bool hasLineWin = false;
+            bool hasScatterWin = false;
 
             foreach (LineBehavior lB in linesController.Lines)
             {

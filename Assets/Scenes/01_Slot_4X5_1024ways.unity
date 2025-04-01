@@ -617,8 +617,8 @@ MonoBehaviour:
         m_Calls: []
     payMult: 1
     freeSpinsMult: 1
-  - line: 0200000002000000020000000200000002000000
-    pay: 100
+  - line: 02000000020000000200000002000000ffffffff
+    pay: 50
     freeSpins: 0
     showEvent: 0
     LineEvent:
@@ -626,8 +626,8 @@ MonoBehaviour:
         m_Calls: []
     payMult: 1
     freeSpinsMult: 1
-  - line: 02000000020000000200000002000000ffffffff
-    pay: 50
+  - line: 0200000002000000020000000200000002000000
+    pay: 100
     freeSpins: 0
     showEvent: 0
     LineEvent:
@@ -1144,7 +1144,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7648612, y: 1.7648612, z: 1.7648612}
+  m_LocalScale: {x: 1.898723, y: 1.898723, z: 1.898723}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.323646
+  currRatio: 1.4240422
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -3292,7 +3292,7 @@ MonoBehaviour:
   additionalScale: 0.72
   additionalScaleOld: 0.72
   useLerpScale: 0
-  currRatio: 1.323646
+  currRatio: 1.4240422
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

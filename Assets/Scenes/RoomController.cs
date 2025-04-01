@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Threading.Tasks;
-using Mkey;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
+
+using Mkey;
 
 // 특정 룸의 지급률을 계산하고, 관련된 정보를 관리하는 클래스
 public class RoomController : MonoBehaviour
@@ -17,17 +16,10 @@ public class RoomController : MonoBehaviour
     private SlotControls controls;
 
     public double resultPayout;
-    //public double sessionTotalBet;
     public int roomNumber;
-
-    //[SerializeField]
-    //private double basePayout; // 기본 지급률
 
     [SerializeField]
     Text PayoutText;
-
-
-    double plusPayout; // 추가 지급률
 
     private void Awake()
     {
@@ -140,11 +132,6 @@ public class RoomController : MonoBehaviour
         }
     }
 
-    //public async Task<BetResponse> HandleBettingAsync(string userId, int betAmount)
-    //{
-    //    return await RoomSocketManager.SendBetReqeust(userId, betAmount);
-    //}
-
     public IEnumerator HandleJackpotWin(JackPotType jackpotType, int jackpotCoins)
     {
         // 잭팟 지급 요청 비동기 작업 시작
@@ -171,6 +158,7 @@ public class RoomController : MonoBehaviour
     public void HandleJackpotWinUpdate(JackpotWinResponse response)
     {
         MPlayer.SetCoinsCount(response.AddedCoinsAmount);
+        MGUI.ShowMessage(null, $"\nJACKPOT! Unbelievable luck!\n\nYou won {controls.TotalBet * 100} coins!", 4f, null);
     }
 
     public void HandleGameUserStateUpdate(GameUserState userState)
@@ -221,38 +209,4 @@ public class RoomController : MonoBehaviour
             PayoutText.color = highColor;
         }
     }
-
-    ///
-    /// 아래 코드들은 payout이 초기화될 때 실행되는 동작
-    ///
-
-    /// <summary>
-    /// 플레이어의 코인을 증가시키고, 관련된 상태(sessionTotalBet)를 초기화
-    /// </summary>
-    private void returnEvent()
-    {
-        // 플레이어의 코인을 추가하고, sessionTotalBet과 resultPayout 값을 초기화
-        //MPlayer.AddCoins((int)sessionTotalBet / 10);
-        //Debug.Log("sessionTotalBet: " + sessionTotalBet + "return Value: " + (int)sessionTotalBet / 10);
-        //sessionTotalBet = 1;
-        returnPopOn();
-    }
-
-    // returnPopOn()과 returnPopOff() 메서드는 지급률 관련 UI 팝업을 활성화하거나 비활성화
-    public void returnPopOn()
-    {
-        if (Payoutinfo._returnPopup.activeSelf == false)
-            Payoutinfo._returnPopup.SetActive(true);
-        Invoke("returnPopOff", 1);
-    }
-
-    public void returnPopOff()
-    {
-        Payoutinfo._returnPopup.SetActive(false);
-    }
-
-    //public void OnPayOutInfo()
-    //{
-    //    Payoutinfo._infoPopup.SetActive(true);
-    //}
 }

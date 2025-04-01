@@ -148,7 +148,6 @@ namespace Mkey
 
         public void Jump()
         {
-            Debug.Log("jump");
             if (coinPrefab== null || coinPrefab.Length == 0) return;
             coinsL = new List<GameObject>();
 
