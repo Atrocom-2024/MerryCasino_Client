@@ -679,6 +679,17 @@ namespace Mkey
             }
         }
 
+        public void SlotDelay(float seconds, Action action)
+        {
+            StartCoroutine(SlotDelayCoroutine(seconds, action));
+        }
+
+        private IEnumerator SlotDelayCoroutine(float seconds, Action action)
+        {
+            yield return new WaitForSeconds(seconds);
+            action?.Invoke();
+        }
+
         /// <summary>
         /// 무한 슬롯 회전 애니메이션 실행 메서드
         /// </summary>

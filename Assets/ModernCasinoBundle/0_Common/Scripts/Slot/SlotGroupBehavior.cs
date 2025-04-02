@@ -284,7 +284,7 @@ namespace Mkey
                 });
 
             // 3. 주요 회전 부분
-            tS.Add((callBack) =>  // main rotation part
+            tS.Add((callBack) =>
             {
                 oldVal = 0f; // 이전 값 초기화
                 addRotateTime = Mathf.Max(0, addRotateTime);  // 음수 방지
