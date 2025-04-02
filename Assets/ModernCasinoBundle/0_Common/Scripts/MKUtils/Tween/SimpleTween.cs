@@ -247,8 +247,9 @@ namespace Mkey
             freeInd = -1;
             for (int i = 0; i < length; i++)
             {
-                tweenObjects[i].Update(Time.deltaTime);
-                if (tweenObjects[i].IsFree) freeInd=i;
+                var tween = tweenObjects[i];
+                tween.Update(Time.deltaTime);
+                if (tween.IsFree) freeInd = i;
             }
 
             if (freeInd > -1 && length > 50) tweenObjects.RemoveAt(freeInd);

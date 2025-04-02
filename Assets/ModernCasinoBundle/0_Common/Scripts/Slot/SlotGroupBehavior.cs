@@ -160,8 +160,8 @@ namespace Mkey
             {
                 // 하단 레이캐스터 위치에 맞게 회전 각도 조정
                 float dY = brcY - TilesGroup.localPosition.y;
-                dArad = Mathf.Asin(dY/radius);
-            //    Debug.Log("dY: "+ dY + " ;dArad: " + dArad  + " ;deg: " + dArad* Mathf.Rad2Deg);
+                dArad = Mathf.Asin(dY / radius);
+                // Debug.Log("dY: "+ dY + " ;dArad: " + dArad  + " ;deg: " + dArad* Mathf.Rad2Deg);
                 addAnglePerTileRad = dArad;
                 addAnglePerTileDeg = dArad * Mathf.Rad2Deg;
             }
@@ -262,18 +262,22 @@ namespace Mkey
             tempSectors = 0; // 임시 섹터 카운터 초기화
 
             // 1. 시작 회전 부분 (가속)
-            tS.Add((callBack) => // in rotation part
+            tS.Add((callBack) =>
             {
-                SimpleTween.Value(gameObject, 0f, inRotAngle, inRotTime)
-                                  .SetOnUpdate((float val) =>
-                                  {
-                                      TilesGroup.Rotate(val - oldVal, 0, 0); // 증분만큼 회전
-                                      oldVal = val; // 이전 값 업데이트
-                                  })
-                                  .AddCompleteCallBack(() =>
-                                  {
-                                     callBack(); // 완료 콜백
-                                  }).SetEase(inRotType).SetDelay(startDelay); // 이징 및 지연 설정
+                // SetOnUpdate를 통해 매 프레임마다 호출되는 콜백 함수를 사용하여 회전 애니메이션을 구현
+                SimpleTween
+                    .Value(gameObject, 0f, inRotAngle, inRotTime)
+                    .SetOnUpdate((float val) =>
+                    {
+                        TilesGroup.Rotate(val - oldVal, 0, 0); // 증분만큼 회전
+                        oldVal = val; // 이전 값 업데이트
+                    })
+                    .AddCompleteCallBack(() =>
+                    {
+                       callBack(); // 완료 콜백
+                    })
+                    .SetEase(inRotType) // 이징 설정
+                    .SetDelay(startDelay); // 지연 설정
             });
 
             // 2. 연속 회전 부분 (옵션)
@@ -300,48 +304,51 @@ namespace Mkey
                 if(debugreel) Debug.Log(name + ", angleX : " + angleX); // 디버그 로그
 
                 // 주요 회전 애니메이션 실행
-                SimpleTween.Value(gameObject, 0, -(angleX + outRotAngle + inRotAngle), mainRotTime)
-                                  .SetOnUpdate((float val) =>
-                                  {
-                                      // 회전 각도만큼 증분 회전
-                                      // check rotation angle 
-                                      TilesGroup.Rotate(val - oldVal, 0, 0);
-                                      oldVal = val;
+                SimpleTween
+                    .Value(gameObject, 0, -(angleX + outRotAngle + inRotAngle), mainRotTime)
+                    .SetOnUpdate((float val) =>
+                    {
+                        // 회전 각도만큼 증분 회전
+                        TilesGroup.Rotate(val - oldVal, 0, 0);
+                        oldVal = val;
 
-                                      // 특정 범위 내에서 심볼 테이프 래핑 실행
-                                      if (val < -inRotAngle && val >= -(angleX + inRotAngle))
-                                          WrapSymbolTape(val + inRotAngle);
-                                  })
-                                  .AddCompleteCallBack(() =>
-                                  {
-                                      // 최종 심볼 테이프 래핑
-                                      WrapSymbolTape(angleX);
+                        // 특정 범위 내에서 심볼 테이프 래핑 실행
+                        if (val < -inRotAngle && val >= -(angleX + inRotAngle))
+                            WrapSymbolTape(val + inRotAngle);
+                    })
+                    .AddCompleteCallBack(() =>
+                    {
+                        // 최종 심볼 테이프 래핑
+                        WrapSymbolTape(angleX);
 
-                                      // 최상단 섹터 업데이트
-                                      topSector += Mathf.Abs(Mathf.RoundToInt(angleX / anglePerTileDeg));
-                                      topSector = (int)Mathf.Repeat(topSector, tileCount); // 범위 내로 조정
-                                      if (debugreel) SignTopSymbol(topSector); // 디버그: 최상단 심볼 표시
+                        // 최상단 섹터 업데이트
+                        topSector += Mathf.Abs(Mathf.RoundToInt(angleX / anglePerTileDeg));
+                        topSector = (int)Mathf.Repeat(topSector, tileCount); // 범위 내로 조정
+                        if (debugreel) SignTopSymbol(topSector); // 디버그: 최상단 심볼 표시
 
-                                      callBack(); // 완료 콜백
-                                  }).SetEase(mainRotType); // 이징 설정
+                        callBack(); // 완료 콜백
+                    })
+                    .SetEase(mainRotType); // 이징 설정
             });
 
             // 4. 종료 회전 부분 (감속)
-            tS.Add((callBack) =>  // out rotation part
+            tS.Add((callBack) =>
             {
                 oldVal = 0f; // 이전 값 초기화
-                SimpleTween.Value(gameObject, 0, outRotAngle, outRotTime)
-                                  .SetOnUpdate((float val) =>
-                                  {
-                                      TilesGroup.Rotate(val - oldVal, 0, 0); // 증분만큼 회전
-                                      oldVal = val; // 이전 값 업데이트
-                                  })
-                                  .AddCompleteCallBack(() =>
-                                  {
-                                      CurrOrderPosition = NextOrderPosition; // 현재 위치 업데이트
-                                      rotCallBack?.Invoke(); // 전체 회전 완료 콜백
-                                      callBack(); // 단계 완료 콜백
-                                  }).SetEase(outRotType); // 이징 설정
+                SimpleTween
+                    .Value(gameObject, 0, outRotAngle, outRotTime)
+                    .SetOnUpdate((float val) =>
+                    {
+                        TilesGroup.Rotate(val - oldVal, 0, 0); // 증분만큼 회전
+                        oldVal = val; // 이전 값 업데이트
+                    })
+                    .AddCompleteCallBack(() =>
+                    {
+                        CurrOrderPosition = NextOrderPosition; // 현재 위치 업데이트
+                        rotCallBack?.Invoke(); // 전체 회전 완료 콜백
+                        callBack(); // 단계 완료 콜백
+                    })
+                    .SetEase(outRotType); // 이징 설정
             });
 
             // 시퀀스 시작
@@ -360,29 +367,32 @@ namespace Mkey
             float oldVal = 0; // 이전 값 (애니메이션 델타 계산용)
 
             // 선형 회전 애니메이션 실행
-            SimpleTween.Value(gameObject, 0, newAngle, rotTime)
-                                .SetOnUpdate((float val) =>
-                                {
-                                    if (this) // 객체 존재 확인
-                                    {
-                                        TilesGroup.Rotate(val - oldVal, 0, 0); // 증분만큼 회전
-                                        oldVal = val; // 이전 값 업데이트
-                                        WrapSymbolTape(val); // 심볼 테이프 래핑
-                                    }
-                                })
-                                .AddCompleteCallBack(() =>
-                                {
-                                    // 최종 심볼 테이프 래핑
-                                    WrapSymbolTape(newAngle);
+            SimpleTween
+                .Value(gameObject, 0, newAngle, rotTime)
+                .SetOnUpdate((float val) =>
+                {
+                    if (this) // 객체 존재 확인
+                    {
+                        TilesGroup.Rotate(val - oldVal, 0, 0); // 증분만큼 회전
+                        oldVal = val; // 이전 값 업데이트
+                        WrapSymbolTape(val); // 심볼 테이프 래핑
+                    }
+                })
+                .AddCompleteCallBack(() =>
+                {
+                    // 최종 심볼 테이프 래핑
+                    WrapSymbolTape(newAngle);
 
-                                    tempSectors = 0; // 임시 섹터 카운터 초기화
-                                    topSector += symbOrder.Count; // 최상단 섹터 업데이트
-                                    topSector = (int)Mathf.Repeat(topSector, tileCount); // 범위 내로 조정
+                    tempSectors = 0; // 임시 섹터 카운터 초기화
+                    topSector += symbOrder.Count; // 최상단 섹터 업데이트
+                    topSector = (int)Mathf.Repeat(topSector, tileCount); // 범위 내로 조정
 
-                                    // 계속 회전(-1) 상태면 재귀 호출, 아니면 완료
-                                    if (NextOrderPosition == -1) RecurRotation(rotTime, completeCallBack);
-                                    else {completeCallBack?.Invoke(); }
-                                }).SetEase(EaseAnim.EaseLinear); // 선형 이징 (일정 속도)
+                    // 계속 회전(-1) 상태면 재귀 호출, 아니면 완료
+                    if (NextOrderPosition == -1) RecurRotation(rotTime, completeCallBack);
+                    else {completeCallBack?.Invoke(); }
+                })
+                //.SetEase(EaseAnim.EaseLinear); // 선형 이징 (일정 속도)
+                .SetEase(EaseAnim.EaseInQuad); // 선형 이징 (일정 속도)
         }
 
         /// <summary>

@@ -5848,7 +5848,7 @@ MonoBehaviour:
   - {fileID: 1935495238}
   - {fileID: 961775315}
   addRotateTime: 0
-  spinStartDelay: 0.2
+  spinStartDelay: 0
   spinStartRandomize: 0
   spinSpeedMultiplier: 2
   randomStartPosition: 0
@@ -7286,7 +7286,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.068501, y: 1.068501, z: 1.068501}
+  m_LocalScale: {x: 1.0675107, y: 1.0675107, z: 1.0675107}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 531033908}
@@ -7311,7 +7311,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4253633
+  currRatio: 1.4240422
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1305978779
@@ -9445,7 +9445,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
-  m_LocalScale: {x: 0.82159007, y: 0.82159007, z: 0.82159007}
+  m_LocalScale: {x: 0.8209213, y: 0.8209213, z: 0.8209213}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932479349}
@@ -9474,7 +9474,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4253633
+  currRatio: 1.4240422
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -9530,7 +9530,7 @@ MonoBehaviour:
   - {fileID: 1517874617}
   - {fileID: 813692112}
   addRotateTime: 0
-  spinStartDelay: 0.3
+  spinStartDelay: 0.1
   spinStartRandomize: 0
   spinSpeedMultiplier: 2
   randomStartPosition: 0
@@ -11775,7 +11775,7 @@ MonoBehaviour:
   - {fileID: 1560277097}
   - {fileID: 1551980296}
   addRotateTime: 0
-  spinStartDelay: 0.3
+  spinStartDelay: 0.2
   spinStartRandomize: 0
   spinSpeedMultiplier: 2
   randomStartPosition: 0

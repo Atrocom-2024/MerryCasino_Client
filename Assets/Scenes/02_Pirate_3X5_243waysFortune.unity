@@ -4763,7 +4763,7 @@ MonoBehaviour:
   - {fileID: 2034269023}
   - {fileID: 1074324455}
   addRotateTime: 0
-  spinStartDelay: 0.1
+  spinStartDelay: 0
   spinStartRandomize: 0
   spinSpeedMultiplier: 2
   randomStartPosition: 0
@@ -5322,7 +5322,7 @@ MonoBehaviour:
   - {fileID: 1935495238}
   - {fileID: 961775315}
   addRotateTime: 0
-  spinStartDelay: 0.2
+  spinStartDelay: 0.1
   spinStartRandomize: 0
   spinSpeedMultiplier: 2
   randomStartPosition: 0
@@ -8419,7 +8419,7 @@ MonoBehaviour:
   - {fileID: 1517874617}
   - {fileID: 813692112}
   addRotateTime: 0
-  spinStartDelay: 0.3
+  spinStartDelay: 0.2
   spinStartRandomize: 0
   spinSpeedMultiplier: 2
   randomStartPosition: 0
