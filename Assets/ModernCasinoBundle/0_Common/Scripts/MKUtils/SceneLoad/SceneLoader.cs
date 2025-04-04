@@ -64,6 +64,27 @@ namespace Mkey
         }
         #endregion regular
 
+        public void ShowLoadingPopup()
+        {
+            if (LoadGroupPrefab)
+            {
+                // GuiController를 통해 팝업을 표시하는 방식 또는 직접 ShowWindow 호출
+                PopUpsController popup = GuiController.Instance.ShowPopUp(LoadGroupPrefab);
+                // popup을 SceneLoader 내부의 멤버 변수에 저장 -> close를 위해 전역 변수로 공유
+                LoadGroup = popup;
+            }
+        }
+
+        public void CloseLoadingPopup()
+        {
+            if (LoadGroup != null)
+            {
+                // Show 할 때 사용했던 변수를 공유해 닫음
+                LoadGroup.CloseWindow();
+                LoadGroup = null;
+            }
+        }
+
         public void LoadScene(int scene)
         {
             StartCoroutine(AsyncLoadBeaty(scene, null, null));

@@ -8,6 +8,7 @@ namespace Mkey {
         public static LobbyController Instance { get; private set; }
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
         private RoomSocketManager RoomSocketManager { get { return RoomSocketManager.Instance; } }
+        private GuiController MGUI { get { return GuiController.Instance; } }
 
         #region const vars
         //private const string SERVER_ADDRESS = "127.0.0.1";
@@ -19,7 +20,6 @@ namespace Mkey {
         #region temp vars
         public GameData gameData = new GameData();
         private Button[] buttons;
-        private PopUpsController loadingPopup;
         #endregion temp vars
 
         #region regular
@@ -76,15 +76,16 @@ namespace Mkey {
 
         private IEnumerator JoinRoomAndLoadScene(int roomId)
         {
-            ShowLoadingPopup();
+            SceneLoader.Instance.ShowLoadingPopup();
 
             var connectSocketTask = RoomSocketManager.ConnectToServer(SERVER_ADDRESS, SERVER_PORT);
             yield return new WaitUntil(() => connectSocketTask.IsCompleted);
 
             if (!RoomSocketManager.Instance.IsConnected)
             {
-                CloseLoadingPopup(); // 실패 시 로딩창 끄기
                 Debug.LogError("[Lobby] Failed to connect to server!");
+                SceneLoader.Instance.CloseLoadingPopup(); // 실패 시 로딩창 끄기
+                MGUI.ShowMessageWithCloseButton("Connection Error", "\nFailed to connect to server.\nPlease check your network status.", () => { });
                 yield break;
             }
 
@@ -92,26 +93,6 @@ namespace Mkey {
             yield return new WaitUntil(() => joinRoomTask.IsCompleted);
 
             SceneLoad(roomId);
-        }
-
-        private void ShowLoadingPopup()
-        {
-            if (loadingPopup == null)
-            {
-                loadingPopup = SceneLoader.Instance.LoadGroupPrefab;
-                GuiController guiController = FindObjectOfType<GuiController>();
-                guiController.ShowPopUp(loadingPopup);
-            }
-        }
-
-        private void CloseLoadingPopup()
-        {
-            if (loadingPopup != null)
-            {
-                //Debug.Log("[UI] Popup fully closed!");
-                loadingPopup.CloseWindow(0.1f, () => { loadingPopup = null; });
-                //loadingPopup = null;
-            }
         }
 
         /// <summary>

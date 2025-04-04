@@ -256,6 +256,7 @@ namespace Mkey
                         onFailure: (errorMessage) =>
                         {
                             Debug.LogError(errorMessage);
+                            FailedPurchaseEvent?.Invoke(product.kProductID, product.name);
                         }
                     ));
                 }

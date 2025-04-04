@@ -267,6 +267,17 @@ namespace Mkey
             return ShowPopUp(popup_prefab, transform, openCallBack, closeCallBack);
         }
 
+        public void ClosePopUp(PopUpsController popUp)
+        {
+            if (popUp != null && PopupsList.Contains(popUp))
+            {
+                // 팝업의 닫힘 애니메이션이나 기타 로직을 처리한 후,
+                // 닫힘 콜백을 명시적으로 호출하여 리스트에서 제거하고 오브젝트 파괴
+                popUp.CloseWindow();
+                // 또는 popUp의 CloseWindow 내부에서 PopUpCloseEventHandler가 호출되도록 보장
+            }
+        }
+
         /// <summary>
         /// Set children buttons interactable = activity, toggles, 
         /// </summary>

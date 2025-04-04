@@ -12,7 +12,8 @@ public class GooglePlayGamesScript : MonoBehaviour
     
     private readonly UserInfo userInfo = new UserInfo(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
     private string authApiUrl;
-    private PopUpsController loadingPopup;
+
+    private GuiController MGUI { get { return GuiController.Instance; } }
 
     void Awake()
     {
@@ -36,7 +37,7 @@ public class GooglePlayGamesScript : MonoBehaviour
     {
         Debug.Log("Attempting Google Play Games login");
 
-        ShowLoadingPopup();
+        SceneLoader.Instance.ShowLoadingPopup();
 
         PlayGamesPlatform.Instance.Authenticate((success) =>
         {
@@ -51,7 +52,7 @@ public class GooglePlayGamesScript : MonoBehaviour
                     if (string.IsNullOrEmpty(code))
                     {
                         Debug.LogError("Failed to get server auth code");
-                        CloseLoadingPopup();
+                        SceneLoader.Instance.CloseLoadingPopup();
                         return;
                     }
 
@@ -61,7 +62,9 @@ public class GooglePlayGamesScript : MonoBehaviour
             else
             {
                 Debug.LogError("Login failed. Error: " + SignInStatus.InternalError);
-                CloseLoadingPopup();
+
+                SceneLoader.Instance.CloseLoadingPopup();
+                MGUI.ShowMessageWithCloseButton("Login faild", "\n\nPlease check your google play login status or google play profile.", () => { });
             }
         });
     }
@@ -71,7 +74,7 @@ public class GooglePlayGamesScript : MonoBehaviour
     {
         Debug.Log("Attempting guest login");
 
-        ShowLoadingPopup();
+        SceneLoader.Instance.ShowLoadingPopup();
 
         userInfo.id = SystemInfo.deviceUniqueIdentifier;
         StartCoroutine(AuthWithGuest());
@@ -104,7 +107,7 @@ public class GooglePlayGamesScript : MonoBehaviour
             onError: (request) =>
             {
                 Debug.Log($"Error: {request.error}");
-                CloseLoadingPopup();
+                SceneLoader.Instance.CloseLoadingPopup();
             }
         ));
     }
@@ -133,7 +136,7 @@ public class GooglePlayGamesScript : MonoBehaviour
             onError: (request) =>
             {
                 Debug.Log($"Error: {request.error}");
-                CloseLoadingPopup();
+                SceneLoader.Instance.CloseLoadingPopup();
             }
         ));
     }
@@ -142,25 +145,6 @@ public class GooglePlayGamesScript : MonoBehaviour
     private void LoadLobby()
     {
         SceneLoader.Instance.LoadScene(1); // 씬의 인덱스를 1로 설정
-    }
-
-    private void ShowLoadingPopup()
-    {
-        if (loadingPopup == null)
-        {
-            loadingPopup = SceneLoader.Instance.LoadGroupPrefab;
-            GuiController guiController = FindObjectOfType<GuiController>();
-            guiController.ShowPopUp(loadingPopup);
-        }
-    }
-
-    private void CloseLoadingPopup()
-    {
-        if (loadingPopup != null)
-        {
-            loadingPopup.CloseWindow();
-            loadingPopup = null;
-        }
     }
 
     public class UserInfo
