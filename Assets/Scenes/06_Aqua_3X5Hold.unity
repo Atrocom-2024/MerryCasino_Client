@@ -2655,7 +2655,7 @@ GameObject:
   - component: {fileID: 374074062}
   - component: {fileID: 374074061}
   m_Layer: 5
-  m_Name: TextLines
+  m_Name: TextJackpotOdds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2705,7 +2705,7 @@ MonoBehaviour:
     m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 0
     m_MaxSize: 120
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2713,7 +2713,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Lines
+  m_Text: Jackpot Odds
 --- !u!222 &374074062
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3976,7 +3976,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0282922, y: 1.0282922, z: 1.0282922}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -4000,7 +4000,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.2977893
+  currRatio: 1.3676286
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -6048,12 +6048,12 @@ GameObject:
   - component: {fileID: 831609555}
   - component: {fileID: 831609554}
   m_Layer: 5
-  m_Name: LinesBlock
+  m_Name: JackpotProb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &831609553
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7558,7 +7558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 703, y: -8}
+  m_AnchoredPosition: {x: 627, y: -8}
   m_SizeDelta: {x: 403, y: 157}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1059252786
@@ -7905,7 +7905,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -701, y: -8}
+  m_AnchoredPosition: {x: -596, y: -8}
   m_SizeDelta: {x: 403, y: 157}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131444316
@@ -8088,7 +8088,7 @@ MonoBehaviour:
   maxAutoSpins: 1000
   LineBetSumText: {fileID: 742649942}
   TotalBetSumText: {fileID: 193454361}
-  LinesCountText: {fileID: 1263374129}
+  LinesCountText: {fileID: 0}
   FreeSpinText: {fileID: 873368579}
   FreeSpinCountText: {fileID: 1179737959}
   AutoSpinsCountText: {fileID: 1916280037}
@@ -8100,6 +8100,7 @@ MonoBehaviour:
   MegaJackpotAmountTextMesh: {fileID: 1351113230}
   MiniJackpotAmountTextMesh: {fileID: 0}
   MaxiJackpotAmountTextMesh: {fileID: 0}
+  MegaJackpotProbText: {fileID: 1263374129}
   spinButton: {fileID: 1400405896}
   autoSpinButton: {fileID: 209985217}
   hold: {fileID: 1227837510}
@@ -8807,7 +8808,7 @@ GameObject:
   - component: {fileID: 1263374130}
   - component: {fileID: 1263374129}
   m_Layer: 5
-  m_Name: TextLinesCount
+  m_Name: TextJackpotProb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8865,7 +8866,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 120
+  m_Text: 0.000%
 --- !u!222 &1263374130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8874,82 +8875,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263374127}
   m_CullTransparentMesh: 0
---- !u!1 &1263922573
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1263922574}
-  - component: {fileID: 1263922576}
-  - component: {fileID: 1263922575}
-  m_Layer: 5
-  m_Name: JackpotAmount
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1263922574
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263922573}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1799442133}
-  m_Father: {fileID: 1615142515}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -269}
-  m_SizeDelta: {x: 800, y: 150}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1263922575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263922573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff2ca5d13b44eb79628e266f6edf653, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1263922576
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263922573}
-  m_CullTransparentMesh: 1
 --- !u!1 &1274773187
 GameObject:
   m_ObjectHideFlags: 0
@@ -11154,7 +11079,6 @@ RectTransform:
   - {fileID: 407219166}
   - {fileID: 1617472900}
   - {fileID: 1929114826}
-  - {fileID: 1263922574}
   m_Father: {fileID: 771764993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -11826,7 +11750,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 1
-  currRatio: 1.2977893
+  currRatio: 1.3676286
   lerpRatio: 2.056
   lerpScale: 1
 --- !u!1 &1709115112
@@ -12925,85 +12849,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 0}
---- !u!1 &1799442132
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1799442133}
-  - component: {fileID: 1799442135}
-  - component: {fileID: 1799442134}
-  m_Layer: 5
-  m_Name: JackpotFormulaText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1799442133
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799442132}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1263922574}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: -5}
-  m_SizeDelta: {x: 660, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1799442134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799442132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.6313726, g: 0.45490196, b: 0.972549, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: d32f7d4dcb2508f4687511f4b38f0e08, type: 3}
-    m_FontSize: 60
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 100
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: Jackpot = Total Bet X 100
---- !u!222 &1799442135
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799442132}
-  m_CullTransparentMesh: 1
 --- !u!1 &1829922583
 GameObject:
   m_ObjectHideFlags: 0
@@ -13842,7 +13687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1300791943328308400, guid: 22ab0b6283474f8db951d8d7a662951a, type: 3}
       propertyPath: m_Text
-      value: 0.000%
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1300791943328308401, guid: 22ab0b6283474f8db951d8d7a662951a, type: 3}
       propertyPath: m_AnchoredPosition.x

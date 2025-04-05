@@ -49,8 +49,8 @@ namespace Mkey
 
         [Tooltip("Mega jackpot sum start value")]
         //[SerializeField]
-        private decimal megaStart = 0.00M;
         //private int megaStart = 1000;
+        private decimal megaProbStart = 0.00M;
 
         [Space(8)]
         [Tooltip("Check if you want to save coins, level, progress, facebook gift flag, sound settings")]
@@ -113,6 +113,8 @@ namespace Mkey
         private TextMesh MiniJackpotAmountTextMesh;
         [SerializeField]
         private TextMesh MaxiJackpotAmountTextMesh;
+        [SerializeField]
+        private Text MegaJackpotProbText;
         #endregion output
 
         [SerializeField]
@@ -161,11 +163,11 @@ namespace Mkey
         #region events
         public Action<int> ChangeMiniJackPotEvent;
         public Action<int> ChangeMaxiJackPotEvent;
-        public Action<decimal> ChangeMegaJackPotEvent;
+        public Action<decimal> ChangeMegaJackpotProbEvent;
         //public Action<int> ChangeMegaJackPotEvent;
-        public Action<int> LoadMiniJackPotEvent;
-        public Action<int> LoadMaxiJackPotEvent;
-        public Action<int> LoadMegaJackPotEvent;
+        //public Action<int> LoadMiniJackPotEvent;
+        //public Action<int> LoadMaxiJackPotEvent;
+        //public Action<int> LoadMegaJackPotEvent;
 
         public Action<int> ChangeTotalBetEvent;
         public Action<int> ChangeLineBetEvent;
@@ -193,10 +195,11 @@ namespace Mkey
             get { return maxiStart; }
         }
 
-        public decimal MegaJackPotStart
+        public decimal MegaJackPotProbStart
         {
-            get { return megaStart; }
+            get { return megaProbStart; }
         }
+
         //public long MegaJackPotStart
         //{
         //    get { return megaStart; }
@@ -334,7 +337,7 @@ namespace Mkey
 
             ChangeMiniJackPotEvent += ChangeMiniJackPotHandler;
             ChangeMaxiJackPotEvent += ChangeMaxiJackPotHandler;
-            ChangeMegaJackPotEvent += ChangeMegaJackPotHandler;
+            ChangeMegaJackpotProbEvent += ChangeMegaJackPotProbHandler;
 
 
             LoadLineBet();
@@ -352,8 +355,8 @@ namespace Mkey
 
             //LoadMiniJackPot();
             //LoadMaxiJackPot();
-            LoadMegaJackPot();
-            Debug.Log($"MegaStart: {megaStart}");
+            LoadMegaJackPotProb();
+            Debug.Log($"MegaStart: {megaProbStart}");
         }
 
         void OnDestroy()
@@ -373,7 +376,7 @@ namespace Mkey
         {
             miniStart = Math.Max(0, miniStart);
             maxiStart = Math.Max(0, maxiStart);
-            megaStart = Math.Max(0, megaStart);
+            megaProbStart = Math.Max(0, megaProbStart);
 
             maxLineBet = Math.Max(1, maxLineBet);
             defLineBet = Math.Max(1, defLineBet);
@@ -542,7 +545,12 @@ namespace Mkey
 
         private void ChangeTotalBetHandler(int newTotalBet)
         {
-            if (this && TotalBetSumText) TotalBetSumText.text = TotalBet >= 10 ? TotalBet.ToString(coinsFormat) : TotalBet.ToString();
+            if (this && TotalBetSumText)
+                TotalBetSumText.text = TotalBet >= 10 ? TotalBet.ToString(coinsFormat) : TotalBet.ToString();
+            if (this && MegaJackpotAmountText)
+                MegaJackpotAmountText.text = (TotalBet * 100).ToString(coinsFormat);
+            if (this && MegaJackpotAmountTextMesh)
+                MegaJackpotAmountTextMesh.text = (TotalBet * 100).ToString(coinsFormat);
         }
 
         private void ChangeLineBetHandler(int newLineBet)
@@ -574,13 +582,19 @@ namespace Mkey
         //    if (this && MegaJackpotAmountTextMesh) MegaJackpotAmountTextMesh.text = newCount.ToString(coinsFormat);
         //}
 
-        private void ChangeMegaJackPotHandler(decimal newJackpotProb)
+        private void ChangeMegaJackPotProbHandler(decimal newJackpotProb)
         {
             var percent = newJackpotProb * 100;
+            if (this && MegaJackpotProbText)
+                MegaJackpotProbText.text = percent.ToString("F3") + "%";
+        }
+
+        private void ChangeMegaJackPotAmountHandler(int newCount)
+        {
             if (this && MegaJackpotAmountText)
-                MegaJackpotAmountText.text = percent.ToString("F3") + "%";
+                MegaJackpotAmountText.text = newCount.ToString(coinsFormat);
             if (this && MegaJackpotAmountTextMesh)
-                MegaJackpotAmountTextMesh.text = percent.ToString("F3") + "%";
+                MegaJackpotAmountTextMesh.text = newCount.ToString(coinsFormat);
         }
 
         private void ChangeWinCoinsHandler(int newCount)
@@ -669,21 +683,21 @@ namespace Mkey
             count = Mathf.Max(0, count);
             //count = Mathf.Max(megaStart, count);
             MegaJackPot = count;
-            ChangeMegaJackPotEvent?.Invoke(MegaJackPot);
+            ChangeMegaJackpotProbEvent?.Invoke(MegaJackPot);
         }
 
         /// <summary>
         /// Load serialized mega jackpot or set defaults
         /// </summary>
-        private void LoadMegaJackPot()
+        private void LoadMegaJackPotProb()
         {
             //SetMegaJackPotCount(megaStart);
-            SetMegaJackPotProb(megaStart);
+            SetMegaJackPotProb(megaProbStart);
         }
 
-        public void SetMegaJackpotStart(decimal jackpotProb)
+        public void SetMegaJackpotProbStart(decimal jackpotProb)
         {
-            megaStart = jackpotProb;
+            megaProbStart = jackpotProb;
         }
         #endregion mega jackpot
 
@@ -721,18 +735,18 @@ namespace Mkey
 
         public void SetMiniJackPotProb(decimal count)
         {
-            ChangeMegaJackPotEvent?.Invoke(count);
+            ChangeMegaJackpotProbEvent?.Invoke(count);
         }
         
         public void SetMaxiJackPotProb(decimal count)
         {
-            ChangeMegaJackPotEvent?.Invoke(count);
+            ChangeMegaJackpotProbEvent?.Invoke(count);
         }
         
         public void SetMegaJackPotProb(decimal jackpotProb)
         {
             MegaJackPotProb = jackpotProb;
-            ChangeMegaJackPotEvent?.Invoke(jackpotProb);
+            ChangeMegaJackpotProbEvent?.Invoke(jackpotProb);
         }
 
         //public int GetJackPotCoins(JackPotType jackPotType)
@@ -1042,7 +1056,7 @@ namespace Mkey
             SetMiniJackPotCount(miniStart);
             SetMaxiJackPotCount(maxiStart);
             //SetMegaJackPotCount(megaStart);
-            SetMegaJackPotProb(megaStart);
+            SetMegaJackPotProb(megaProbStart);
             SetLineBet(defLineBet);
             SetAutoSpinsCount(defAutoSpins);
         }

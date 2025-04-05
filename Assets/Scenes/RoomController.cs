@@ -49,7 +49,7 @@ public class RoomController : MonoBehaviour
         // 로딩 때 받아온 데이터 설정
         resultPayout = (double)LobbyController.gameData.CurrentPayout;
         SetPayout(resultPayout);
-        controls.SetMegaJackpotStart(LobbyController.gameData.JackpotProb);
+        controls.SetMegaJackpotProbStart(LobbyController.gameData.JackpotProb);
     }
 
     private void Start()

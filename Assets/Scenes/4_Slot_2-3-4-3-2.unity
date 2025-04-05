@@ -996,7 +996,7 @@ MonoBehaviour:
   miniJackPotCount: 7
   useMaxiJacPot: 0
   maxiJackPotCount: 9
-  useMegaJacPot: 1
+  useMegaJacPot: 0
   megaJackPotCount: 8
   jackPotIncValue: 0
   jpController: {fileID: 1546000472}
@@ -1240,7 +1240,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.898723, y: 1.898723, z: 1.898723}
+  m_LocalScale: {x: 1.7850271, y: 1.7850271, z: 1.7850271}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -1264,7 +1264,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.4240422
+  currRatio: 1.3387704
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -3091,7 +3091,7 @@ MonoBehaviour:
   additionalScale: 0.72
   additionalScaleOld: 0.72
   useLerpScale: 0
-  currRatio: 1.4240422
+  currRatio: 1.3387704
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -3614,6 +3614,7 @@ MonoBehaviour:
   MegaJackpotAmountTextMesh: {fileID: 0}
   MiniJackpotAmountTextMesh: {fileID: 0}
   MaxiJackpotAmountTextMesh: {fileID: 0}
+  MegaJackpotProbText: {fileID: 0}
   spinButton: {fileID: 7026689471024017178}
   autoSpinButton: {fileID: 0}
   hold: {fileID: 390235247}
@@ -8035,19 +8036,19 @@ PrefabInstance:
       objectReference: {fileID: 12800000, guid: d32f7d4dcb2508f4687511f4b38f0e08, type: 3}
     - target: {fileID: 1300791942797236391, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1300791942797236391, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1300791942797236391, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 178.5
       objectReference: {fileID: 0}
     - target: {fileID: 1300791942797236391, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -46
       objectReference: {fileID: 0}
     - target: {fileID: 1300791942797236392, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_IsActive
@@ -8127,11 +8128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1300791943389774412, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 357
       objectReference: {fileID: 0}
     - target: {fileID: 1300791943389774412, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 1300791943389774412, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8184,6 +8185,10 @@ PrefabInstance:
     - target: {fileID: 1300791943389774413, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
       propertyPath: m_Name
       value: JackPots
+      objectReference: {fileID: 0}
+    - target: {fileID: 1300791943389774413, guid: 237bc1fa62ecda8428614dbaf786c7a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
