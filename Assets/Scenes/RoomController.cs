@@ -41,9 +41,6 @@ public class RoomController : MonoBehaviour
             Debug.LogError("[RoomController] SlotControls not found in the scene.");
         }
 
-        //sessionTotalBet = 1;
-        //resultPayout = 0;
-
         SubscribeToEvents(); // 이벤트 구독
 
         // 로딩 때 받아온 데이터 설정

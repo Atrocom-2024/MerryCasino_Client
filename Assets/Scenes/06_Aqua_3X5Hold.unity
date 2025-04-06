@@ -1661,7 +1661,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: PayTable
+  m_Text: Info
 --- !u!222 &303923732
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2839,7 +2839,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1134.4, y: 84.3}
+  m_AnchoredPosition: {x: 1134, y: 87}
   m_SizeDelta: {x: 503, y: 252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407219167
@@ -3976,7 +3976,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0282922, y: 1.0282922, z: 1.0282922}
+  m_LocalScale: {x: 1.0179149, y: 1.0179149, z: 1.0179149}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -4000,7 +4000,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3676286
+  currRatio: 1.3538269
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -11162,7 +11162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1134, y: 87}
+  m_AnchoredPosition: {x: -1134, y: 87}
   m_SizeDelta: {x: 503, y: 252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1617472901
@@ -11750,7 +11750,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 1
-  currRatio: 1.3676286
+  currRatio: 1.3538269
   lerpRatio: 2.056
   lerpScale: 1
 --- !u!1 &1709115112
