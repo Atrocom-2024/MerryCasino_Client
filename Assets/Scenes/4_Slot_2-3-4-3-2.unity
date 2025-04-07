@@ -893,11 +893,23 @@ MonoBehaviour:
     freeSpinsMult: 1
   - line: 0b0000000b0000000b0000000b0000000b000000
     pay: 0
-    freeSpins: 10
-    showEvent: 0
+    freeSpins: 0
+    showEvent: 1
     LineEvent:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2138985128014912598}
+          m_TargetAssemblyTypeName: Mkey.SlotEvents, Assembly-CSharp
+          m_MethodName: ShowChestMiniGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     payMult: 1
     freeSpinsMult: 1
   scatter_id: 10
@@ -1240,7 +1252,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7850271, y: 1.7850271, z: 1.7850271}
+  m_LocalScale: {x: 1.4688416, y: 1.4688416, z: 1.4688416}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -1264,7 +1276,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3387704
+  currRatio: 1.1016312
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -3091,7 +3103,7 @@ MonoBehaviour:
   additionalScale: 0.72
   additionalScaleOld: 0.72
   useLerpScale: 0
-  currRatio: 1.3387704
+  currRatio: 1.1016312
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

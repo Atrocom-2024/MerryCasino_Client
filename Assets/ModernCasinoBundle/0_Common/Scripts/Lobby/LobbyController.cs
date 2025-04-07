@@ -78,10 +78,18 @@ namespace Mkey {
         {
             SceneLoader.Instance.ShowLoadingPopup();
 
+            if (RoomSocketManager == null)
+            {
+                Debug.LogError("[Lobby] RoomSocketManager is null!");
+                SceneLoader.Instance.CloseLoadingPopup(); // 실패 시 로딩창 끄기
+                MGUI.ShowMessageWithCloseButton("Connection Error", "\nAn unexpected error occurred.\nPlease try again.", () => { });
+                yield break;
+            }
+
             var connectSocketTask = RoomSocketManager.ConnectToServer(SERVER_ADDRESS, SERVER_PORT);
             yield return new WaitUntil(() => connectSocketTask.IsCompleted);
 
-            if (!RoomSocketManager.Instance.IsConnected)
+            if (!RoomSocketManager.IsConnected)
             {
                 Debug.LogError("[Lobby] Failed to connect to server!");
                 SceneLoader.Instance.CloseLoadingPopup(); // 실패 시 로딩창 끄기
