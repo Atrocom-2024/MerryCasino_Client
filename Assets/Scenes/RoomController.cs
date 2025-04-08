@@ -64,14 +64,12 @@ public class RoomController : MonoBehaviour
 
     private void OnDestroy()
     {
-        // 룸 퇴장 시 WebSocket 연결 해제
+        // 룸 퇴장 시 TCP 연결 해제
         if (RoomSocketManager != null)
         {
             UnsubscribeFromEvents(); // 이벤트 구독 해제
             RoomSocketManager.Disconnect(); // 소켓 연결 해제
         }
-
-        StopAllCoroutines();
     }
 
     /// <summary>

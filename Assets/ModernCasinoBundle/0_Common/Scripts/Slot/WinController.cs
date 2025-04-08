@@ -199,7 +199,10 @@ namespace Mkey
             if (onceTS != null) onceTS.Break();
 
             onceTS = new TweenSeq();
-            Action<GameObject, float, Action> waitAction = (g, time, callBack) => { SimpleTween.Value(g, 0, 1, time).AddCompleteCallBack(callBack); };
+            Action<GameObject, float, Action> waitAction = (g, time, callBack) =>
+            {
+                SimpleTween.Value(g, 0, 1, time).AddCompleteCallBack(callBack);
+            };
 
             //lineWinShowTime = (lineWinShowTime <= 1) ? 1 : lineWinShowTime;
 

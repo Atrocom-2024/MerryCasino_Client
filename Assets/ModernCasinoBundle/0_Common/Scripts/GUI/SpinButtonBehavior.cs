@@ -64,7 +64,7 @@ namespace Mkey
             if (!slotControls) return;
             if (!slotControls.Auto)
             {
-                Debug.Log(gameObject.name + " Was up." + (slotControls ? " SpinType: auto - " + slotControls.Auto.ToString() : ""));
+                //Debug.Log(gameObject.name + " Was up." + (slotControls ? " SpinType: auto - " + slotControls.Auto.ToString() : ""));
                 ClickEvent?.Invoke();
             }
         }

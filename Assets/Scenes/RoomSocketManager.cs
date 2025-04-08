@@ -90,7 +90,6 @@ public class RoomSocketManager : MonoBehaviour
                 _client = null;
             }
 
-            StopAllCoroutines(); // 모든 코루틴 중지
             Debug.Log("[socket] Disconnected from server");
         }
     }

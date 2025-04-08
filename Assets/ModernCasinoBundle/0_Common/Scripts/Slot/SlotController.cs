@@ -11,14 +11,9 @@ namespace Mkey
 {
     public enum WinLineFlashing { All, Sequenced, None }
     public enum JackPotType { None, Mini, Maxi, Mega }
-    public enum JackPotIncType { Const, Percent } // add const value or percent of start value
 
     public class SlotController : MonoBehaviour
     {
-        //  public string machineID;
-        private Coroutine runSlotsCoroutine;
-        private int loseCount = 0; // 진 횟수를 저장하는 변수
-
         // 슬롯 컨트롤, 메뉴 컨트롤 등 주요 참조 객체 선언.
         #region main reference
         [SerializeField]
@@ -153,8 +148,6 @@ namespace Mkey
         public bool useMegaJacPot = false;
         [Tooltip("Count identical symbols on screen")]
         public int megaJackPotCount = 10;
-        private JackPotIncType jackPotIncType = JackPotIncType.Const;
-        public int jackPotIncValue = 0;
         public JackPotController jpController;
         #endregion jack pots 
 
@@ -182,7 +175,6 @@ namespace Mkey
         private bool slotsRunned = false;
         private bool playFreeSpins = false;
         private bool isFreeSpin = false;
-        private GameObject miniGame;
 
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
@@ -223,7 +215,6 @@ namespace Mkey
         /// </summary>
         void Validate()
         {
-            jackPotIncValue = 0; // jackPotIncValue 값을 항상 0으로 초기화
             mainRotateTime = (float)Mathf.Clamp(mainRotateTime, 0, 1.0f); // mainRotateTime 값을 0에서 0.7f 사이로 강제 제한
             mainRotateTimeRandomize = (int)Mathf.Clamp(mainRotateTimeRandomize, 0, 20); // mainRotateTimeRandomize 값을 0에서 20 사이의 정수로 강제 제한
 
@@ -232,7 +223,6 @@ namespace Mkey
 
             outRotTime = Mathf.Clamp(outRotTime, 0, 1f);
             outRotAngle = Mathf.Clamp(outRotAngle, 0, 10);
-            jackPotIncValue = Mathf.Max(0, jackPotIncValue);
 
             miniJackPotCount = Mathf.Max(1, miniJackPotCount); // miniJackPotCount 값이 항상 1 이상이 되도록 설정
             maxiJackPotCount = Mathf.Max((useMiniJacPot) ? miniJackPotCount + 1 : 1, maxiJackPotCount); // useMiniJacPot이 true이면 miniJackPotCount + 1 또는 maxiJackPotCount 중 더 큰 값을 적용 false이면 miniJackPotCount + 1 또는 maxiJackPotCount 중 더 큰 값을 적용
@@ -241,7 +231,7 @@ namespace Mkey
             {
                 foreach (var item in scatterPayTable)
                 {
-                    if (item!=null)
+                    if (item != null)
                     {
                         item.payMult = Mathf.Max(0, item.payMult);
                         //item.payMult = Mathf.Max(1, item.payMult);
@@ -256,7 +246,7 @@ namespace Mkey
             wfs0_2 = new WaitForSeconds(0.2f);
             wfs0_1 = new WaitForSeconds(0.1f);
 
-            // create reels
+            // 릴 생성
             int slotsGrCount = slotGroupsBeh.Length;
             ReelData[] reelsData = new ReelData[slotsGrCount];
             ReelData reelData;
@@ -268,7 +258,10 @@ namespace Mkey
                 sGB.CreateSlotCylinder(slotIcons, slotTilesCount, tilePrefab);
             }
 
+            // 페이 테이블 생성
             CreateFullPaytable();
+
+            // 랜덤 객체 생성
             rng = new RNG(RNGType.Unity, reelsData);
 
             SetInputActivity(true);
@@ -281,7 +274,7 @@ namespace Mkey
         /// </summary>
         private bool CheckJackpotChange()
         {
-            float jackpotChange = (float)controls.MegaJackPotProb; // 잭팟 발생 확률 50%
+            float jackpotChange = (float)controls.MegaJackPotProb;
             float randomValue = UnityEngine.Random.Range(0f, 1f);
 
 
@@ -301,22 +294,17 @@ namespace Mkey
         internal void SpinPress()
         {
             SpinPressEvent?.Invoke(); // 스핀 버튼을 눌렸을 때 SpinPressEvent 호출
-            RunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
+            ValidRunSlots(); // RunSlots() 메서드로 슬롯 회전 시작
         }
 
         /// <summary>
-        /// 실제 슬롯 회전 로직을 처리
+        /// 슬롯 회전 유효성 검사 메서드
         /// </summary>
-        private void RunSlots()
+        private void ValidRunSlots()
         {
             // 슬롯이 이미 실행 중이라면 종료
             if (slotsRunned)
                 return;
-
-            winController.WinEffectsShow(false, false);
-            winController.WinShowCancel();
-            winController.ResetLineWinning();
-            controls.JPWinCancel();
 
             if (!controls.AnyLineSelected)
             {
@@ -326,10 +314,9 @@ namespace Mkey
             }
 
             // 프리 스핀 여부 확인 후 베팅 적용
-            if (!controls.ApplyFreeSpin()) // 프리 스핀이 아닐 때만 베팅 적용
+            if (!controls.CheckFreeSpin()) // 프리 스핀이 아닐 때만 베팅 적용
             {
                 if (!controls.CheckBet()) // 베팅 가능 여부 확인
-                //if (!controls.ApplyBet()) // 베팅 가능 여부 확인
                 {
                     MGUI.ShowMessage(null, "You have no money.", 1.5f, null);
                     controls.ResetAutoSpinsMode();
@@ -346,16 +333,16 @@ namespace Mkey
                 isFreeSpin = true;
             }
 
-            if (runSlotsCoroutine != null)
-            {
-                StopCoroutine(runSlotsCoroutine);
-            }
-
             StartCoroutine(RunSlotsAsync());
         }
+
+        /// <summary>
+        /// 슬롯 회전 애니메이션 실행 + 결과 확인 등 실제 동작 메서드
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator RunSlotsAsync()
         {
-            PrepareSpin(); // 스핀 시작 준비
+            PrepareRotate(); // 회전 시작 준비
 
             yield return RotateSlotAsync(); // 슬롯 애니메이션 실행
 
@@ -385,18 +372,24 @@ namespace Mkey
 
             if (controls.Auto || playFreeSpins)
             {
-                RunSlots();
+                ValidRunSlots();
             }
         }
 
         /// <summary>
         /// 슬롯 회전 준비 메서드
         /// </summary>
-        private void PrepareSpin()
+        private void PrepareRotate()
         {
             // 사용자 입력 비활성화
             SetInputActivity(false);
             winController.HideAllLines();
+
+            // 승리 이펙트 및 상태 초기화
+            winController.WinEffectsShow(false, false); // 라인 이펙트 비활성화
+            winController.WinShowCancel(); // 현재 진행 중이거나 보이고 있는 Win 애니메이션 중단
+            winController.ResetLineWinning(); // 이전 승리 정보 초기화
+            controls.JPWinCancel(); // 잭팟 관련 승리 애니메이션 또는 결과를 중단 또는 리셋
 
             // 슬롯 상태를 실행 중으로 설정
             slotsRunned = true;
@@ -428,11 +421,10 @@ namespace Mkey
             bool fullRotated = false;
             rng.Update(); // 슬롯을 돌렸을 때 줄별로 나올 심볼을 업데이트
 
-            //RotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; });
             RecurRotateSlots(() => { MSound.StopClips(spinSound); fullRotated = true; }); // 무한 슬롯 회전 시작
 
             // 베팅 요청을 보내고 베팅을 받은 후 SetStopReelsOrder 메서드를 호출하여 슬롯을 멈추도록 함
-            if (!controls.CheckFreeSpin())
+            if (!controls.ApplyFreeSpin()) // 프리스핀인 경우 횟수 차감
             {
                 Task<BetResponse> sendBetTask = RoomSocketManager.Instance.SendBetReqeust(MPlayer.Id, controls.TotalBet);
                 while (!sendBetTask.IsCompleted)
@@ -486,7 +478,7 @@ namespace Mkey
         private IEnumerator HandleWin()
         {
             //3b ---- show particles, line flasing  -----------
-            winController.WinEffectsShow(winLineFlashing == WinLineFlashing.All, winSymbolParticles);
+            //winController.WinEffectsShow(winLineFlashing == WinLineFlashing.All, winSymbolParticles);
 
             while (!MGUI.HasNoPopUp)
                 yield return wfs0_1;

@@ -108,7 +108,7 @@ namespace Mkey
 
             // get prefab by tag from icon or from slotcontroller
             WinSymbolBehavior wsbPrefab =  Icon.GetWinPrefab(tag);
-            if (!wsbPrefab) wsbPrefab =Slot.GetWinPrefab(tag);
+            if (!wsbPrefab) wsbPrefab = Slot.GetWinPrefab(tag);
             if (!wsbPrefab) return;
 
             wsb = Instantiate(wsbPrefab);
