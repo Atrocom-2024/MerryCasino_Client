@@ -1404,7 +1404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &392099390
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7045,7 +7045,7 @@ MonoBehaviour:
   fortuneWheelPrefab: {fileID: 6198733924019409881, guid: c0f9e7bc3f84da4449965052378c4a71, type: 3}
   fortuneWheel: {fileID: 0}
   ease: 23
-  autoClose: 1
+  autoClose: 0
   autoCloseTime: 5
   CreateWheelEvent:
     m_PersistentCalls:

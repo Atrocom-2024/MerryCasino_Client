@@ -83,7 +83,7 @@ public class RoomController : MonoBehaviour
             return;
         }
 
-        UnsubscribeFromEvents(); // 이벤트 구독 해제 후 재구독
+        //UnsubscribeFromEvents(); // 이벤트 구독 해제 후 재구독
 
         RoomSocketManager.OnBetResponse += HandleBetUpdate;
         RoomSocketManager.OnAddCoinsResponse += HandleAddCoins;

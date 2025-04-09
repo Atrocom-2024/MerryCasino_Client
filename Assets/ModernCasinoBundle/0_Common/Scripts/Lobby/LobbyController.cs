@@ -49,6 +49,13 @@ namespace Mkey {
             RoomSocketManager.OnGameUserState += InitGameUserState;
             RoomSocketManager.OnGameState += InitGameState;
         }
+
+        private void OnDestroy()
+        {
+            // 기존 이벤트 제거
+            RoomSocketManager.OnGameUserState -= InitGameUserState;
+            RoomSocketManager.OnGameState -= InitGameState;
+        }
         #endregion regular
 
         public void SceneLoad(int scene)

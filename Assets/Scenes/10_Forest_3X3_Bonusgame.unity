@@ -2357,7 +2357,6 @@ MonoBehaviour:
   maxiJackPotCount: 9
   useMegaJacPot: 1
   megaJackPotCount: 5
-  jackPotIncValue: 0
   jpController: {fileID: 1925530469}
   useLineBetProgressMultiplier: 1
   loseSpinLevelProgress: 0.5
@@ -3422,7 +3421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9176471, g: 1, b: 0.11764707, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6452,7 +6451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9176471, g: 1, b: 0.11764707, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7453,7 +7452,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0007663, y: 1.0007663, z: 1.0007663}
+  m_LocalScale: {x: 1.0111126, y: 1.0111126, z: 1.0111126}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 531033908}
@@ -7478,7 +7477,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3350062
+  currRatio: 1.348808
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1305978779
@@ -9689,7 +9688,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
-  m_LocalScale: {x: 0.77584684, y: 0.77584684, z: 0.77584684}
+  m_LocalScale: {x: 0.782834, y: 0.782834, z: 0.782834}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932479349}
@@ -9718,7 +9717,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3350062
+  currRatio: 1.348808
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323

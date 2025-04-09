@@ -2633,7 +2633,6 @@ MonoBehaviour:
   maxiJackPotCount: 9
   useMegaJacPot: 1
   megaJackPotCount: 7
-  jackPotIncValue: 0
   jpController: {fileID: 1925530469}
   useLineBetProgressMultiplier: 1
   loseSpinLevelProgress: 0.5
@@ -2746,7 +2745,7 @@ GameObject:
   - component: {fileID: 402006054}
   - component: {fileID: 402006053}
   m_Layer: 5
-  m_Name: TextSpin
+  m_Name: TexPlustPayoutTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3988,7 +3987,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5424829, y: 1.5424829, z: 1.5424829}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 368552576}
@@ -4012,7 +4011,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3212045
+  currRatio: 2.0515022
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -7808,7 +7807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1516987088609334737, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
       propertyPath: m_Name
-      value: TextPayoutSum
+      value: TextPlusPayoutValue
       objectReference: {fileID: 0}
     - target: {fileID: 1516987088609334742, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7854,12 +7853,13 @@ PrefabInstance:
     - {fileID: 1516987087840432125, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7430383929398273351, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
+    - {fileID: 1516987088646687688, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1516987087840432126, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
       insertIndex: 0
       addedObject: {fileID: 402006052}
     - targetCorrespondingSourceObject: {fileID: 1516987087840432126, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 277378679}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40e3fbbb9ca546ea873a8cae95785f1a, type: 3}
@@ -11762,7 +11762,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 1
-  currRatio: 1.3212045
+  currRatio: 2.0515022
   lerpRatio: 2.056
   lerpScale: 1
 --- !u!1 &1709115112

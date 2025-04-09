@@ -2502,7 +2502,6 @@ MonoBehaviour:
   maxiJackPotCount: 9
   useMegaJacPot: 1
   megaJackPotCount: 7
-  jackPotIncValue: 0
   jpController: {fileID: 1925530469}
   useLineBetProgressMultiplier: 1
   loseSpinLevelProgress: 0.5
@@ -3413,7 +3412,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.003764, y: 1.003764, z: 1.003764}
+  m_LocalScale: {x: 1.5424829, y: 1.5424829, z: 1.5424829}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1905386936}
@@ -3439,7 +3438,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3350062
+  currRatio: 2.0515022
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &531033910
@@ -6533,7 +6532,6 @@ GameObject:
   - component: {fileID: 1252654522}
   - component: {fileID: 1252654525}
   - component: {fileID: 1252654524}
-  - component: {fileID: 1252654523}
   m_Layer: 5
   m_Name: JackpotProb
   m_TagString: Untagged
@@ -6562,19 +6560,6 @@ RectTransform:
   m_AnchoredPosition: {x: 563, y: 151}
   m_SizeDelta: {x: 321, y: 159}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1252654523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252654521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f97f60fa866f7ca49a637e9462e562c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  balanceAmountText: {fileID: 0}
 --- !u!114 &1252654524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7133,7 +7118,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 9.31, y: 1.69, z: 0}
-  m_LocalScale: {x: 1.003764, y: 1.003764, z: 1.003764}
+  m_LocalScale: {x: 1.5424829, y: 1.5424829, z: 1.5424829}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -7157,7 +7142,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3350062
+  currRatio: 2.0515022
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1349173898
@@ -8775,7 +8760,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3350062
+  currRatio: 2.0515022
   lerpRatio: 1
   lerpScale: 1
 --- !u!1 &1709798323
@@ -9883,7 +9868,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.06, y: 1.68, z: 0}
-  m_LocalScale: {x: 1.003764, y: 1.003764, z: 1.003764}
+  m_LocalScale: {x: 1.5424829, y: 1.5424829, z: 1.5424829}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 531033908}
@@ -9907,7 +9892,7 @@ MonoBehaviour:
   additionalScale: 1
   additionalScaleOld: 1
   useLerpScale: 0
-  currRatio: 1.3350062
+  currRatio: 2.0515022
   lerpRatio: 1
   lerpScale: 1
 --- !u!212 &1905386938

@@ -104,10 +104,12 @@ namespace Mkey
 
         internal void ShowWinPrefab(string tag)
         {
+            transform.localScale = Vector3.one; // 부모 scale 리셋
+
             DestroyWinObject();
 
             // get prefab by tag from icon or from slotcontroller
-            WinSymbolBehavior wsbPrefab =  Icon.GetWinPrefab(tag);
+            WinSymbolBehavior wsbPrefab = Icon.GetWinPrefab(tag);
             if (!wsbPrefab) wsbPrefab = Slot.GetWinPrefab(tag);
             if (!wsbPrefab) return;
 

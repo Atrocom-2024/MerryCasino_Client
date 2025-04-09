@@ -219,13 +219,13 @@ namespace Mkey
                             lB.SetLineVisible(true);
 
                             lB.LineWinPlay(winTag, lineWinShowTime,
-                                    (windata) =>
-                                    {
-                                        lB.LineFlashing(false);
-                                        lB.SetLineVisible(false);
-                                        lineWinCallBack?.Invoke(windata);
-                                        callBack();
-                                    });
+                                (windata) =>
+                                {
+                                    lB.LineFlashing(false);
+                                    lB.SetLineVisible(false);
+                                    lineWinCallBack?.Invoke(windata);
+                                    callBack();
+                                });
                         });
 
                 }
