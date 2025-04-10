@@ -137,10 +137,10 @@ namespace MkeyFW // mkey fortune wheel
             audioSource = GetComponent<AudioSource>();
         }
 
-        void Update()
-        {
-            UpdateRand();
-        }
+        //void Update()
+        //{
+        //    UpdateRand();
+        //}
 
         void OnDestroy()
         {

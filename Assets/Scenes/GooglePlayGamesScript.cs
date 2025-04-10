@@ -10,7 +10,7 @@ public class GooglePlayGamesScript : MonoBehaviour
 {
     private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } } // SlotPlayer의 싱글톤 인스턴스. 현재 플레이어의 데이터(ID와 코인)를 저장하고 로딩하는 데 사용
     
-    private readonly UserInfo userInfo = new UserInfo(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
+    private readonly UserInfo userInfo = new(); // 유저 데이터를 저장하는 객체로, ID와 코인(COIN) 정보를 포함
     private string authApiUrl;
 
     private GuiController MGUI { get { return GuiController.Instance; } }

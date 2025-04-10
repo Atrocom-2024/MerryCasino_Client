@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Newtonsoft.Json;
+
 
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
 #endif
 
 /*
@@ -17,6 +19,8 @@ namespace Mkey
 {
 	public class DailySpinController : MonoBehaviour
 	{
+        private string dailySpinApiUrl;
+
         [SerializeField]
         private PopUpsController screenPrefab;
         [SerializeField]
@@ -27,12 +31,15 @@ namespace Mkey
         private MkeyFW.FortuneWheelInstantiator fwInstantiator;
 
         #region temp vars
-        private int hours = 24;
-        private int minutes = 0; // for test
+        // 기본값은 필요시 사용
+        private int defaultHours = 24;
+        private int defaultMinutes = 0; // for test
         private GlobalTimer gTimer;
         private PopUpsController screen;
         private string timerName = "dailySpinTimer";
         private bool debug = false;
+
+        // 인스턴스 참조 변수
         private SlotPlayer MPlayer { get { return SlotPlayer.Instance; } }
         private GuiController MGui { get { return GuiController.Instance; } }
         private SoundMaster MSound { get { return SoundMaster.Instance; } }
@@ -51,6 +58,9 @@ namespace Mkey
         #region regular
         private void Awake()
         {
+            EnvReader.Load(".env");
+            dailySpinApiUrl = $"{Environment.GetEnvironmentVariable("API_DOMAIN")}/api/daily-spins";
+
             if (Instance == null)
                 Instance = this;
             else
@@ -63,45 +73,40 @@ namespace Mkey
             IsWork = false;
 
             // set fortune wheel event handlers
+            // 스핀 결과 처리: 스핀 완료 후 코인 추가 및 타이머 재시작
             fwInstantiator.SpinResultEvent += (coins, isBigWin) =>
             {
-                MPlayer.AddCoins(coins);
+                //MPlayer.AddCoins(coins);
                 HaveDailySpin = false;
-                StartNewTimer();
-                if (fwInstantiator.MiniGame) fwInstantiator.MiniGame.SetBlocked(!HaveDailySpin, true);
+                StartCoroutine(RequestProcessDailySpinResultAsync(MPlayer.Id, coins));
+
+                if (fwInstantiator.MiniGame)
+                    fwInstantiator.MiniGame.SetBlocked(!HaveDailySpin, true);
             }; 
 
             fwInstantiator.CreateEvent +=(MkeyFW.WheelController wc)=>
             {
-                if (screenPrefab) screen = MGui.ShowPopUp(screenPrefab);
+                if (screenPrefab)
+                    screen = MGui.ShowPopUp(screenPrefab);
                 wc.SetBlocked(!HaveDailySpin, false);
             };
 
             fwInstantiator.CloseEvent += () => 
             {
-                if (screen) screen.CloseWindow();
-                if (timerText) timerText.text = "";
+                if (screen)
+                    screen.CloseWindow();
+                if (timerText)
+                    timerText.text = "";
             };
 
-
-            if (!HaveDailySpin)
-            {
-                // check existing timer and  last tick
-                if (GlobalTimer.Exist(timerName))
-                {
-                    StartExistingTimer();
-                }
-                else
-                {
-                    if (debug) Debug.Log("timer not exist: " + timerName);
-                    StartNewTimer();
-                }
-            }
+            // 서버에서 데일리 스핀 상태 요청
+            StartCoroutine(RequestDailySpinStatusAsync(MPlayer.Id));
         }
 
         private void Update()
         {
-            if (IsWork)
+            if (IsWork & gTimer != null)
+            //if (IsWork)
                 gTimer.Update();
         }
         #endregion regular
@@ -134,25 +139,95 @@ namespace Mkey
         #endregion timerhandlers
 
         #region timers
-        private void StartNewTimer()
+        // 남은 시간(초 또는 TimeSpan)을 파라미터로 받아서 타이머 초기화
+        private void StartTimer(TimeSpan remainingTime)
         {
-            if (debug) Debug.Log("start new daily spin timer");
-            TimeSpan ts = new TimeSpan(hours, minutes, 0);
-            gTimer = new GlobalTimer(timerName, ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
-            gTimer.TickRestDaysHourMinSecEvent += TickRestDaysHourMinSecHandler;
-            gTimer.TimePassedEvent += TimePassedHandler;
-            IsWork = true;
-        }
-
-        private void StartExistingTimer()
-        {
-            if (debug) Debug.Log("start existing daily spin timer");
-            gTimer = new GlobalTimer(timerName);
+            if (debug)
+                Debug.Log($"start daily spin timer with remaining time: {remainingTime}");
+            gTimer = new GlobalTimer(timerName, remainingTime.Days, remainingTime.Hours, remainingTime.Minutes, remainingTime.Seconds);
             gTimer.TickRestDaysHourMinSecEvent += TickRestDaysHourMinSecHandler;
             gTimer.TimePassedEvent += TimePassedHandler;
             IsWork = true;
         }
         #endregion timers
+
+        private IEnumerator RequestDailySpinStatusAsync(string userId)
+        {
+            string requestUrl = $"{dailySpinApiUrl}/{userId}"; // 서버 URL을 설정하세요.
+            yield return StartCoroutine(APIManager.Instance.GetRequest(
+                requestUrl,
+                onSuccess: (jsonData) =>
+                {
+                    Debug.Log($"DailySpin: {jsonData}");
+                    // 응답 JSON 파싱 (예: {"isAvailable": false, "remainingSeconds": 3600})
+                    try
+                    {
+                        var responseData = JsonConvert.DeserializeObject<DailySpinResponse>(jsonData);
+                        if (responseData.IsAvailable)
+                        {
+                            // 이미 사용 가능하므로 타이머 없이 즉시 스핀 실행 UI 활성화
+                            HaveDailySpin = true;
+                            if (timerText)
+                                timerText.text = "스핀 사용 가능";
+                            if (fwInstantiator.MiniGame)
+                                fwInstantiator.MiniGame.SetBlocked(false, false);
+                        }
+                        else
+                        {
+                            // 남은 초를 TimeSpan으로 변환해서 타이머 시작
+                            TimeSpan ts = TimeSpan.FromSeconds(responseData.RemainingSeconds);
+                            StartTimer(ts);
+                            HaveDailySpin = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError("Error parsing daily spin status: " + ex.Message);
+                        // 파싱 실패 시 기본 타이머 로직을 진행
+                        StartTimer(new TimeSpan(defaultHours, defaultMinutes, 0));
+                    }
+                },
+                onError: (error) =>
+                {
+                    Debug.LogError("Error fetching daily spin status: " + error);
+                    // 에러 시 기본 타이머 로직(예를 들어 24시간)으로 설정하거나 재시도 로직 구현 가능
+                    StartTimer(new TimeSpan(defaultHours, defaultMinutes, 0));
+                }
+            ));
+        }
+
+        private IEnumerator RequestProcessDailySpinResultAsync(string userId, int rewardCoins)
+        {
+            var boryData = new
+            {
+                UserId = userId,
+                SpinRewardCoins = rewardCoins
+            };
+            var bodyJsonData = JsonConvert.SerializeObject(boryData);
+
+            yield return StartCoroutine(APIManager.Instance.PostRequest(
+                dailySpinApiUrl,
+                bodyJsonData,
+                onSuccess: (jsonData) =>
+                {
+                    var responseData = JsonConvert.DeserializeObject<ProcessDailySpinResultResponse>(jsonData);
+                    MPlayer.SetCoinsCount(responseData.ProcessedCoins);
+                    MGui.ShowMessageWithCloseButton("Reward Received!", "\nGreat job!\nYour daily spin reward has been successfully added.", () => { });
+
+                    // Option 1: Re-request the server status to get the updated timer
+                    //StartCoroutine(RequestDailySpinStatusAsync(MPlayer.Id));
+
+                    // Option 2: Start a new timer locally if the cooldown is fixed (24 hours)
+                     StartTimer(TimeSpan.FromHours(24));
+                },
+                onError: (error) =>
+                {
+                    Debug.LogError("Error processing daily spin result: " + error);
+                    MGui.ShowMessageWithYesNoCloseButton("Error", "Failed to process daily spin result. Please try again.", () => { }, null, null);
+                }
+            ));
+        }
+
 
         public void OpenSpinGame()
         {
@@ -188,6 +263,18 @@ namespace Mkey
                 Debug.Log("time passed daily spin - > start mini game");
                 fwInstantiator.MiniGame.SetBlocked(false, false);
             }
+        }
+
+        public class DailySpinResponse
+        {
+            public bool IsAvailable { get; set; }
+            public int RemainingSeconds { get; set; }
+        }
+
+        public class ProcessDailySpinResultResponse
+        {
+            public string Message { get; set; } = string.Empty;
+            public long ProcessedCoins { get; set; }
         }
     }
 
