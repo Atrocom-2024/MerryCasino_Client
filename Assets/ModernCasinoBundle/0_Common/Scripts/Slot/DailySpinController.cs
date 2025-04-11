@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using Newtonsoft.Json;
 
 
@@ -76,7 +74,6 @@ namespace Mkey
             // 스핀 결과 처리: 스핀 완료 후 코인 추가 및 타이머 재시작
             fwInstantiator.SpinResultEvent += (coins, isBigWin) =>
             {
-                //MPlayer.AddCoins(coins);
                 HaveDailySpin = false;
                 StartCoroutine(RequestProcessDailySpinResultAsync(MPlayer.Id, coins));
 
@@ -124,9 +121,14 @@ namespace Mkey
         private void TimePassedHandler(double initTime, double realyTime)
         {
             IsWork = false;
-            if (timerText) timerText.text = "";
+
+            if (timerText)
+                timerText.text = "";
+
             HaveDailySpin = true;
+
             Debug.Log("time passed daily spin");
+
             if (fwInstantiator.MiniGame)
             {
                 Debug.Log("time passed daily spin - > start mini game");
@@ -183,6 +185,7 @@ namespace Mkey
                     catch (Exception ex)
                     {
                         Debug.LogError("Error parsing daaily spin status: " + ex.Message);
+
                         // 파싱 실패 시 기본 타이머 로직을 진행
                         StartTimer(new TimeSpan(defaultHours, defaultMinutes, 0));
                     }
@@ -260,13 +263,18 @@ namespace Mkey
         internal void SetHaveSpin()
         {
             if (HaveDailySpin) return;
+
             HaveDailySpin = true;
+
             if (gTimer != null)
             {
                 gTimer.RemoveTimerPrefs();
                 IsWork = false;
             }
-            if (timerText) timerText.text = "";
+
+            if (timerText)
+                timerText.text = "";
+
             if (fwInstantiator.MiniGame)
             {
                 Debug.Log("time passed daily spin - > start mini game");
