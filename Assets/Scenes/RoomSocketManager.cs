@@ -32,8 +32,6 @@ public class RoomSocketManager : MonoBehaviour
     // get/set
     public bool IsConnected { get { return _isConnected; } }
 
-    //public bool IsBetResponseReceived { get { return _betResponseTcs.Task.IsCompleted; } }
-
     private void Awake()
     {
         if (Instance == null)

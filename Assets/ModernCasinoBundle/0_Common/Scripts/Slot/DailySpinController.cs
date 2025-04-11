@@ -33,7 +33,7 @@ namespace Mkey
         #region temp vars
         // 기본값은 필요시 사용
         private int defaultHours = 24;
-        private int defaultMinutes = 0; // for test
+        private int defaultMinutes = 0;
         private GlobalTimer gTimer;
         private PopUpsController screen;
         private string timerName = "dailySpinTimer";
@@ -84,7 +84,7 @@ namespace Mkey
                     fwInstantiator.MiniGame.SetBlocked(!HaveDailySpin, true);
             }; 
 
-            fwInstantiator.CreateEvent +=(MkeyFW.WheelController wc)=>
+            fwInstantiator.CreateEvent += (MkeyFW.WheelController wc)=>
             {
                 if (screenPrefab)
                     screen = MGui.ShowPopUp(screenPrefab);
@@ -106,7 +106,6 @@ namespace Mkey
         private void Update()
         {
             if (IsWork & gTimer != null)
-            //if (IsWork)
                 gTimer.Update();
         }
         #endregion regular
@@ -118,7 +117,8 @@ namespace Mkey
             RestHours = h;
             RestMinutes = m;
             RestSeconds = s;
-            if(timerText && fwInstantiator.MiniGame) timerText.text = String.Format("{0:00}:{1:00}:{2:00}", h, m, s);
+            if(timerText && fwInstantiator.MiniGame)
+                timerText.text = String.Format("{0:00}:{1:00}:{2:00}", h, m, s);
         }
 
         private void TimePassedHandler(double initTime, double realyTime)
@@ -159,7 +159,7 @@ namespace Mkey
                 onSuccess: (jsonData) =>
                 {
                     Debug.Log($"DailySpin: {jsonData}");
-                    // 응답 JSON 파싱 (예: {"isAvailable": false, "remainingSeconds": 3600})
+
                     try
                     {
                         var responseData = JsonConvert.DeserializeObject<DailySpinResponse>(jsonData);
@@ -182,7 +182,7 @@ namespace Mkey
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogError("Error parsing daily spin status: " + ex.Message);
+                        Debug.LogError("Error parsing daaily spin status: " + ex.Message);
                         // 파싱 실패 시 기본 타이머 로직을 진행
                         StartTimer(new TimeSpan(defaultHours, defaultMinutes, 0));
                     }
@@ -190,6 +190,7 @@ namespace Mkey
                 onError: (error) =>
                 {
                     Debug.LogError("Error fetching daily spin status: " + error);
+
                     // 에러 시 기본 타이머 로직(예를 들어 24시간)으로 설정하거나 재시도 로직 구현 가능
                     StartTimer(new TimeSpan(defaultHours, defaultMinutes, 0));
                 }
@@ -210,15 +211,23 @@ namespace Mkey
                 bodyJsonData,
                 onSuccess: (jsonData) =>
                 {
-                    var responseData = JsonConvert.DeserializeObject<ProcessDailySpinResultResponse>(jsonData);
-                    MPlayer.SetCoinsCount(responseData.ProcessedCoins);
-                    MGui.ShowMessageWithCloseButton("Reward Received!", "\nGreat job!\nYour daily spin reward has been successfully added.", () => { });
+                    try
+                    {
+                        var responseData = JsonConvert.DeserializeObject<ProcessDailySpinResultResponse>(jsonData);
+                        MPlayer.SetCoinsCount(responseData.ProcessedCoins);
+                        MGui.ShowMessageWithCloseButton("Reward Received!", "\nGreat job!\nYour daily spin reward\nhas been successfully added.", () => { });
 
-                    // Option 1: Re-request the server status to get the updated timer
-                    //StartCoroutine(RequestDailySpinStatusAsync(MPlayer.Id));
+                        // Option 1: Re-request the server status to get the updated timer
+                        //StartCoroutine(RequestDailySpinStatusAsync(MPlayer.Id));
 
-                    // Option 2: Start a new timer locally if the cooldown is fixed (24 hours)
-                     StartTimer(TimeSpan.FromHours(24));
+                        // Option 2: Start a new timer locally if the cooldown is fixed (24 hours)
+                         StartTimer(TimeSpan.FromHours(24));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError("Error parsing daily spin result: " + ex.Message);
+                        MGui.ShowMessageWithYesNoCloseButton("Error", "Failed to process daily spin result. Please try again.", () => { }, null, null);
+                    }
                 },
                 onError: (error) =>
                 {
