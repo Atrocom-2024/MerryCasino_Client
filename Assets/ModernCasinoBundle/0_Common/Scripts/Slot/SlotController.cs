@@ -612,7 +612,7 @@ namespace Mkey
         /// </summary>
         private void HandleLose()
         {
-            // 패배 로직 처리
+            // 패배 로직 처리::
             //MPlayer.AddLevelProgress(loseSpinLevelProgress);
 
             // 멘트 처리
