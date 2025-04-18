@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animDiamonds
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 80
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 2d72f042e4474664f8986a566c2cd2ee, type: 3}
+    - {fileID: 2800000, guid: 750707a8339a9734fa8736aac5457f49, type: 3}
+    - {fileID: 2800000, guid: c011d890fe1bd804486a15cf4e980b73, type: 3}
+    - {fileID: 2800000, guid: aa705f6c99f559e47919a438deae23b7, type: 3}
+    - {fileID: 2800000, guid: 007a5e391ac3d774a935af5c281c95e5, type: 3}
+    - {fileID: 2800000, guid: ac4389053e7914747814e743cf25a013, type: 3}
+    - {fileID: 2800000, guid: 56aa2898fdaaa1b4c90d4b0cc8c1deff, type: 3}
+    - {fileID: 2800000, guid: 8b5d53aa01ef1ea4da5e592bcf743d9f, type: 3}
+    - {fileID: 2800000, guid: f49db28a6c95b4a4493fe859229bd2fb, type: 3}
+    - {fileID: 2800000, guid: 3f3ec71bfd732b94b82d4913328fe8a5, type: 3}
+    - {fileID: 2800000, guid: 4b3ff187f4b85414e889832443ae3599, type: 3}
+    - {fileID: 2800000, guid: 71ca27caf1b2fe249b533542225226f2, type: 3}
+    - {fileID: 2800000, guid: f4750936993188f4d9dbd0d76cfe910c, type: 3}
+    - {fileID: 2800000, guid: 4bcf61b3c7831e047aa606efd69a910b, type: 3}
+    - {fileID: 2800000, guid: 13b53b9e37fc67945a0bb0a2b6e2436e, type: 3}
+    - {fileID: 2800000, guid: eca8849f9d53b4d4899a3b8d7324cb57, type: 3}
+    - {fileID: 2800000, guid: 4b48ee76db85e9840ba467bd8f986e43, type: 3}
+    - {fileID: 2800000, guid: b3a786479704f4045908e5e6a8c3042a, type: 3}
+    - {fileID: 2800000, guid: a69d7056a376df04ab0034af4528bae0, type: 3}
+    - {fileID: 2800000, guid: 5b7f15e091b196f4a80af85abec1d0e9, type: 3}
+    - {fileID: 2800000, guid: dce72d69980c5d946b086b8e535dc5e5, type: 3}
+    - {fileID: 2800000, guid: ee8afc8c280e58445b06fd0d59989045, type: 3}
+    - {fileID: 2800000, guid: 5adead85cb22d53428bfa3d1cad4d0b4, type: 3}
+    - {fileID: 2800000, guid: 90a8056957556e349ae1f755185544dc, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - c011d890fe1bd804486a15cf4e980b73: 21300000
+    - 5b7f15e091b196f4a80af85abec1d0e9: 21300000
+    - 2d72f042e4474664f8986a566c2cd2ee: 21300000
+    - 4bcf61b3c7831e047aa606efd69a910b: 21300000
+    - ac4389053e7914747814e743cf25a013: 21300000
+    - 5adead85cb22d53428bfa3d1cad4d0b4: 21300000
+    - f4750936993188f4d9dbd0d76cfe910c: 21300000
+    - a69d7056a376df04ab0034af4528bae0: 21300000
+    - 4b48ee76db85e9840ba467bd8f986e43: 21300000
+    - b3a786479704f4045908e5e6a8c3042a: 21300000
+    - 4b3ff187f4b85414e889832443ae3599: 21300000
+    - 56aa2898fdaaa1b4c90d4b0cc8c1deff: 21300000
+    - 750707a8339a9734fa8736aac5457f49: 21300000
+    - 007a5e391ac3d774a935af5c281c95e5: 21300000
+    - 90a8056957556e349ae1f755185544dc: 21300000
+    - dce72d69980c5d946b086b8e535dc5e5: 21300000
+    - f49db28a6c95b4a4493fe859229bd2fb: 21300000
+    - 8b5d53aa01ef1ea4da5e592bcf743d9f: 21300000
+    - 71ca27caf1b2fe249b533542225226f2: 21300000
+    - 3f3ec71bfd732b94b82d4913328fe8a5: 21300000
+    - aa705f6c99f559e47919a438deae23b7: 21300000
+    - ee8afc8c280e58445b06fd0d59989045: 21300000
+    - 13b53b9e37fc67945a0bb0a2b6e2436e: 21300000
+    - eca8849f9d53b4d4899a3b8d7324cb57: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c011d890fe1bd804486a15cf4e980b73, type: 3}
+  - {fileID: 21300000, guid: 5b7f15e091b196f4a80af85abec1d0e9, type: 3}
+  - {fileID: 21300000, guid: 2d72f042e4474664f8986a566c2cd2ee, type: 3}
+  - {fileID: 21300000, guid: 4bcf61b3c7831e047aa606efd69a910b, type: 3}
+  - {fileID: 21300000, guid: ac4389053e7914747814e743cf25a013, type: 3}
+  - {fileID: 21300000, guid: 5adead85cb22d53428bfa3d1cad4d0b4, type: 3}
+  - {fileID: 21300000, guid: f4750936993188f4d9dbd0d76cfe910c, type: 3}
+  - {fileID: 21300000, guid: a69d7056a376df04ab0034af4528bae0, type: 3}
+  - {fileID: 21300000, guid: 4b48ee76db85e9840ba467bd8f986e43, type: 3}
+  - {fileID: 21300000, guid: b3a786479704f4045908e5e6a8c3042a, type: 3}
+  - {fileID: 21300000, guid: 4b3ff187f4b85414e889832443ae3599, type: 3}
+  - {fileID: 21300000, guid: 56aa2898fdaaa1b4c90d4b0cc8c1deff, type: 3}
+  - {fileID: 21300000, guid: 750707a8339a9734fa8736aac5457f49, type: 3}
+  - {fileID: 21300000, guid: 007a5e391ac3d774a935af5c281c95e5, type: 3}
+  - {fileID: 21300000, guid: 90a8056957556e349ae1f755185544dc, type: 3}
+  - {fileID: 21300000, guid: dce72d69980c5d946b086b8e535dc5e5, type: 3}
+  - {fileID: 21300000, guid: f49db28a6c95b4a4493fe859229bd2fb, type: 3}
+  - {fileID: 21300000, guid: 8b5d53aa01ef1ea4da5e592bcf743d9f, type: 3}
+  - {fileID: 21300000, guid: 71ca27caf1b2fe249b533542225226f2, type: 3}
+  - {fileID: 21300000, guid: 3f3ec71bfd732b94b82d4913328fe8a5, type: 3}
+  - {fileID: 21300000, guid: aa705f6c99f559e47919a438deae23b7, type: 3}
+  - {fileID: 21300000, guid: ee8afc8c280e58445b06fd0d59989045, type: 3}
+  - {fileID: 21300000, guid: 13b53b9e37fc67945a0bb0a2b6e2436e, type: 3}
+  - {fileID: 21300000, guid: eca8849f9d53b4d4899a3b8d7324cb57, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Diamonds Animation 03
+  - Diamonds Animation 20
+  - Diamonds Animation 01
+  - Diamonds Animation 14
+  - Diamonds Animation 06
+  - Diamonds Animation 23
+  - Diamonds Animation 13
+  - Diamonds Animation 19
+  - Diamonds Animation 17
+  - Diamonds Animation 18
+  - Diamonds Animation 11
+  - Diamonds Animation 07
+  - Diamonds Animation 02
+  - Diamonds Animation 05
+  - Diamonds Animation 24
+  - Diamonds Animation 21
+  - Diamonds Animation 09
+  - Diamonds Animation 08
+  - Diamonds Animation 12
+  - Diamonds Animation 10
+  - Diamonds Animation 04
+  - Diamonds Animation 22
+  - Diamonds Animation 15
+  - Diamonds Animation 16
+  m_RenderDataMap: {}
+  m_Tag: animDiamonds
+  m_IsVariant: 0

@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animScatter
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 80
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 89b3c5cdc26a2aa4993c61ee58161f9a, type: 3}
+    - {fileID: 2800000, guid: 5d2efee7e3de8eb4a91785814e5a1f78, type: 3}
+    - {fileID: 2800000, guid: 86e273e34fa4006449fc3f1fe85a7b04, type: 3}
+    - {fileID: 2800000, guid: a347444f69867124bb72b54f8ab80679, type: 3}
+    - {fileID: 2800000, guid: d68634207ef568b4b86ebac2f2149503, type: 3}
+    - {fileID: 2800000, guid: afc59ee509849aa44bf41f12e0b7f51e, type: 3}
+    - {fileID: 2800000, guid: 7145ff55851738e4a965157738041c32, type: 3}
+    - {fileID: 2800000, guid: c85f202ca64e00144b19939e364432cc, type: 3}
+    - {fileID: 2800000, guid: 5ed3199d98647964aa3044c88379dff5, type: 3}
+    - {fileID: 2800000, guid: 9365dcbca1ac18948bce00779f6acae4, type: 3}
+    - {fileID: 2800000, guid: ea7ee4308739e524d9b2a4c69d1b1861, type: 3}
+    - {fileID: 2800000, guid: c35cc1a4b07522e4f9cc9129dccb6781, type: 3}
+    - {fileID: 2800000, guid: 6298b7d7c5f73e64ab9a2909a81a0e33, type: 3}
+    - {fileID: 2800000, guid: f68f9f5f0bab5954b916c76501c737ab, type: 3}
+    - {fileID: 2800000, guid: ec82918351aec9449aab2fe0377d48c1, type: 3}
+    - {fileID: 2800000, guid: 74dbfa8ddacd1a9448bce6400065199c, type: 3}
+    - {fileID: 2800000, guid: 36eb34cd387ead64d94e357c0d289313, type: 3}
+    - {fileID: 2800000, guid: e9f871c712562bc4e9915afc783957b4, type: 3}
+    - {fileID: 2800000, guid: fd611510eee9b14438ed4e402612cda5, type: 3}
+    - {fileID: 2800000, guid: 1022d18e0dd2cb04ead71bdd35fa9f65, type: 3}
+    - {fileID: 2800000, guid: b1e660aa8ef89c84db8f6e87ac405638, type: 3}
+    - {fileID: 2800000, guid: ee5acdc594dc26e4eb52cfd527862bba, type: 3}
+    - {fileID: 2800000, guid: 56858e04feaa8a944a9681f45fb38176, type: 3}
+    - {fileID: 2800000, guid: f2297842c67bbc048bae1ec78d6ca5e3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - fd611510eee9b14438ed4e402612cda5: 21300000
+    - d68634207ef568b4b86ebac2f2149503: 21300000
+    - ea7ee4308739e524d9b2a4c69d1b1861: 21300000
+    - f2297842c67bbc048bae1ec78d6ca5e3: 21300000
+    - ec82918351aec9449aab2fe0377d48c1: 21300000
+    - 86e273e34fa4006449fc3f1fe85a7b04: 21300000
+    - 56858e04feaa8a944a9681f45fb38176: 21300000
+    - c35cc1a4b07522e4f9cc9129dccb6781: 21300000
+    - 7145ff55851738e4a965157738041c32: 21300000
+    - ee5acdc594dc26e4eb52cfd527862bba: 21300000
+    - afc59ee509849aa44bf41f12e0b7f51e: 21300000
+    - e9f871c712562bc4e9915afc783957b4: 21300000
+    - 6298b7d7c5f73e64ab9a2909a81a0e33: 21300000
+    - 5d2efee7e3de8eb4a91785814e5a1f78: 21300000
+    - b1e660aa8ef89c84db8f6e87ac405638: 21300000
+    - c85f202ca64e00144b19939e364432cc: 21300000
+    - 9365dcbca1ac18948bce00779f6acae4: 21300000
+    - 74dbfa8ddacd1a9448bce6400065199c: 21300000
+    - 5ed3199d98647964aa3044c88379dff5: 21300000
+    - 36eb34cd387ead64d94e357c0d289313: 21300000
+    - 89b3c5cdc26a2aa4993c61ee58161f9a: 21300000
+    - 1022d18e0dd2cb04ead71bdd35fa9f65: 21300000
+    - a347444f69867124bb72b54f8ab80679: 21300000
+    - f68f9f5f0bab5954b916c76501c737ab: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: fd611510eee9b14438ed4e402612cda5, type: 3}
+  - {fileID: 21300000, guid: d68634207ef568b4b86ebac2f2149503, type: 3}
+  - {fileID: 21300000, guid: ea7ee4308739e524d9b2a4c69d1b1861, type: 3}
+  - {fileID: 21300000, guid: f2297842c67bbc048bae1ec78d6ca5e3, type: 3}
+  - {fileID: 21300000, guid: ec82918351aec9449aab2fe0377d48c1, type: 3}
+  - {fileID: 21300000, guid: 86e273e34fa4006449fc3f1fe85a7b04, type: 3}
+  - {fileID: 21300000, guid: 56858e04feaa8a944a9681f45fb38176, type: 3}
+  - {fileID: 21300000, guid: c35cc1a4b07522e4f9cc9129dccb6781, type: 3}
+  - {fileID: 21300000, guid: 7145ff55851738e4a965157738041c32, type: 3}
+  - {fileID: 21300000, guid: ee5acdc594dc26e4eb52cfd527862bba, type: 3}
+  - {fileID: 21300000, guid: afc59ee509849aa44bf41f12e0b7f51e, type: 3}
+  - {fileID: 21300000, guid: e9f871c712562bc4e9915afc783957b4, type: 3}
+  - {fileID: 21300000, guid: 6298b7d7c5f73e64ab9a2909a81a0e33, type: 3}
+  - {fileID: 21300000, guid: 5d2efee7e3de8eb4a91785814e5a1f78, type: 3}
+  - {fileID: 21300000, guid: b1e660aa8ef89c84db8f6e87ac405638, type: 3}
+  - {fileID: 21300000, guid: c85f202ca64e00144b19939e364432cc, type: 3}
+  - {fileID: 21300000, guid: 9365dcbca1ac18948bce00779f6acae4, type: 3}
+  - {fileID: 21300000, guid: 74dbfa8ddacd1a9448bce6400065199c, type: 3}
+  - {fileID: 21300000, guid: 5ed3199d98647964aa3044c88379dff5, type: 3}
+  - {fileID: 21300000, guid: 36eb34cd387ead64d94e357c0d289313, type: 3}
+  - {fileID: 21300000, guid: 89b3c5cdc26a2aa4993c61ee58161f9a, type: 3}
+  - {fileID: 21300000, guid: 1022d18e0dd2cb04ead71bdd35fa9f65, type: 3}
+  - {fileID: 21300000, guid: a347444f69867124bb72b54f8ab80679, type: 3}
+  - {fileID: 21300000, guid: f68f9f5f0bab5954b916c76501c737ab, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Scatter Animation 19
+  - Scatter Animation 05
+  - Scatter Animation 11
+  - Scatter Animation 24
+  - Scatter Animation 15
+  - Scatter Animation 03
+  - Scatter Animation 23
+  - Scatter Animation 12
+  - Scatter Animation 07
+  - Scatter Animation 22
+  - Scatter Animation 06
+  - Scatter Animation 18
+  - Scatter Animation 13
+  - Scatter Animation 02
+  - Scatter Animation 21
+  - Scatter Animation 08
+  - Scatter Animation 10
+  - Scatter Animation 16
+  - Scatter Animation 09
+  - Scatter Animation 17
+  - Scatter Animation 01
+  - Scatter Animation 20
+  - Scatter Animation 04
+  - Scatter Animation 14
+  m_RenderDataMap: {}
+  m_Tag: animScatter
+  m_IsVariant: 0

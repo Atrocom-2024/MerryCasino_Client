@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animSpyglass
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 4ce7d9847c5a93e4d803d95047f61dd1, type: 3}
+    - {fileID: 2800000, guid: 5a1bceb29cc370246aeedcea71222587, type: 3}
+    - {fileID: 2800000, guid: f1da3b5b42a9452419a7847450392666, type: 3}
+    - {fileID: 2800000, guid: af6f9d8323bb2d94fb1d33062ccdd2f3, type: 3}
+    - {fileID: 2800000, guid: e50346312bdd20545a7711366abe15c9, type: 3}
+    - {fileID: 2800000, guid: 4451ed8041aedc8488fa55ab2107c244, type: 3}
+    - {fileID: 2800000, guid: 1bd547e72960ccc438480e7359417476, type: 3}
+    - {fileID: 2800000, guid: f879058628e265c4db06420972765b18, type: 3}
+    - {fileID: 2800000, guid: e03aee7db75979c46bdf46981de55af0, type: 3}
+    - {fileID: 2800000, guid: c52bc0c8398623c42bd452a331cc08aa, type: 3}
+    - {fileID: 2800000, guid: 8681c21d92c8dca479640177971f314f, type: 3}
+    - {fileID: 2800000, guid: 81e00d6571161d84d90b38459e6972f2, type: 3}
+    - {fileID: 2800000, guid: 15b323e45cf38804e81478d8d1330182, type: 3}
+    - {fileID: 2800000, guid: 16b85e147c467044fb580809f050dba5, type: 3}
+    - {fileID: 2800000, guid: 798f86864c04af24384a117a8f86a32b, type: 3}
+    - {fileID: 2800000, guid: 57f531e29cbecf54b87375c9be7ba2cf, type: 3}
+    - {fileID: 2800000, guid: b0a281c52d4766c46821b52add4ccee4, type: 3}
+    - {fileID: 2800000, guid: 76c44b44afbcb00499cee2ccb41159e3, type: 3}
+    - {fileID: 2800000, guid: bdb51803e542baa4b9188e3a5206b847, type: 3}
+    - {fileID: 2800000, guid: 90b5254152bc29e47879007f5acd5dac, type: 3}
+    - {fileID: 2800000, guid: a232847ae3b63774a90dea782de59a6b, type: 3}
+    - {fileID: 2800000, guid: 5047e687bf0a3d448a688865258f9ad6, type: 3}
+    - {fileID: 2800000, guid: 1daa5ec153618614087443face0fc33d, type: 3}
+    - {fileID: 2800000, guid: 977db6f8c21028444b7ad639ffb3137b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 4451ed8041aedc8488fa55ab2107c244: 21300000
+    - e50346312bdd20545a7711366abe15c9: 21300000
+    - 90b5254152bc29e47879007f5acd5dac: 21300000
+    - 1daa5ec153618614087443face0fc33d: 21300000
+    - 5a1bceb29cc370246aeedcea71222587: 21300000
+    - 57f531e29cbecf54b87375c9be7ba2cf: 21300000
+    - bdb51803e542baa4b9188e3a5206b847: 21300000
+    - af6f9d8323bb2d94fb1d33062ccdd2f3: 21300000
+    - 16b85e147c467044fb580809f050dba5: 21300000
+    - 76c44b44afbcb00499cee2ccb41159e3: 21300000
+    - 4ce7d9847c5a93e4d803d95047f61dd1: 21300000
+    - 15b323e45cf38804e81478d8d1330182: 21300000
+    - 81e00d6571161d84d90b38459e6972f2: 21300000
+    - b0a281c52d4766c46821b52add4ccee4: 21300000
+    - f879058628e265c4db06420972765b18: 21300000
+    - 798f86864c04af24384a117a8f86a32b: 21300000
+    - 5047e687bf0a3d448a688865258f9ad6: 21300000
+    - 1bd547e72960ccc438480e7359417476: 21300000
+    - c52bc0c8398623c42bd452a331cc08aa: 21300000
+    - 977db6f8c21028444b7ad639ffb3137b: 21300000
+    - a232847ae3b63774a90dea782de59a6b: 21300000
+    - f1da3b5b42a9452419a7847450392666: 21300000
+    - 8681c21d92c8dca479640177971f314f: 21300000
+    - e03aee7db75979c46bdf46981de55af0: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4451ed8041aedc8488fa55ab2107c244, type: 3}
+  - {fileID: 21300000, guid: e50346312bdd20545a7711366abe15c9, type: 3}
+  - {fileID: 21300000, guid: 90b5254152bc29e47879007f5acd5dac, type: 3}
+  - {fileID: 21300000, guid: 1daa5ec153618614087443face0fc33d, type: 3}
+  - {fileID: 21300000, guid: 5a1bceb29cc370246aeedcea71222587, type: 3}
+  - {fileID: 21300000, guid: 57f531e29cbecf54b87375c9be7ba2cf, type: 3}
+  - {fileID: 21300000, guid: bdb51803e542baa4b9188e3a5206b847, type: 3}
+  - {fileID: 21300000, guid: af6f9d8323bb2d94fb1d33062ccdd2f3, type: 3}
+  - {fileID: 21300000, guid: 16b85e147c467044fb580809f050dba5, type: 3}
+  - {fileID: 21300000, guid: 76c44b44afbcb00499cee2ccb41159e3, type: 3}
+  - {fileID: 21300000, guid: 4ce7d9847c5a93e4d803d95047f61dd1, type: 3}
+  - {fileID: 21300000, guid: 15b323e45cf38804e81478d8d1330182, type: 3}
+  - {fileID: 21300000, guid: 81e00d6571161d84d90b38459e6972f2, type: 3}
+  - {fileID: 21300000, guid: b0a281c52d4766c46821b52add4ccee4, type: 3}
+  - {fileID: 21300000, guid: f879058628e265c4db06420972765b18, type: 3}
+  - {fileID: 21300000, guid: 798f86864c04af24384a117a8f86a32b, type: 3}
+  - {fileID: 21300000, guid: 5047e687bf0a3d448a688865258f9ad6, type: 3}
+  - {fileID: 21300000, guid: 1bd547e72960ccc438480e7359417476, type: 3}
+  - {fileID: 21300000, guid: c52bc0c8398623c42bd452a331cc08aa, type: 3}
+  - {fileID: 21300000, guid: 977db6f8c21028444b7ad639ffb3137b, type: 3}
+  - {fileID: 21300000, guid: a232847ae3b63774a90dea782de59a6b, type: 3}
+  - {fileID: 21300000, guid: f1da3b5b42a9452419a7847450392666, type: 3}
+  - {fileID: 21300000, guid: 8681c21d92c8dca479640177971f314f, type: 3}
+  - {fileID: 21300000, guid: e03aee7db75979c46bdf46981de55af0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Spyglass Animation 06
+  - Spyglass Animation 05
+  - Spyglass Animation 20
+  - Spyglass Animation 23
+  - Spyglass Animation 02
+  - Spyglass Animation 16
+  - Spyglass Animation 19
+  - Spyglass Animation 04
+  - Spyglass Animation 14
+  - Spyglass Animation 18
+  - Spyglass Animation 01
+  - Spyglass Animation 13
+  - Spyglass Animation 12
+  - Spyglass Animation 17
+  - Spyglass Animation 08
+  - Spyglass Animation 15
+  - Spyglass Animation 22
+  - Spyglass Animation 07
+  - Spyglass Animation 10
+  - Spyglass Animation 24
+  - Spyglass Animation 21
+  - Spyglass Animation 03
+  - Spyglass Animation 11
+  - Spyglass Animation 09
+  m_RenderDataMap: {}
+  m_Tag: animSpyglass
+  m_IsVariant: 0

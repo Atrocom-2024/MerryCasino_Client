@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PopupsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 80
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: e020ecf23ee651d499459cabc48621ec, type: 3}
+    - {fileID: 2800000, guid: aaa460ee79d3aab459a4404ba8ab694f, type: 3}
+    - {fileID: 2800000, guid: eba07944104053f4ead83e1322eecf8a, type: 3}
+    - {fileID: 2800000, guid: 770b484f06975974dbf44fe064dda095, type: 3}
+    - {fileID: 2800000, guid: 2f51509f6112a16469433fb4f317685b, type: 3}
+    - {fileID: 2800000, guid: 39b98e4445717bf49bce89ab6991eddd, type: 3}
+    - {fileID: 2800000, guid: 86f82080adaaa134b89da9bce0e64a09, type: 3}
+    - {fileID: 2800000, guid: e0eef762a3a9eb3438c17228f51295c7, type: 3}
+    - {fileID: 2800000, guid: c5c9f3e45a62ebb4aa4ba9395cba2090, type: 3}
+    - {fileID: 2800000, guid: dfdbc98642deeda43ac475c9fd8e79e2, type: 3}
+    - {fileID: 2800000, guid: fc2acbaa8c9fc944e89e62b480e509e4, type: 3}
+    - {fileID: 2800000, guid: 0362313dd0edf454abdb22e7808b213c, type: 3}
+    - {fileID: 2800000, guid: c8f2d6be5c0bfba4e920e826adbd4539, type: 3}
+    - {fileID: 2800000, guid: 2958b431d92b61b4d9b480830cf211ee, type: 3}
+    - {fileID: 2800000, guid: ba7f5daec00c42a45a46971c24f9596c, type: 3}
+    - {fileID: 2800000, guid: 065988b9f537a4b4dba7d7eff332cb41, type: 3}
+    - {fileID: 2800000, guid: 6d10ddf9e38b20a41af8852d2a7aeb7d, type: 3}
+    - {fileID: 2800000, guid: 900a64f6995d70b4f879f3c664d80917, type: 3}
+    - {fileID: 2800000, guid: acb6171b7e872c144adaf0392c77a133, type: 3}
+    - {fileID: 2800000, guid: 614553957a6f6af4d8bf0c6065843167, type: 3}
+    - {fileID: 2800000, guid: ee473e49c79bbb043861066d041baad6, type: 3}
+    - {fileID: 2800000, guid: da85638b55a136943b6c8ff34d2b25fa, type: 3}
+    - {fileID: 2800000, guid: 628de5c0a9fe93449984f0ca20a4ad8a, type: 3}
+    - {fileID: 2800000, guid: 6105daec420b17548ad30a35e5c0b10e, type: 3}
+    - {fileID: 2800000, guid: c100dcd0c3896f84ba5a33ae024c81b5, type: 3}
+    - {fileID: 2800000, guid: 9f3959cbc2630e942b33c4701857faab, type: 3}
+    - {fileID: 2800000, guid: aa4cf2eb142a8e2499b3d6ce528d64d8, type: 3}
+    - {fileID: 2800000, guid: a71406b0e57fb4c4a89a23200661d42c, type: 3}
+    - {fileID: 2800000, guid: f4f805cde4476f64f9f1bd0ef0b2f82a, type: 3}
+    - {fileID: 2800000, guid: a2a191e39f576194785c1daf1317cf66, type: 3}
+    - {fileID: 2800000, guid: c2699ace80865f646908a9b11f4e6e8b, type: 3}
+    - {fileID: 2800000, guid: 03e6d8d6ce6cea4489a9d6b7881593a5, type: 3}
+    - {fileID: 2800000, guid: 6bd31e5fb827c7946aed7bbbb952a8a5, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 86f82080adaaa134b89da9bce0e64a09: 21300000
+    - a71406b0e57fb4c4a89a23200661d42c: 21300000
+    - 628de5c0a9fe93449984f0ca20a4ad8a: 21300000
+    - c100dcd0c3896f84ba5a33ae024c81b5: 21300000
+    - 2958b431d92b61b4d9b480830cf211ee: 21300000
+    - e0eef762a3a9eb3438c17228f51295c7: 21300000
+    - e020ecf23ee651d499459cabc48621ec: 21300000
+    - a2a191e39f576194785c1daf1317cf66: 21300000
+    - eba07944104053f4ead83e1322eecf8a: 21300000
+    - 39b98e4445717bf49bce89ab6991eddd: 21300000
+    - c5c9f3e45a62ebb4aa4ba9395cba2090: 21300000
+    - 614553957a6f6af4d8bf0c6065843167: 21300000
+    - dfdbc98642deeda43ac475c9fd8e79e2: 21300000
+    - 03e6d8d6ce6cea4489a9d6b7881593a5: 21300000
+    - 900a64f6995d70b4f879f3c664d80917: 21300000
+    - ee473e49c79bbb043861066d041baad6: 21300000
+    - 065988b9f537a4b4dba7d7eff332cb41: 21300000
+    - 6d10ddf9e38b20a41af8852d2a7aeb7d: 21300000
+    - fc2acbaa8c9fc944e89e62b480e509e4: 21300000
+    - acb6171b7e872c144adaf0392c77a133: 21300000
+    - da85638b55a136943b6c8ff34d2b25fa: 21300000
+    - 9f3959cbc2630e942b33c4701857faab: 21300000
+    - aa4cf2eb142a8e2499b3d6ce528d64d8: 21300000
+    - 6105daec420b17548ad30a35e5c0b10e: 21300000
+    - 0362313dd0edf454abdb22e7808b213c: 21300000
+    - f4f805cde4476f64f9f1bd0ef0b2f82a: 21300000
+    - ba7f5daec00c42a45a46971c24f9596c: 21300000
+    - c8f2d6be5c0bfba4e920e826adbd4539: 21300000
+    - c2699ace80865f646908a9b11f4e6e8b: 21300000
+    - aaa460ee79d3aab459a4404ba8ab694f: 21300000
+    - 770b484f06975974dbf44fe064dda095: 21300000
+    - 6bd31e5fb827c7946aed7bbbb952a8a5: 21300000
+    - 2f51509f6112a16469433fb4f317685b: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 86f82080adaaa134b89da9bce0e64a09, type: 3}
+  - {fileID: 21300000, guid: a71406b0e57fb4c4a89a23200661d42c, type: 3}
+  - {fileID: 21300000, guid: 628de5c0a9fe93449984f0ca20a4ad8a, type: 3}
+  - {fileID: 21300000, guid: c100dcd0c3896f84ba5a33ae024c81b5, type: 3}
+  - {fileID: 21300000, guid: 2958b431d92b61b4d9b480830cf211ee, type: 3}
+  - {fileID: 21300000, guid: e0eef762a3a9eb3438c17228f51295c7, type: 3}
+  - {fileID: 21300000, guid: e020ecf23ee651d499459cabc48621ec, type: 3}
+  - {fileID: 21300000, guid: a2a191e39f576194785c1daf1317cf66, type: 3}
+  - {fileID: 21300000, guid: eba07944104053f4ead83e1322eecf8a, type: 3}
+  - {fileID: 21300000, guid: 39b98e4445717bf49bce89ab6991eddd, type: 3}
+  - {fileID: 21300000, guid: c5c9f3e45a62ebb4aa4ba9395cba2090, type: 3}
+  - {fileID: 21300000, guid: 614553957a6f6af4d8bf0c6065843167, type: 3}
+  - {fileID: 21300000, guid: dfdbc98642deeda43ac475c9fd8e79e2, type: 3}
+  - {fileID: 21300000, guid: 03e6d8d6ce6cea4489a9d6b7881593a5, type: 3}
+  - {fileID: 21300000, guid: 900a64f6995d70b4f879f3c664d80917, type: 3}
+  - {fileID: 21300000, guid: ee473e49c79bbb043861066d041baad6, type: 3}
+  - {fileID: 21300000, guid: 065988b9f537a4b4dba7d7eff332cb41, type: 3}
+  - {fileID: 21300000, guid: 6d10ddf9e38b20a41af8852d2a7aeb7d, type: 3}
+  - {fileID: 21300000, guid: fc2acbaa8c9fc944e89e62b480e509e4, type: 3}
+  - {fileID: 21300000, guid: acb6171b7e872c144adaf0392c77a133, type: 3}
+  - {fileID: 21300000, guid: da85638b55a136943b6c8ff34d2b25fa, type: 3}
+  - {fileID: 21300000, guid: 9f3959cbc2630e942b33c4701857faab, type: 3}
+  - {fileID: 21300000, guid: aa4cf2eb142a8e2499b3d6ce528d64d8, type: 3}
+  - {fileID: 21300000, guid: 6105daec420b17548ad30a35e5c0b10e, type: 3}
+  - {fileID: 21300000, guid: 0362313dd0edf454abdb22e7808b213c, type: 3}
+  - {fileID: 21300000, guid: f4f805cde4476f64f9f1bd0ef0b2f82a, type: 3}
+  - {fileID: 21300000, guid: ba7f5daec00c42a45a46971c24f9596c, type: 3}
+  - {fileID: 21300000, guid: c8f2d6be5c0bfba4e920e826adbd4539, type: 3}
+  - {fileID: 21300000, guid: c2699ace80865f646908a9b11f4e6e8b, type: 3}
+  - {fileID: 21300000, guid: aaa460ee79d3aab459a4404ba8ab694f, type: 3}
+  - {fileID: 21300000, guid: 770b484f06975974dbf44fe064dda095, type: 3}
+  - {fileID: 21300000, guid: 6bd31e5fb827c7946aed7bbbb952a8a5, type: 3}
+  - {fileID: 21300000, guid: 2f51509f6112a16469433fb4f317685b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Flag Mega Win
+  - Scroll Bar Roller
+  - Pop Up About
+  - Pop Up Flag
+  - Label Hot
+  - Flag Title
+  - Box Spot
+  - Spin Shadow Bomb
+  - Exit Icon Normal
+  - Flag Huge Win
+  - Gift Box Closed
+  - Ornament  Left Yellow
+  - Gift Box Opened
+  - Chest Closed
+  - Load Bar Roll
+  - Ornament  Right Yellow
+  - Load Bar Full
+  - Load Bar Mask
+  - Image Big Win
+  - MessagePlate
+  - Pay Lines
+  - Pop Up Settings
+  - Scroll Bar Plate
+  - Pop Up Bomb
+  - Label 10% Off
+  - Settings Icon Base
+  - Load Bar Empty
+  - Label Best
+  - Star Particle
+  - Exit Icon Hover
+  - Flag Big Win
+  - Chest Opened
+  - Flag Free Spins
+  m_RenderDataMap: {}
+  m_Tag: PopupsAtlas
+  m_IsVariant: 0

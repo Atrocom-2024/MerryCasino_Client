@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animWild
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 80
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: d71cbb71593f67640aec76cf6472aa85, type: 3}
+    - {fileID: 2800000, guid: 3b631581fa48fae42970630052b145e9, type: 3}
+    - {fileID: 2800000, guid: 3b718d384b0a2a549989b3a0d220dcf7, type: 3}
+    - {fileID: 2800000, guid: d90ad1ab7cfd8a94395f7034249bb819, type: 3}
+    - {fileID: 2800000, guid: ff6abd317ffa2244f9ef7d7040e047a8, type: 3}
+    - {fileID: 2800000, guid: 03eabfef62789b9409326fb1e324ac8e, type: 3}
+    - {fileID: 2800000, guid: 6856122d58058c440819ecc2b0eee975, type: 3}
+    - {fileID: 2800000, guid: 912f90844f6a6cf488035136f7a57241, type: 3}
+    - {fileID: 2800000, guid: 02f00aacc43edbc49b0cec97f50dcc2c, type: 3}
+    - {fileID: 2800000, guid: 37ecf731626414d4f9f7f4c452c0dc27, type: 3}
+    - {fileID: 2800000, guid: e836ec5d205df1442a64251bcd4bc424, type: 3}
+    - {fileID: 2800000, guid: 3613bd9a95d192348bbf1a1a3c11e6bf, type: 3}
+    - {fileID: 2800000, guid: 0cf4057bc5c8b604685ab0277eabe748, type: 3}
+    - {fileID: 2800000, guid: f4b9b5344af14054db09d584410cae88, type: 3}
+    - {fileID: 2800000, guid: bb24a657db78a614b83a909b605d61de, type: 3}
+    - {fileID: 2800000, guid: 0b628a29e19f28f4ba6edb63bed33671, type: 3}
+    - {fileID: 2800000, guid: 9f2c9688c92cb84409e1f5a213c3044f, type: 3}
+    - {fileID: 2800000, guid: d75c7814a9d48fe47b7aa2cf297cb569, type: 3}
+    - {fileID: 2800000, guid: 2da37e7d2feee694fbd8affbd7119f6d, type: 3}
+    - {fileID: 2800000, guid: 24e3e86b6aea6dc4787d6f8cb56758ed, type: 3}
+    - {fileID: 2800000, guid: e580f0ac3edae5f478088d7892104932, type: 3}
+    - {fileID: 2800000, guid: 9ec1d1c0def78de4f9192c11bc0c0fb1, type: 3}
+    - {fileID: 2800000, guid: 2859068b98e89c84a80a08921bb44611, type: 3}
+    - {fileID: 2800000, guid: 1c76e011e8da1824aae18556db89979d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 9ec1d1c0def78de4f9192c11bc0c0fb1: 21300000
+    - 1c76e011e8da1824aae18556db89979d: 21300000
+    - 37ecf731626414d4f9f7f4c452c0dc27: 21300000
+    - ff6abd317ffa2244f9ef7d7040e047a8: 21300000
+    - d71cbb71593f67640aec76cf6472aa85: 21300000
+    - 3b631581fa48fae42970630052b145e9: 21300000
+    - d75c7814a9d48fe47b7aa2cf297cb569: 21300000
+    - f4b9b5344af14054db09d584410cae88: 21300000
+    - 912f90844f6a6cf488035136f7a57241: 21300000
+    - bb24a657db78a614b83a909b605d61de: 21300000
+    - 3b718d384b0a2a549989b3a0d220dcf7: 21300000
+    - 9f2c9688c92cb84409e1f5a213c3044f: 21300000
+    - 0b628a29e19f28f4ba6edb63bed33671: 21300000
+    - 3613bd9a95d192348bbf1a1a3c11e6bf: 21300000
+    - 24e3e86b6aea6dc4787d6f8cb56758ed: 21300000
+    - 0cf4057bc5c8b604685ab0277eabe748: 21300000
+    - 2859068b98e89c84a80a08921bb44611: 21300000
+    - d90ad1ab7cfd8a94395f7034249bb819: 21300000
+    - e580f0ac3edae5f478088d7892104932: 21300000
+    - 02f00aacc43edbc49b0cec97f50dcc2c: 21300000
+    - 6856122d58058c440819ecc2b0eee975: 21300000
+    - e836ec5d205df1442a64251bcd4bc424: 21300000
+    - 2da37e7d2feee694fbd8affbd7119f6d: 21300000
+    - 03eabfef62789b9409326fb1e324ac8e: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9ec1d1c0def78de4f9192c11bc0c0fb1, type: 3}
+  - {fileID: 21300000, guid: 1c76e011e8da1824aae18556db89979d, type: 3}
+  - {fileID: 21300000, guid: 37ecf731626414d4f9f7f4c452c0dc27, type: 3}
+  - {fileID: 21300000, guid: ff6abd317ffa2244f9ef7d7040e047a8, type: 3}
+  - {fileID: 21300000, guid: d71cbb71593f67640aec76cf6472aa85, type: 3}
+  - {fileID: 21300000, guid: 3b631581fa48fae42970630052b145e9, type: 3}
+  - {fileID: 21300000, guid: d75c7814a9d48fe47b7aa2cf297cb569, type: 3}
+  - {fileID: 21300000, guid: f4b9b5344af14054db09d584410cae88, type: 3}
+  - {fileID: 21300000, guid: 912f90844f6a6cf488035136f7a57241, type: 3}
+  - {fileID: 21300000, guid: bb24a657db78a614b83a909b605d61de, type: 3}
+  - {fileID: 21300000, guid: 3b718d384b0a2a549989b3a0d220dcf7, type: 3}
+  - {fileID: 21300000, guid: 9f2c9688c92cb84409e1f5a213c3044f, type: 3}
+  - {fileID: 21300000, guid: 0b628a29e19f28f4ba6edb63bed33671, type: 3}
+  - {fileID: 21300000, guid: 3613bd9a95d192348bbf1a1a3c11e6bf, type: 3}
+  - {fileID: 21300000, guid: 24e3e86b6aea6dc4787d6f8cb56758ed, type: 3}
+  - {fileID: 21300000, guid: 0cf4057bc5c8b604685ab0277eabe748, type: 3}
+  - {fileID: 21300000, guid: 2859068b98e89c84a80a08921bb44611, type: 3}
+  - {fileID: 21300000, guid: d90ad1ab7cfd8a94395f7034249bb819, type: 3}
+  - {fileID: 21300000, guid: e580f0ac3edae5f478088d7892104932, type: 3}
+  - {fileID: 21300000, guid: 02f00aacc43edbc49b0cec97f50dcc2c, type: 3}
+  - {fileID: 21300000, guid: 6856122d58058c440819ecc2b0eee975, type: 3}
+  - {fileID: 21300000, guid: e836ec5d205df1442a64251bcd4bc424, type: 3}
+  - {fileID: 21300000, guid: 2da37e7d2feee694fbd8affbd7119f6d, type: 3}
+  - {fileID: 21300000, guid: 03eabfef62789b9409326fb1e324ac8e, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Wild Animation 22
+  - Wild Animation 24
+  - Wild Animation 10
+  - Wild Animation 05
+  - Wild Animation 01
+  - Wild Animation 02
+  - Wild Animation 18
+  - Wild Animation 14
+  - Wild Animation 08
+  - Wild Animation 15
+  - Wild Animation 03
+  - Wild Animation 17
+  - Wild Animation 16
+  - Wild Animation 12
+  - Wild Animation 20
+  - Wild Animation 13
+  - Wild Animation 23
+  - Wild Animation 04
+  - Wild Animation 21
+  - Wild Animation 09
+  - Wild Animation 07
+  - Wild Animation 11
+  - Wild Animation 19
+  - Wild Animation 06
+  m_RenderDataMap: {}
+  m_Tag: animWild
+  m_IsVariant: 0

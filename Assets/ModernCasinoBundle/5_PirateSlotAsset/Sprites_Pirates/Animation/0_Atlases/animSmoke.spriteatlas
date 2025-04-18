@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animSmoke
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0b0400f1e3af14c4da97626f4ae53103, type: 3}
+    - {fileID: 2800000, guid: c2db56c1e408e0f4cb486c57a6f47298, type: 3}
+    - {fileID: 2800000, guid: ee95eae54c35e4d419383dcac7801919, type: 3}
+    - {fileID: 2800000, guid: f1e7aa3f2bf878c45a84dde6139ed6a8, type: 3}
+    - {fileID: 2800000, guid: 2d9f17399cb45b84ea315554efd0ab7c, type: 3}
+    - {fileID: 2800000, guid: 68082a687e1fc8540840d2fa9dc5d38b, type: 3}
+    - {fileID: 2800000, guid: de3a8416e2a28174aa29272ee482f4d7, type: 3}
+    - {fileID: 2800000, guid: bfe15754e26debb42be6a4a0e6a8daa1, type: 3}
+    - {fileID: 2800000, guid: f08494009fd2e904fa67e865a411738f, type: 3}
+    - {fileID: 2800000, guid: 299870859e5b9f145bff211b3c79419a, type: 3}
+    - {fileID: 2800000, guid: 843347e8247c36744a0aaf5e89bbe21a, type: 3}
+    - {fileID: 2800000, guid: f8655382daba12244b1febae460bb8da, type: 3}
+    - {fileID: 2800000, guid: 4745a25bb32efa74fb93b583b6aab7bb, type: 3}
+    - {fileID: 2800000, guid: 34cb206a68e64994688505d98032c3f7, type: 3}
+    - {fileID: 2800000, guid: 2196357e80a01174895085fe4bbe22ef, type: 3}
+    - {fileID: 2800000, guid: 0f68b96097a54b645a42e72a131e7b7d, type: 3}
+    - {fileID: 2800000, guid: 0f2914dfddb55d54bb1e274083419551, type: 3}
+    - {fileID: 2800000, guid: 41e23a4bc26329c4e886c25c383784fe, type: 3}
+    - {fileID: 2800000, guid: f95e073960c02a3498bdd4f355d0d462, type: 3}
+    - {fileID: 2800000, guid: 3e4109d74587c5b4197bc448e6d22c8a, type: 3}
+    - {fileID: 2800000, guid: 4d37fde9862fe43478ebf858b0172492, type: 3}
+    - {fileID: 2800000, guid: 46549cdf0000495438cc1129fe9eb7f5, type: 3}
+    - {fileID: 2800000, guid: 34f7c3e37a310ff41b27b0ce6c702705, type: 3}
+    - {fileID: 2800000, guid: 2580319db96893049a6baae7adf7cd5d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - f08494009fd2e904fa67e865a411738f: 21300000
+    - 0f68b96097a54b645a42e72a131e7b7d: 21300000
+    - c2db56c1e408e0f4cb486c57a6f47298: 21300000
+    - 0b0400f1e3af14c4da97626f4ae53103: 21300000
+    - f8655382daba12244b1febae460bb8da: 21300000
+    - 34f7c3e37a310ff41b27b0ce6c702705: 21300000
+    - bfe15754e26debb42be6a4a0e6a8daa1: 21300000
+    - 299870859e5b9f145bff211b3c79419a: 21300000
+    - ee95eae54c35e4d419383dcac7801919: 21300000
+    - de3a8416e2a28174aa29272ee482f4d7: 21300000
+    - 3e4109d74587c5b4197bc448e6d22c8a: 21300000
+    - 68082a687e1fc8540840d2fa9dc5d38b: 21300000
+    - 843347e8247c36744a0aaf5e89bbe21a: 21300000
+    - f95e073960c02a3498bdd4f355d0d462: 21300000
+    - 2d9f17399cb45b84ea315554efd0ab7c: 21300000
+    - 4d37fde9862fe43478ebf858b0172492: 21300000
+    - 34cb206a68e64994688505d98032c3f7: 21300000
+    - 41e23a4bc26329c4e886c25c383784fe: 21300000
+    - 4745a25bb32efa74fb93b583b6aab7bb: 21300000
+    - 2580319db96893049a6baae7adf7cd5d: 21300000
+    - 2196357e80a01174895085fe4bbe22ef: 21300000
+    - f1e7aa3f2bf878c45a84dde6139ed6a8: 21300000
+    - 0f2914dfddb55d54bb1e274083419551: 21300000
+    - 46549cdf0000495438cc1129fe9eb7f5: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: f08494009fd2e904fa67e865a411738f, type: 3}
+  - {fileID: 21300000, guid: 0f68b96097a54b645a42e72a131e7b7d, type: 3}
+  - {fileID: 21300000, guid: c2db56c1e408e0f4cb486c57a6f47298, type: 3}
+  - {fileID: 21300000, guid: 0b0400f1e3af14c4da97626f4ae53103, type: 3}
+  - {fileID: 21300000, guid: f8655382daba12244b1febae460bb8da, type: 3}
+  - {fileID: 21300000, guid: 34f7c3e37a310ff41b27b0ce6c702705, type: 3}
+  - {fileID: 21300000, guid: bfe15754e26debb42be6a4a0e6a8daa1, type: 3}
+  - {fileID: 21300000, guid: 299870859e5b9f145bff211b3c79419a, type: 3}
+  - {fileID: 21300000, guid: ee95eae54c35e4d419383dcac7801919, type: 3}
+  - {fileID: 21300000, guid: de3a8416e2a28174aa29272ee482f4d7, type: 3}
+  - {fileID: 21300000, guid: 3e4109d74587c5b4197bc448e6d22c8a, type: 3}
+  - {fileID: 21300000, guid: 68082a687e1fc8540840d2fa9dc5d38b, type: 3}
+  - {fileID: 21300000, guid: 843347e8247c36744a0aaf5e89bbe21a, type: 3}
+  - {fileID: 21300000, guid: f95e073960c02a3498bdd4f355d0d462, type: 3}
+  - {fileID: 21300000, guid: 2d9f17399cb45b84ea315554efd0ab7c, type: 3}
+  - {fileID: 21300000, guid: 4d37fde9862fe43478ebf858b0172492, type: 3}
+  - {fileID: 21300000, guid: 34cb206a68e64994688505d98032c3f7, type: 3}
+  - {fileID: 21300000, guid: 41e23a4bc26329c4e886c25c383784fe, type: 3}
+  - {fileID: 21300000, guid: 4745a25bb32efa74fb93b583b6aab7bb, type: 3}
+  - {fileID: 21300000, guid: 2580319db96893049a6baae7adf7cd5d, type: 3}
+  - {fileID: 21300000, guid: 2196357e80a01174895085fe4bbe22ef, type: 3}
+  - {fileID: 21300000, guid: f1e7aa3f2bf878c45a84dde6139ed6a8, type: 3}
+  - {fileID: 21300000, guid: 0f2914dfddb55d54bb1e274083419551, type: 3}
+  - {fileID: 21300000, guid: 46549cdf0000495438cc1129fe9eb7f5, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Smoke Animation 09
+  - Smoke Animation 16
+  - Smoke Animation 02
+  - Smoke Animation 01
+  - Smoke Animation 12
+  - Smoke Animation 23
+  - Smoke Animation 08
+  - Smoke Animation 10
+  - Smoke Animation 03
+  - Smoke Animation 07
+  - Smoke Animation 20
+  - Smoke Animation 06
+  - Smoke Animation 11
+  - Smoke Animation 19
+  - Smoke Animation 05
+  - Smoke Animation 21
+  - Smoke Animation 14
+  - Smoke Animation 18
+  - Smoke Animation 13
+  - Smoke Animation 24
+  - Smoke Animation 15
+  - Smoke Animation 04
+  - Smoke Animation 17
+  - Smoke Animation 22
+  m_RenderDataMap: {}
+  m_Tag: animSmoke
+  m_IsVariant: 0

@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animCross
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 45f8cecd4225726418e0c0d94b4593d0, type: 3}
+    - {fileID: 2800000, guid: d68eaf345d215a044b007b1829c294b4, type: 3}
+    - {fileID: 2800000, guid: 8b638f105cb8a35499e67d5bd238b7f8, type: 3}
+    - {fileID: 2800000, guid: 63f06f73f27f25d499b11a087a09dad0, type: 3}
+    - {fileID: 2800000, guid: 417da3b169bd8cb4d9afcfb53bec6847, type: 3}
+    - {fileID: 2800000, guid: 9afb98119b296474b8071dd416d61c5e, type: 3}
+    - {fileID: 2800000, guid: 02288ac4f5d7ded499a61e91efd6572a, type: 3}
+    - {fileID: 2800000, guid: cd8fd85899b4eac41a5b3ea1f6d2c3e7, type: 3}
+    - {fileID: 2800000, guid: 3a7ef8cbf67b2334086d1e85fe83b125, type: 3}
+    - {fileID: 2800000, guid: 68de0bfb6f13e2346aa98bc3fde215e2, type: 3}
+    - {fileID: 2800000, guid: f6d0fba03d655ce4fb58fa349a66f844, type: 3}
+    - {fileID: 2800000, guid: f04ca809140f296469fb93dcff6bef2b, type: 3}
+    - {fileID: 2800000, guid: 1ba8c4084e9f11841acba3ba408d62fd, type: 3}
+    - {fileID: 2800000, guid: c078c83631b47424494764cdb2a34f31, type: 3}
+    - {fileID: 2800000, guid: f2c5ca6f03851094796c96985e531582, type: 3}
+    - {fileID: 2800000, guid: 62ac51f8cb0bf9741b6f4e28c0e8953b, type: 3}
+    - {fileID: 2800000, guid: 7ad4aace5a6496846a84b8705e4fda91, type: 3}
+    - {fileID: 2800000, guid: 14f9d5778c95d9d45bcdec6ec69cef4b, type: 3}
+    - {fileID: 2800000, guid: b399c3ed6aef2574d963cbe6752f907a, type: 3}
+    - {fileID: 2800000, guid: f2a8c19c463d32e4e8a4808814ad3dcd, type: 3}
+    - {fileID: 2800000, guid: e901b556fd0eaae418fe01b0ba33a50d, type: 3}
+    - {fileID: 2800000, guid: 259c6dcad1744e74b8c56eb657dfc36b, type: 3}
+    - {fileID: 2800000, guid: b30d67e39eebef1428856b859c37f2ec, type: 3}
+    - {fileID: 2800000, guid: 0b244dfdf4c4f8c4d9ac188644abfe0a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 8b638f105cb8a35499e67d5bd238b7f8: 21300000
+    - f6d0fba03d655ce4fb58fa349a66f844: 21300000
+    - 9afb98119b296474b8071dd416d61c5e: 21300000
+    - 417da3b169bd8cb4d9afcfb53bec6847: 21300000
+    - 63f06f73f27f25d499b11a087a09dad0: 21300000
+    - b30d67e39eebef1428856b859c37f2ec: 21300000
+    - d68eaf345d215a044b007b1829c294b4: 21300000
+    - 02288ac4f5d7ded499a61e91efd6572a: 21300000
+    - c078c83631b47424494764cdb2a34f31: 21300000
+    - e901b556fd0eaae418fe01b0ba33a50d: 21300000
+    - 14f9d5778c95d9d45bcdec6ec69cef4b: 21300000
+    - 1ba8c4084e9f11841acba3ba408d62fd: 21300000
+    - cd8fd85899b4eac41a5b3ea1f6d2c3e7: 21300000
+    - 62ac51f8cb0bf9741b6f4e28c0e8953b: 21300000
+    - f04ca809140f296469fb93dcff6bef2b: 21300000
+    - 259c6dcad1744e74b8c56eb657dfc36b: 21300000
+    - 3a7ef8cbf67b2334086d1e85fe83b125: 21300000
+    - 68de0bfb6f13e2346aa98bc3fde215e2: 21300000
+    - f2a8c19c463d32e4e8a4808814ad3dcd: 21300000
+    - 45f8cecd4225726418e0c0d94b4593d0: 21300000
+    - b399c3ed6aef2574d963cbe6752f907a: 21300000
+    - 0b244dfdf4c4f8c4d9ac188644abfe0a: 21300000
+    - 7ad4aace5a6496846a84b8705e4fda91: 21300000
+    - f2c5ca6f03851094796c96985e531582: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8b638f105cb8a35499e67d5bd238b7f8, type: 3}
+  - {fileID: 21300000, guid: f6d0fba03d655ce4fb58fa349a66f844, type: 3}
+  - {fileID: 21300000, guid: 9afb98119b296474b8071dd416d61c5e, type: 3}
+  - {fileID: 21300000, guid: 417da3b169bd8cb4d9afcfb53bec6847, type: 3}
+  - {fileID: 21300000, guid: 63f06f73f27f25d499b11a087a09dad0, type: 3}
+  - {fileID: 21300000, guid: b30d67e39eebef1428856b859c37f2ec, type: 3}
+  - {fileID: 21300000, guid: d68eaf345d215a044b007b1829c294b4, type: 3}
+  - {fileID: 21300000, guid: 02288ac4f5d7ded499a61e91efd6572a, type: 3}
+  - {fileID: 21300000, guid: c078c83631b47424494764cdb2a34f31, type: 3}
+  - {fileID: 21300000, guid: e901b556fd0eaae418fe01b0ba33a50d, type: 3}
+  - {fileID: 21300000, guid: 14f9d5778c95d9d45bcdec6ec69cef4b, type: 3}
+  - {fileID: 21300000, guid: 1ba8c4084e9f11841acba3ba408d62fd, type: 3}
+  - {fileID: 21300000, guid: cd8fd85899b4eac41a5b3ea1f6d2c3e7, type: 3}
+  - {fileID: 21300000, guid: 62ac51f8cb0bf9741b6f4e28c0e8953b, type: 3}
+  - {fileID: 21300000, guid: f04ca809140f296469fb93dcff6bef2b, type: 3}
+  - {fileID: 21300000, guid: 259c6dcad1744e74b8c56eb657dfc36b, type: 3}
+  - {fileID: 21300000, guid: 3a7ef8cbf67b2334086d1e85fe83b125, type: 3}
+  - {fileID: 21300000, guid: 68de0bfb6f13e2346aa98bc3fde215e2, type: 3}
+  - {fileID: 21300000, guid: f2a8c19c463d32e4e8a4808814ad3dcd, type: 3}
+  - {fileID: 21300000, guid: 45f8cecd4225726418e0c0d94b4593d0, type: 3}
+  - {fileID: 21300000, guid: b399c3ed6aef2574d963cbe6752f907a, type: 3}
+  - {fileID: 21300000, guid: 0b244dfdf4c4f8c4d9ac188644abfe0a, type: 3}
+  - {fileID: 21300000, guid: 7ad4aace5a6496846a84b8705e4fda91, type: 3}
+  - {fileID: 21300000, guid: f2c5ca6f03851094796c96985e531582, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Cross Animation 03
+  - Cross Animation 11
+  - Cross Animation 06
+  - Cross Animation 05
+  - Cross Animation 04
+  - Cross Animation 23
+  - Cross Animation 02
+  - Cross Animation 07
+  - Cross Animation 14
+  - Cross Animation 21
+  - Cross Animation 18
+  - Cross Animation 13
+  - Cross Animation 08
+  - Cross Animation 16
+  - Cross Animation 12
+  - Cross Animation 22
+  - Cross Animation 09
+  - Cross Animation 10
+  - Cross Animation 20
+  - Cross Animation 01
+  - Cross Animation 19
+  - Cross Animation 24
+  - Cross Animation 17
+  - Cross Animation 15
+  m_RenderDataMap: {}
+  m_Tag: animCross
+  m_IsVariant: 0

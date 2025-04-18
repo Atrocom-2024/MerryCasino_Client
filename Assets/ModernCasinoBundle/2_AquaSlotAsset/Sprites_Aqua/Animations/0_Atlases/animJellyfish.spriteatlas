@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animJellyfish
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 80
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 509177e16afb4c32a9d8c693dd432ce9, type: 3}
+    - {fileID: 2800000, guid: 99f9fb2fe8b9470b98590f82c2e07b17, type: 3}
+    - {fileID: 2800000, guid: dfd6ed0afc9843b9a660fdd0c1ddb74b, type: 3}
+    - {fileID: 2800000, guid: b26679aef85e41a7ac2b322db036c3da, type: 3}
+    - {fileID: 2800000, guid: a05583304aa14a2a98f280610909e374, type: 3}
+    - {fileID: 2800000, guid: 2e821d8016054cbc985f631c9083a7d8, type: 3}
+    - {fileID: 2800000, guid: a205a715e0ce45649223d8694df03f64, type: 3}
+    - {fileID: 2800000, guid: 44d1e626773c44b48016171a13e20c4c, type: 3}
+    - {fileID: 2800000, guid: 4ba554d181034174b35151566ad13e6d, type: 3}
+    - {fileID: 2800000, guid: 6eaaa4e2ca834958abfe28a5fc7cd39c, type: 3}
+    - {fileID: 2800000, guid: 14b16f4cd43e45e4bb163971d6a5ec92, type: 3}
+    - {fileID: 2800000, guid: 04965fce96cd4ee29dea7ee03f76f9f2, type: 3}
+    - {fileID: 2800000, guid: 76e08db899a443d78aee63a0666f74a0, type: 3}
+    - {fileID: 2800000, guid: 48013077c1d247b98f9e8b3de1427051, type: 3}
+    - {fileID: 2800000, guid: ed52f03e70b84f9f9d48a5ea9daf023b, type: 3}
+    - {fileID: 2800000, guid: bd349a4248bc4a49b4623e848c0a617f, type: 3}
+    - {fileID: 2800000, guid: 28b04bcae3b840d4bdd9dcf4c0a1ca6c, type: 3}
+    - {fileID: 2800000, guid: cff1352d08d446fea850c28a1c9640de, type: 3}
+    - {fileID: 2800000, guid: 7d809222832f4316bf0a55ee144d230d, type: 3}
+    - {fileID: 2800000, guid: 5cebd3ee90484cc0a5bcbe3339f32994, type: 3}
+    - {fileID: 2800000, guid: a540d74ef098497984088beccf32a495, type: 3}
+    - {fileID: 2800000, guid: 6eb5e7ec6a9f48178479b6d7d60efdad, type: 3}
+    - {fileID: 2800000, guid: 7c52ea3c625b45c7b73022c065b3df53, type: 3}
+    - {fileID: 2800000, guid: 44791c6934b34d77b95c09f6297d4e31, type: 3}
+    - {fileID: 2800000, guid: 7b5a1b728cd44cb0a1c9ef70ab2b48e5, type: 3}
+    - {fileID: 2800000, guid: b193e5ee167440f48381cda843c9a552, type: 3}
+    - {fileID: 2800000, guid: 1870eb7e6678401a9d1b56fedfbeb78b, type: 3}
+    - {fileID: 2800000, guid: 6ef83c1e9d5b41ddb65fca0fd8f34ded, type: 3}
+    - {fileID: 2800000, guid: daea677c00754dd0a6fd07d13c69127e, type: 3}
+    - {fileID: 2800000, guid: 3b127889e07f449280a0dc6a7dea1ae4, type: 3}
+    - {fileID: 2800000, guid: 9d9d087975b74294ba22b494e0e6ec71, type: 3}
+    - {fileID: 2800000, guid: c1de9f9d08a24a9395bf362ad11fdb24, type: 3}
+    - {fileID: 2800000, guid: ead197001b584ff9be712b1f35613b66, type: 3}
+    - {fileID: 2800000, guid: d8f3bad5a8a34226ad0415d0c214a5f3, type: 3}
+    - {fileID: 2800000, guid: 076126552e1d4a719a999c25deda7246, type: 3}
+    - {fileID: 2800000, guid: 1f90b158f532413f99f75f5816f7ec50, type: 3}
+    - {fileID: 2800000, guid: e118814291d74758b7fa215d299c1a40, type: 3}
+    - {fileID: 2800000, guid: 3e954e3f7b04477ca11e5cd7cdd9c375, type: 3}
+    - {fileID: 2800000, guid: 01527197878e40888505dc47ef13665a, type: 3}
+    - {fileID: 2800000, guid: 3f50f683e5964462b95376d2a2445996, type: 3}
+    - {fileID: 2800000, guid: 210579a6e620468f916f4c51054fc546, type: 3}
+    - {fileID: 2800000, guid: 33d9a96003a7445dbfaf6a949fce8ef9, type: 3}
+    - {fileID: 2800000, guid: 723a1ece9b064c038937b70ea3d617cd, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - ead197001b584ff9be712b1f35613b66: 21300000
+    - a05583304aa14a2a98f280610909e374: 21300000
+    - 33d9a96003a7445dbfaf6a949fce8ef9: 21300000
+    - 2e821d8016054cbc985f631c9083a7d8: 21300000
+    - 4ba554d181034174b35151566ad13e6d: 21300000
+    - 509177e16afb4c32a9d8c693dd432ce9: 21300000
+    - 7d809222832f4316bf0a55ee144d230d: 21300000
+    - e118814291d74758b7fa215d299c1a40: 21300000
+    - bd349a4248bc4a49b4623e848c0a617f: 21300000
+    - 7b5a1b728cd44cb0a1c9ef70ab2b48e5: 21300000
+    - 6eaaa4e2ca834958abfe28a5fc7cd39c: 21300000
+    - 3f50f683e5964462b95376d2a2445996: 21300000
+    - a205a715e0ce45649223d8694df03f64: 21300000
+    - 076126552e1d4a719a999c25deda7246: 21300000
+    - d8f3bad5a8a34226ad0415d0c214a5f3: 21300000
+    - 44d1e626773c44b48016171a13e20c4c: 21300000
+    - 210579a6e620468f916f4c51054fc546: 21300000
+    - 48013077c1d247b98f9e8b3de1427051: 21300000
+    - 01527197878e40888505dc47ef13665a: 21300000
+    - 1f90b158f532413f99f75f5816f7ec50: 21300000
+    - 76e08db899a443d78aee63a0666f74a0: 21300000
+    - 44791c6934b34d77b95c09f6297d4e31: 21300000
+    - 9d9d087975b74294ba22b494e0e6ec71: 21300000
+    - 3b127889e07f449280a0dc6a7dea1ae4: 21300000
+    - dfd6ed0afc9843b9a660fdd0c1ddb74b: 21300000
+    - 28b04bcae3b840d4bdd9dcf4c0a1ca6c: 21300000
+    - 7c52ea3c625b45c7b73022c065b3df53: 21300000
+    - 14b16f4cd43e45e4bb163971d6a5ec92: 21300000
+    - daea677c00754dd0a6fd07d13c69127e: 21300000
+    - 6eb5e7ec6a9f48178479b6d7d60efdad: 21300000
+    - cff1352d08d446fea850c28a1c9640de: 21300000
+    - c1de9f9d08a24a9395bf362ad11fdb24: 21300000
+    - 6ef83c1e9d5b41ddb65fca0fd8f34ded: 21300000
+    - ed52f03e70b84f9f9d48a5ea9daf023b: 21300000
+    - a540d74ef098497984088beccf32a495: 21300000
+    - 1870eb7e6678401a9d1b56fedfbeb78b: 21300000
+    - b26679aef85e41a7ac2b322db036c3da: 21300000
+    - 723a1ece9b064c038937b70ea3d617cd: 21300000
+    - 04965fce96cd4ee29dea7ee03f76f9f2: 21300000
+    - 5cebd3ee90484cc0a5bcbe3339f32994: 21300000
+    - b193e5ee167440f48381cda843c9a552: 21300000
+    - 99f9fb2fe8b9470b98590f82c2e07b17: 21300000
+    - 3e954e3f7b04477ca11e5cd7cdd9c375: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ead197001b584ff9be712b1f35613b66, type: 3}
+  - {fileID: 21300000, guid: a05583304aa14a2a98f280610909e374, type: 3}
+  - {fileID: 21300000, guid: 33d9a96003a7445dbfaf6a949fce8ef9, type: 3}
+  - {fileID: 21300000, guid: 2e821d8016054cbc985f631c9083a7d8, type: 3}
+  - {fileID: 21300000, guid: 4ba554d181034174b35151566ad13e6d, type: 3}
+  - {fileID: 21300000, guid: 509177e16afb4c32a9d8c693dd432ce9, type: 3}
+  - {fileID: 21300000, guid: 7d809222832f4316bf0a55ee144d230d, type: 3}
+  - {fileID: 21300000, guid: e118814291d74758b7fa215d299c1a40, type: 3}
+  - {fileID: 21300000, guid: bd349a4248bc4a49b4623e848c0a617f, type: 3}
+  - {fileID: 21300000, guid: 7b5a1b728cd44cb0a1c9ef70ab2b48e5, type: 3}
+  - {fileID: 21300000, guid: 6eaaa4e2ca834958abfe28a5fc7cd39c, type: 3}
+  - {fileID: 21300000, guid: 3f50f683e5964462b95376d2a2445996, type: 3}
+  - {fileID: 21300000, guid: a205a715e0ce45649223d8694df03f64, type: 3}
+  - {fileID: 21300000, guid: 076126552e1d4a719a999c25deda7246, type: 3}
+  - {fileID: 21300000, guid: d8f3bad5a8a34226ad0415d0c214a5f3, type: 3}
+  - {fileID: 21300000, guid: 44d1e626773c44b48016171a13e20c4c, type: 3}
+  - {fileID: 21300000, guid: 210579a6e620468f916f4c51054fc546, type: 3}
+  - {fileID: 21300000, guid: 48013077c1d247b98f9e8b3de1427051, type: 3}
+  - {fileID: 21300000, guid: 01527197878e40888505dc47ef13665a, type: 3}
+  - {fileID: 21300000, guid: 1f90b158f532413f99f75f5816f7ec50, type: 3}
+  - {fileID: 21300000, guid: 76e08db899a443d78aee63a0666f74a0, type: 3}
+  - {fileID: 21300000, guid: 44791c6934b34d77b95c09f6297d4e31, type: 3}
+  - {fileID: 21300000, guid: 9d9d087975b74294ba22b494e0e6ec71, type: 3}
+  - {fileID: 21300000, guid: 3b127889e07f449280a0dc6a7dea1ae4, type: 3}
+  - {fileID: 21300000, guid: dfd6ed0afc9843b9a660fdd0c1ddb74b, type: 3}
+  - {fileID: 21300000, guid: 28b04bcae3b840d4bdd9dcf4c0a1ca6c, type: 3}
+  - {fileID: 21300000, guid: 7c52ea3c625b45c7b73022c065b3df53, type: 3}
+  - {fileID: 21300000, guid: 14b16f4cd43e45e4bb163971d6a5ec92, type: 3}
+  - {fileID: 21300000, guid: daea677c00754dd0a6fd07d13c69127e, type: 3}
+  - {fileID: 21300000, guid: 6eb5e7ec6a9f48178479b6d7d60efdad, type: 3}
+  - {fileID: 21300000, guid: cff1352d08d446fea850c28a1c9640de, type: 3}
+  - {fileID: 21300000, guid: c1de9f9d08a24a9395bf362ad11fdb24, type: 3}
+  - {fileID: 21300000, guid: 6ef83c1e9d5b41ddb65fca0fd8f34ded, type: 3}
+  - {fileID: 21300000, guid: ed52f03e70b84f9f9d48a5ea9daf023b, type: 3}
+  - {fileID: 21300000, guid: a540d74ef098497984088beccf32a495, type: 3}
+  - {fileID: 21300000, guid: 1870eb7e6678401a9d1b56fedfbeb78b, type: 3}
+  - {fileID: 21300000, guid: b26679aef85e41a7ac2b322db036c3da, type: 3}
+  - {fileID: 21300000, guid: 723a1ece9b064c038937b70ea3d617cd, type: 3}
+  - {fileID: 21300000, guid: 04965fce96cd4ee29dea7ee03f76f9f2, type: 3}
+  - {fileID: 21300000, guid: 5cebd3ee90484cc0a5bcbe3339f32994, type: 3}
+  - {fileID: 21300000, guid: b193e5ee167440f48381cda843c9a552, type: 3}
+  - {fileID: 21300000, guid: 99f9fb2fe8b9470b98590f82c2e07b17, type: 3}
+  - {fileID: 21300000, guid: 3e954e3f7b04477ca11e5cd7cdd9c375, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Jellyfish 33
+  - Jellyfish 05
+  - Jellyfish 42
+  - Jellyfish 06
+  - Jellyfish 09
+  - Jellyfish 01
+  - Jellyfish 19
+  - Jellyfish 37
+  - Jellyfish 16
+  - Jellyfish 25
+  - Jellyfish 10
+  - Jellyfish 40
+  - Jellyfish 07
+  - Jellyfish 35
+  - Jellyfish 34
+  - Jellyfish 08
+  - Jellyfish 41
+  - Jellyfish 14
+  - Jellyfish 39
+  - Jellyfish 36
+  - Jellyfish 13
+  - Jellyfish 24
+  - Jellyfish 31
+  - Jellyfish 30
+  - Jellyfish 03
+  - Jellyfish 17
+  - Jellyfish 23
+  - Jellyfish 11
+  - Jellyfish 29
+  - Jellyfish 22
+  - Jellyfish 18
+  - Jellyfish 32
+  - Jellyfish 28
+  - Jellyfish 15
+  - Jellyfish 21
+  - Jellyfish 27
+  - Jellyfish 04
+  - Jellyfish 43
+  - Jellyfish 12
+  - Jellyfish 20
+  - Jellyfish 26
+  - Jellyfish 02
+  - Jellyfish 38
+  m_RenderDataMap: {}
+  m_Tag: animJellyfish
+  m_IsVariant: 0

@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animBonus
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 66e5d8ceb1702d04fa8ef12144cbc6d9, type: 3}
+    - {fileID: 2800000, guid: f6b7b5d0d9226a84392d199701dc423e, type: 3}
+    - {fileID: 2800000, guid: ce8eb0c5aa215ea40ad34d22664cec18, type: 3}
+    - {fileID: 2800000, guid: 54ee1190bcde64542963c2eb5de74d42, type: 3}
+    - {fileID: 2800000, guid: 2b1058d04078f8c40bb17228dbdfce84, type: 3}
+    - {fileID: 2800000, guid: 6cb1ff057b68f8b41865d0a68557dab5, type: 3}
+    - {fileID: 2800000, guid: 80a5dfcdcd619d246b22706d33603f39, type: 3}
+    - {fileID: 2800000, guid: 4203a9667285f98458e8544d6557809f, type: 3}
+    - {fileID: 2800000, guid: a8d70616d0becaf4e81315715a77dd7d, type: 3}
+    - {fileID: 2800000, guid: ae5328952a0265d4f93043ab69fd516d, type: 3}
+    - {fileID: 2800000, guid: 91a9f6bedbdfeea41a6db83149092266, type: 3}
+    - {fileID: 2800000, guid: 7937bc307c26cbe4b810fdaee39c041f, type: 3}
+    - {fileID: 2800000, guid: c7cf97efd7ea5af439a24e408704f6ff, type: 3}
+    - {fileID: 2800000, guid: ff2adb066264ee34a83ff9b40bf19af4, type: 3}
+    - {fileID: 2800000, guid: bb71041b9e1fbdc448c42c283e373153, type: 3}
+    - {fileID: 2800000, guid: c52781c3625d41048a494af6a943e768, type: 3}
+    - {fileID: 2800000, guid: a399f9e171e65f24d9e6f9e647ad3f72, type: 3}
+    - {fileID: 2800000, guid: 1a3fe2916cc4d1c44b88af3f76e2639f, type: 3}
+    - {fileID: 2800000, guid: 9674c625f899acf4aa9f49b85b7c5993, type: 3}
+    - {fileID: 2800000, guid: d7a4c5b2e739229488193b7fa1f1ca3e, type: 3}
+    - {fileID: 2800000, guid: 4c9e7562f7e31ba4f9091cd5147e7650, type: 3}
+    - {fileID: 2800000, guid: 56d700e67ded44f48ae47ff416221643, type: 3}
+    - {fileID: 2800000, guid: e975c6f48fbd148478d80eae05b7761d, type: 3}
+    - {fileID: 2800000, guid: 652ce8e6e80e50d48879c459e85fe31b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 7937bc307c26cbe4b810fdaee39c041f: 21300000
+    - 54ee1190bcde64542963c2eb5de74d42: 21300000
+    - f6b7b5d0d9226a84392d199701dc423e: 21300000
+    - 2b1058d04078f8c40bb17228dbdfce84: 21300000
+    - 1a3fe2916cc4d1c44b88af3f76e2639f: 21300000
+    - a399f9e171e65f24d9e6f9e647ad3f72: 21300000
+    - 4c9e7562f7e31ba4f9091cd5147e7650: 21300000
+    - d7a4c5b2e739229488193b7fa1f1ca3e: 21300000
+    - c52781c3625d41048a494af6a943e768: 21300000
+    - e975c6f48fbd148478d80eae05b7761d: 21300000
+    - 6cb1ff057b68f8b41865d0a68557dab5: 21300000
+    - 9674c625f899acf4aa9f49b85b7c5993: 21300000
+    - ae5328952a0265d4f93043ab69fd516d: 21300000
+    - ce8eb0c5aa215ea40ad34d22664cec18: 21300000
+    - ff2adb066264ee34a83ff9b40bf19af4: 21300000
+    - a8d70616d0becaf4e81315715a77dd7d: 21300000
+    - 4203a9667285f98458e8544d6557809f: 21300000
+    - 56d700e67ded44f48ae47ff416221643: 21300000
+    - 652ce8e6e80e50d48879c459e85fe31b: 21300000
+    - bb71041b9e1fbdc448c42c283e373153: 21300000
+    - 80a5dfcdcd619d246b22706d33603f39: 21300000
+    - 91a9f6bedbdfeea41a6db83149092266: 21300000
+    - 66e5d8ceb1702d04fa8ef12144cbc6d9: 21300000
+    - c7cf97efd7ea5af439a24e408704f6ff: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 7937bc307c26cbe4b810fdaee39c041f, type: 3}
+  - {fileID: 21300000, guid: 54ee1190bcde64542963c2eb5de74d42, type: 3}
+  - {fileID: 21300000, guid: f6b7b5d0d9226a84392d199701dc423e, type: 3}
+  - {fileID: 21300000, guid: 2b1058d04078f8c40bb17228dbdfce84, type: 3}
+  - {fileID: 21300000, guid: 1a3fe2916cc4d1c44b88af3f76e2639f, type: 3}
+  - {fileID: 21300000, guid: a399f9e171e65f24d9e6f9e647ad3f72, type: 3}
+  - {fileID: 21300000, guid: 4c9e7562f7e31ba4f9091cd5147e7650, type: 3}
+  - {fileID: 21300000, guid: d7a4c5b2e739229488193b7fa1f1ca3e, type: 3}
+  - {fileID: 21300000, guid: c52781c3625d41048a494af6a943e768, type: 3}
+  - {fileID: 21300000, guid: e975c6f48fbd148478d80eae05b7761d, type: 3}
+  - {fileID: 21300000, guid: 6cb1ff057b68f8b41865d0a68557dab5, type: 3}
+  - {fileID: 21300000, guid: 9674c625f899acf4aa9f49b85b7c5993, type: 3}
+  - {fileID: 21300000, guid: ae5328952a0265d4f93043ab69fd516d, type: 3}
+  - {fileID: 21300000, guid: ce8eb0c5aa215ea40ad34d22664cec18, type: 3}
+  - {fileID: 21300000, guid: ff2adb066264ee34a83ff9b40bf19af4, type: 3}
+  - {fileID: 21300000, guid: a8d70616d0becaf4e81315715a77dd7d, type: 3}
+  - {fileID: 21300000, guid: 4203a9667285f98458e8544d6557809f, type: 3}
+  - {fileID: 21300000, guid: 56d700e67ded44f48ae47ff416221643, type: 3}
+  - {fileID: 21300000, guid: 652ce8e6e80e50d48879c459e85fe31b, type: 3}
+  - {fileID: 21300000, guid: bb71041b9e1fbdc448c42c283e373153, type: 3}
+  - {fileID: 21300000, guid: 80a5dfcdcd619d246b22706d33603f39, type: 3}
+  - {fileID: 21300000, guid: 91a9f6bedbdfeea41a6db83149092266, type: 3}
+  - {fileID: 21300000, guid: 66e5d8ceb1702d04fa8ef12144cbc6d9, type: 3}
+  - {fileID: 21300000, guid: c7cf97efd7ea5af439a24e408704f6ff, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Bonus Animation 12
+  - Bonus Animation 04
+  - Bonus Animation 02
+  - Bonus Animation 05
+  - Bonus Animation 18
+  - Bonus Animation 17
+  - Bonus Animation 21
+  - Bonus Animation 20
+  - Bonus Animation 16
+  - Bonus Animation 23
+  - Bonus Animation 06
+  - Bonus Animation 19
+  - Bonus Animation 10
+  - Bonus Animation 03
+  - Bonus Animation 14
+  - Bonus Animation 09
+  - Bonus Animation 08
+  - Bonus Animation 22
+  - Bonus Animation 24
+  - Bonus Animation 15
+  - Bonus Animation 07
+  - Bonus Animation 11
+  - Bonus Animation 01
+  - Bonus Animation 13
+  m_RenderDataMap: {}
+  m_Tag: animBonus
+  m_IsVariant: 0

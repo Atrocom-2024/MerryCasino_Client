@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animBag
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 6627776fbadc1de40acd3deda41dd107, type: 3}
+    - {fileID: 2800000, guid: 4671915a0214a934f89928222cf383f5, type: 3}
+    - {fileID: 2800000, guid: a987bd3a7502ffe4caf51f9c509469ee, type: 3}
+    - {fileID: 2800000, guid: 01b9f5dccdbad7d4b894320e2dde1f6f, type: 3}
+    - {fileID: 2800000, guid: 525ed5ed2cae79449b9296f266a9b952, type: 3}
+    - {fileID: 2800000, guid: 549d96dbb5762844389a490bc79a381c, type: 3}
+    - {fileID: 2800000, guid: 02fd827af2390654ca46257558e2a0f7, type: 3}
+    - {fileID: 2800000, guid: c88fd4c475db2fa44b2a662c40674988, type: 3}
+    - {fileID: 2800000, guid: 6d1da75a4bee1e04c977f76bd5f5e93f, type: 3}
+    - {fileID: 2800000, guid: bce30ac80d6e10642a284b669ca15362, type: 3}
+    - {fileID: 2800000, guid: 2d01bcd20a153114da95ff78848812ee, type: 3}
+    - {fileID: 2800000, guid: 773f85a9b9b6e334ea09edce54335f5d, type: 3}
+    - {fileID: 2800000, guid: e885ed793c44ca9469a0e8594d2a7696, type: 3}
+    - {fileID: 2800000, guid: 867a1ba6d4a90ef459aa1c11b2b991bd, type: 3}
+    - {fileID: 2800000, guid: 2b2ad95c79d21ab40868f011164634b5, type: 3}
+    - {fileID: 2800000, guid: f0e739ed3be9d164da9594f821df6294, type: 3}
+    - {fileID: 2800000, guid: 135074d95b5abbe44b28d3737dca3bfb, type: 3}
+    - {fileID: 2800000, guid: efa0581efd1c98b44b45e050edcf081f, type: 3}
+    - {fileID: 2800000, guid: 9841718bbe22d0443a2b3640b0ca0760, type: 3}
+    - {fileID: 2800000, guid: 2d76df8c9ab42d749b68b66fef5c8c24, type: 3}
+    - {fileID: 2800000, guid: 4d77ae4d62baccd429599b231e1f4c56, type: 3}
+    - {fileID: 2800000, guid: c9f298ecbe915e041a285b8f051bf950, type: 3}
+    - {fileID: 2800000, guid: ffd1b0bec18dc1143866ff670c907896, type: 3}
+    - {fileID: 2800000, guid: 40775a7316eed404da0fa9e341724ecf, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 2d01bcd20a153114da95ff78848812ee: 21300000
+    - 40775a7316eed404da0fa9e341724ecf: 21300000
+    - c88fd4c475db2fa44b2a662c40674988: 21300000
+    - 867a1ba6d4a90ef459aa1c11b2b991bd: 21300000
+    - bce30ac80d6e10642a284b669ca15362: 21300000
+    - e885ed793c44ca9469a0e8594d2a7696: 21300000
+    - 773f85a9b9b6e334ea09edce54335f5d: 21300000
+    - 135074d95b5abbe44b28d3737dca3bfb: 21300000
+    - a987bd3a7502ffe4caf51f9c509469ee: 21300000
+    - 4671915a0214a934f89928222cf383f5: 21300000
+    - 6d1da75a4bee1e04c977f76bd5f5e93f: 21300000
+    - 02fd827af2390654ca46257558e2a0f7: 21300000
+    - 9841718bbe22d0443a2b3640b0ca0760: 21300000
+    - 549d96dbb5762844389a490bc79a381c: 21300000
+    - 2b2ad95c79d21ab40868f011164634b5: 21300000
+    - 2d76df8c9ab42d749b68b66fef5c8c24: 21300000
+    - 01b9f5dccdbad7d4b894320e2dde1f6f: 21300000
+    - c9f298ecbe915e041a285b8f051bf950: 21300000
+    - 4d77ae4d62baccd429599b231e1f4c56: 21300000
+    - 525ed5ed2cae79449b9296f266a9b952: 21300000
+    - f0e739ed3be9d164da9594f821df6294: 21300000
+    - efa0581efd1c98b44b45e050edcf081f: 21300000
+    - ffd1b0bec18dc1143866ff670c907896: 21300000
+    - 6627776fbadc1de40acd3deda41dd107: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 2d01bcd20a153114da95ff78848812ee, type: 3}
+  - {fileID: 21300000, guid: 40775a7316eed404da0fa9e341724ecf, type: 3}
+  - {fileID: 21300000, guid: c88fd4c475db2fa44b2a662c40674988, type: 3}
+  - {fileID: 21300000, guid: 867a1ba6d4a90ef459aa1c11b2b991bd, type: 3}
+  - {fileID: 21300000, guid: bce30ac80d6e10642a284b669ca15362, type: 3}
+  - {fileID: 21300000, guid: e885ed793c44ca9469a0e8594d2a7696, type: 3}
+  - {fileID: 21300000, guid: 773f85a9b9b6e334ea09edce54335f5d, type: 3}
+  - {fileID: 21300000, guid: 135074d95b5abbe44b28d3737dca3bfb, type: 3}
+  - {fileID: 21300000, guid: a987bd3a7502ffe4caf51f9c509469ee, type: 3}
+  - {fileID: 21300000, guid: 4671915a0214a934f89928222cf383f5, type: 3}
+  - {fileID: 21300000, guid: 6d1da75a4bee1e04c977f76bd5f5e93f, type: 3}
+  - {fileID: 21300000, guid: 02fd827af2390654ca46257558e2a0f7, type: 3}
+  - {fileID: 21300000, guid: 9841718bbe22d0443a2b3640b0ca0760, type: 3}
+  - {fileID: 21300000, guid: 549d96dbb5762844389a490bc79a381c, type: 3}
+  - {fileID: 21300000, guid: 2b2ad95c79d21ab40868f011164634b5, type: 3}
+  - {fileID: 21300000, guid: 2d76df8c9ab42d749b68b66fef5c8c24, type: 3}
+  - {fileID: 21300000, guid: 01b9f5dccdbad7d4b894320e2dde1f6f, type: 3}
+  - {fileID: 21300000, guid: c9f298ecbe915e041a285b8f051bf950, type: 3}
+  - {fileID: 21300000, guid: 4d77ae4d62baccd429599b231e1f4c56, type: 3}
+  - {fileID: 21300000, guid: 525ed5ed2cae79449b9296f266a9b952, type: 3}
+  - {fileID: 21300000, guid: f0e739ed3be9d164da9594f821df6294, type: 3}
+  - {fileID: 21300000, guid: efa0581efd1c98b44b45e050edcf081f, type: 3}
+  - {fileID: 21300000, guid: ffd1b0bec18dc1143866ff670c907896, type: 3}
+  - {fileID: 21300000, guid: 6627776fbadc1de40acd3deda41dd107, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Bag Animation 11
+  - Bag Animation 24
+  - Bag Animation 08
+  - Bag Animation 14
+  - Bag Animation 10
+  - Bag Animation 13
+  - Bag Animation 12
+  - Bag Animation 17
+  - Bag Animation 03
+  - Bag Animation 02
+  - Bag Animation 09
+  - Bag Animation 07
+  - Bag Animation 19
+  - Bag Animation 06
+  - Bag Animation 15
+  - Bag Animation 20
+  - Bag Animation 04
+  - Bag Animation 22
+  - Bag Animation 21
+  - Bag Animation 05
+  - Bag Animation 16
+  - Bag Animation 18
+  - Bag Animation 23
+  - Bag Animation 01
+  m_RenderDataMap: {}
+  m_Tag: animBag
+  m_IsVariant: 0

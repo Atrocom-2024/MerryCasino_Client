@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animHedgehog
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 80
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 88c939daf52f437ebbb9a5f4522604ec, type: 3}
+    - {fileID: 2800000, guid: 16eaecf098754c129da2063b6c411ee6, type: 3}
+    - {fileID: 2800000, guid: 8fbc8fc92aaa4d8989fa0521f11c80b8, type: 3}
+    - {fileID: 2800000, guid: 26da36246fa04ca98434ee82b1423719, type: 3}
+    - {fileID: 2800000, guid: 537aa504616e445fa5d9a13570c32e12, type: 3}
+    - {fileID: 2800000, guid: 63994e581d004e138e18408be0ef8de6, type: 3}
+    - {fileID: 2800000, guid: e043be2f88dc40058c25624adcfe5b79, type: 3}
+    - {fileID: 2800000, guid: d24bdd35c80142b5a176a673acf8f730, type: 3}
+    - {fileID: 2800000, guid: 8fda80c8988949d19d7385a9911aaf08, type: 3}
+    - {fileID: 2800000, guid: 039b406efca841b5aea8627952ba24e6, type: 3}
+    - {fileID: 2800000, guid: a10afcfc7b764007bd1212690f528d8b, type: 3}
+    - {fileID: 2800000, guid: 10ff4e7a080e48a080cf2e18442744db, type: 3}
+    - {fileID: 2800000, guid: 7c94c8f044db4beea0bc0633d88fd52b, type: 3}
+    - {fileID: 2800000, guid: 7c97291b314e456d952cf4d9e3e08310, type: 3}
+    - {fileID: 2800000, guid: 3d7f42ab51ea4bd5a8ba561b8e4a72a6, type: 3}
+    - {fileID: 2800000, guid: 3e35208696114596b949c5a704e01946, type: 3}
+    - {fileID: 2800000, guid: f754dbd6dddc4cc882e5ba1c2caf8920, type: 3}
+    - {fileID: 2800000, guid: ff960fe3412f483f82e5a5ce1ff62d56, type: 3}
+    - {fileID: 2800000, guid: ffd32910f8bd4b5989faa1f1220fa76b, type: 3}
+    - {fileID: 2800000, guid: d5741064a22a4e459fecc68a6fd282dd, type: 3}
+    - {fileID: 2800000, guid: fad9ce77ea334484ad0eb44765b04c30, type: 3}
+    - {fileID: 2800000, guid: 7bf6a99608914081b423503f6ceae367, type: 3}
+    - {fileID: 2800000, guid: b2045b82f0ab4b788ee596c268393eb2, type: 3}
+    - {fileID: 2800000, guid: 3658a1543c82469f990e5639f34bec5f, type: 3}
+    - {fileID: 2800000, guid: 59f86a1cb8d24119840b725958231588, type: 3}
+    - {fileID: 2800000, guid: 5cb195dcfb6b4529ae1b0e5c0bbaa425, type: 3}
+    - {fileID: 2800000, guid: 50a76c39d81344e0b2da83bcc9ef1430, type: 3}
+    - {fileID: 2800000, guid: e8e44098c6374fbbbb6be39923ad1229, type: 3}
+    - {fileID: 2800000, guid: ad3ae814c160430f89ad07bfac8ad130, type: 3}
+    - {fileID: 2800000, guid: 082393a7a7df467fa6c0e231a7326df0, type: 3}
+    - {fileID: 2800000, guid: 5452fb686da64f6aa4bd9846eb70c63b, type: 3}
+    - {fileID: 2800000, guid: 4fa4987fb1c74c168e1d6b7c283ba402, type: 3}
+    - {fileID: 2800000, guid: f32877796cac46a3a1780f33fe91909a, type: 3}
+    - {fileID: 2800000, guid: 8373fc54867e415487e3e7695c72bf37, type: 3}
+    - {fileID: 2800000, guid: f97ebd27edea472cbf4bd734af819e08, type: 3}
+    - {fileID: 2800000, guid: c2adf9a893cc403580eaf41dfca6f9f2, type: 3}
+    - {fileID: 2800000, guid: 583ae88375eb40c7a6f1e51cbc3d130b, type: 3}
+    - {fileID: 2800000, guid: 690d719954ec40bf98d4919eccdc1b24, type: 3}
+    - {fileID: 2800000, guid: 23f209e03c44421bb13ba1d079e3aeab, type: 3}
+    - {fileID: 2800000, guid: dd9ca1b35ed54026bd4bdcd79165a6d8, type: 3}
+    - {fileID: 2800000, guid: a66b1b788cf34cc1afe10c51668d2a3a, type: 3}
+    - {fileID: 2800000, guid: 5d9eb038a9234b8ebd8035102ac25c37, type: 3}
+    - {fileID: 2800000, guid: cc452c8bfc2d4fc2835d4bd360516bc9, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - ffd32910f8bd4b5989faa1f1220fa76b: 21300000
+    - 23f209e03c44421bb13ba1d079e3aeab: 21300000
+    - 7c94c8f044db4beea0bc0633d88fd52b: 21300000
+    - 16eaecf098754c129da2063b6c411ee6: 21300000
+    - b2045b82f0ab4b788ee596c268393eb2: 21300000
+    - 583ae88375eb40c7a6f1e51cbc3d130b: 21300000
+    - dd9ca1b35ed54026bd4bdcd79165a6d8: 21300000
+    - ff960fe3412f483f82e5a5ce1ff62d56: 21300000
+    - 537aa504616e445fa5d9a13570c32e12: 21300000
+    - ad3ae814c160430f89ad07bfac8ad130: 21300000
+    - 26da36246fa04ca98434ee82b1423719: 21300000
+    - 3658a1543c82469f990e5639f34bec5f: 21300000
+    - 8373fc54867e415487e3e7695c72bf37: 21300000
+    - d5741064a22a4e459fecc68a6fd282dd: 21300000
+    - d24bdd35c80142b5a176a673acf8f730: 21300000
+    - 3e35208696114596b949c5a704e01946: 21300000
+    - 7bf6a99608914081b423503f6ceae367: 21300000
+    - f754dbd6dddc4cc882e5ba1c2caf8920: 21300000
+    - f97ebd27edea472cbf4bd734af819e08: 21300000
+    - fad9ce77ea334484ad0eb44765b04c30: 21300000
+    - 082393a7a7df467fa6c0e231a7326df0: 21300000
+    - 5d9eb038a9234b8ebd8035102ac25c37: 21300000
+    - 63994e581d004e138e18408be0ef8de6: 21300000
+    - 5452fb686da64f6aa4bd9846eb70c63b: 21300000
+    - a66b1b788cf34cc1afe10c51668d2a3a: 21300000
+    - e8e44098c6374fbbbb6be39923ad1229: 21300000
+    - c2adf9a893cc403580eaf41dfca6f9f2: 21300000
+    - 8fda80c8988949d19d7385a9911aaf08: 21300000
+    - 50a76c39d81344e0b2da83bcc9ef1430: 21300000
+    - f32877796cac46a3a1780f33fe91909a: 21300000
+    - 690d719954ec40bf98d4919eccdc1b24: 21300000
+    - 8fbc8fc92aaa4d8989fa0521f11c80b8: 21300000
+    - 10ff4e7a080e48a080cf2e18442744db: 21300000
+    - 88c939daf52f437ebbb9a5f4522604ec: 21300000
+    - 7c97291b314e456d952cf4d9e3e08310: 21300000
+    - cc452c8bfc2d4fc2835d4bd360516bc9: 21300000
+    - 3d7f42ab51ea4bd5a8ba561b8e4a72a6: 21300000
+    - 59f86a1cb8d24119840b725958231588: 21300000
+    - 5cb195dcfb6b4529ae1b0e5c0bbaa425: 21300000
+    - a10afcfc7b764007bd1212690f528d8b: 21300000
+    - 039b406efca841b5aea8627952ba24e6: 21300000
+    - e043be2f88dc40058c25624adcfe5b79: 21300000
+    - 4fa4987fb1c74c168e1d6b7c283ba402: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ffd32910f8bd4b5989faa1f1220fa76b, type: 3}
+  - {fileID: 21300000, guid: 23f209e03c44421bb13ba1d079e3aeab, type: 3}
+  - {fileID: 21300000, guid: 7c94c8f044db4beea0bc0633d88fd52b, type: 3}
+  - {fileID: 21300000, guid: 16eaecf098754c129da2063b6c411ee6, type: 3}
+  - {fileID: 21300000, guid: b2045b82f0ab4b788ee596c268393eb2, type: 3}
+  - {fileID: 21300000, guid: 583ae88375eb40c7a6f1e51cbc3d130b, type: 3}
+  - {fileID: 21300000, guid: dd9ca1b35ed54026bd4bdcd79165a6d8, type: 3}
+  - {fileID: 21300000, guid: ff960fe3412f483f82e5a5ce1ff62d56, type: 3}
+  - {fileID: 21300000, guid: 537aa504616e445fa5d9a13570c32e12, type: 3}
+  - {fileID: 21300000, guid: ad3ae814c160430f89ad07bfac8ad130, type: 3}
+  - {fileID: 21300000, guid: 26da36246fa04ca98434ee82b1423719, type: 3}
+  - {fileID: 21300000, guid: 3658a1543c82469f990e5639f34bec5f, type: 3}
+  - {fileID: 21300000, guid: 8373fc54867e415487e3e7695c72bf37, type: 3}
+  - {fileID: 21300000, guid: d5741064a22a4e459fecc68a6fd282dd, type: 3}
+  - {fileID: 21300000, guid: d24bdd35c80142b5a176a673acf8f730, type: 3}
+  - {fileID: 21300000, guid: 3e35208696114596b949c5a704e01946, type: 3}
+  - {fileID: 21300000, guid: 7bf6a99608914081b423503f6ceae367, type: 3}
+  - {fileID: 21300000, guid: f754dbd6dddc4cc882e5ba1c2caf8920, type: 3}
+  - {fileID: 21300000, guid: f97ebd27edea472cbf4bd734af819e08, type: 3}
+  - {fileID: 21300000, guid: fad9ce77ea334484ad0eb44765b04c30, type: 3}
+  - {fileID: 21300000, guid: 082393a7a7df467fa6c0e231a7326df0, type: 3}
+  - {fileID: 21300000, guid: 5d9eb038a9234b8ebd8035102ac25c37, type: 3}
+  - {fileID: 21300000, guid: 63994e581d004e138e18408be0ef8de6, type: 3}
+  - {fileID: 21300000, guid: 5452fb686da64f6aa4bd9846eb70c63b, type: 3}
+  - {fileID: 21300000, guid: a66b1b788cf34cc1afe10c51668d2a3a, type: 3}
+  - {fileID: 21300000, guid: e8e44098c6374fbbbb6be39923ad1229, type: 3}
+  - {fileID: 21300000, guid: c2adf9a893cc403580eaf41dfca6f9f2, type: 3}
+  - {fileID: 21300000, guid: 8fda80c8988949d19d7385a9911aaf08, type: 3}
+  - {fileID: 21300000, guid: 50a76c39d81344e0b2da83bcc9ef1430, type: 3}
+  - {fileID: 21300000, guid: f32877796cac46a3a1780f33fe91909a, type: 3}
+  - {fileID: 21300000, guid: 690d719954ec40bf98d4919eccdc1b24, type: 3}
+  - {fileID: 21300000, guid: 8fbc8fc92aaa4d8989fa0521f11c80b8, type: 3}
+  - {fileID: 21300000, guid: 10ff4e7a080e48a080cf2e18442744db, type: 3}
+  - {fileID: 21300000, guid: 88c939daf52f437ebbb9a5f4522604ec, type: 3}
+  - {fileID: 21300000, guid: 7c97291b314e456d952cf4d9e3e08310, type: 3}
+  - {fileID: 21300000, guid: cc452c8bfc2d4fc2835d4bd360516bc9, type: 3}
+  - {fileID: 21300000, guid: 3d7f42ab51ea4bd5a8ba561b8e4a72a6, type: 3}
+  - {fileID: 21300000, guid: 59f86a1cb8d24119840b725958231588, type: 3}
+  - {fileID: 21300000, guid: 5cb195dcfb6b4529ae1b0e5c0bbaa425, type: 3}
+  - {fileID: 21300000, guid: a10afcfc7b764007bd1212690f528d8b, type: 3}
+  - {fileID: 21300000, guid: 039b406efca841b5aea8627952ba24e6, type: 3}
+  - {fileID: 21300000, guid: e043be2f88dc40058c25624adcfe5b79, type: 3}
+  - {fileID: 21300000, guid: 4fa4987fb1c74c168e1d6b7c283ba402, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Hedgehog 19
+  - Hedgehog 39
+  - Hedgehog 13
+  - Hedgehog 02
+  - Hedgehog 23
+  - Hedgehog 37
+  - Hedgehog 40
+  - Hedgehog 18
+  - Hedgehog 05
+  - Hedgehog 29
+  - Hedgehog 04
+  - Hedgehog 24
+  - Hedgehog 34
+  - Hedgehog 20
+  - Hedgehog 08
+  - Hedgehog 16
+  - Hedgehog 22
+  - Hedgehog 17
+  - Hedgehog 35
+  - Hedgehog 21
+  - Hedgehog 30
+  - Hedgehog 42
+  - Hedgehog 06
+  - Hedgehog 31
+  - Hedgehog 41
+  - Hedgehog 28
+  - Hedgehog 36
+  - Hedgehog 09
+  - Hedgehog 27
+  - Hedgehog 33
+  - Hedgehog 38
+  - Hedgehog 03
+  - Hedgehog 12
+  - Hedgehog 01
+  - Hedgehog 14
+  - Hedgehog 43
+  - Hedgehog 15
+  - Hedgehog 25
+  - Hedgehog 26
+  - Hedgehog 11
+  - Hedgehog 10
+  - Hedgehog 07
+  - Hedgehog 32
+  m_RenderDataMap: {}
+  m_Tag: animHedgehog
+  m_IsVariant: 0

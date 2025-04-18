@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animSaber
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: d22c02a1ff510a841a65228b552e0b5c, type: 3}
+    - {fileID: 2800000, guid: 2da980ca8b40e1944ae5619a6326bf59, type: 3}
+    - {fileID: 2800000, guid: 3f81f21b82dba924c89cadf4d74737cf, type: 3}
+    - {fileID: 2800000, guid: 5c4bf133b78cef749a8ea6c79c10d423, type: 3}
+    - {fileID: 2800000, guid: 588076e7c27b09041bb53ac6f22c590f, type: 3}
+    - {fileID: 2800000, guid: 107bc66031251e5469e3c3db1db9870e, type: 3}
+    - {fileID: 2800000, guid: 17ab0f33ba74230458188de699a236b3, type: 3}
+    - {fileID: 2800000, guid: 49b6297f8fed2224fa37442becb97496, type: 3}
+    - {fileID: 2800000, guid: a8335309425f9564289417a0ddb0545d, type: 3}
+    - {fileID: 2800000, guid: 7147b51cd1829564ca406f7e1189e332, type: 3}
+    - {fileID: 2800000, guid: 7ac2cdeae9221854a804c1b0049596e5, type: 3}
+    - {fileID: 2800000, guid: c10f1969acf63084cba41173199a558d, type: 3}
+    - {fileID: 2800000, guid: c3990584eba73ea47bdd421e7063811e, type: 3}
+    - {fileID: 2800000, guid: ed827974ece0e7a4b8998ce6caa4e8c4, type: 3}
+    - {fileID: 2800000, guid: 7c0658408f3b4c048b52fbbbe9a610a3, type: 3}
+    - {fileID: 2800000, guid: cd76f38f56363f34a971f4f249bf350d, type: 3}
+    - {fileID: 2800000, guid: 2ad9ac96e7635b142b0a5b089e739e10, type: 3}
+    - {fileID: 2800000, guid: 9e71a6a21c3977845b8485eceec59626, type: 3}
+    - {fileID: 2800000, guid: c434e4cebbe7c4348b2ff9fe264092e9, type: 3}
+    - {fileID: 2800000, guid: 03a7eb2a048942e44864829e6523d4fe, type: 3}
+    - {fileID: 2800000, guid: 1c16db2b94593c54498af99655305253, type: 3}
+    - {fileID: 2800000, guid: 3a1fcccacba9a6b489a54a84a6e2b53e, type: 3}
+    - {fileID: 2800000, guid: c56840008f9efd24e80b1a6f36e8e6d0, type: 3}
+    - {fileID: 2800000, guid: 65014f5bf555ab9409698f0e06ef14c5, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - c56840008f9efd24e80b1a6f36e8e6d0: 21300000
+    - 7c0658408f3b4c048b52fbbbe9a610a3: 21300000
+    - 107bc66031251e5469e3c3db1db9870e: 21300000
+    - d22c02a1ff510a841a65228b552e0b5c: 21300000
+    - 9e71a6a21c3977845b8485eceec59626: 21300000
+    - 5c4bf133b78cef749a8ea6c79c10d423: 21300000
+    - 17ab0f33ba74230458188de699a236b3: 21300000
+    - ed827974ece0e7a4b8998ce6caa4e8c4: 21300000
+    - c3990584eba73ea47bdd421e7063811e: 21300000
+    - 2ad9ac96e7635b142b0a5b089e739e10: 21300000
+    - 588076e7c27b09041bb53ac6f22c590f: 21300000
+    - a8335309425f9564289417a0ddb0545d: 21300000
+    - c10f1969acf63084cba41173199a558d: 21300000
+    - 03a7eb2a048942e44864829e6523d4fe: 21300000
+    - 2da980ca8b40e1944ae5619a6326bf59: 21300000
+    - 3a1fcccacba9a6b489a54a84a6e2b53e: 21300000
+    - 7ac2cdeae9221854a804c1b0049596e5: 21300000
+    - 3f81f21b82dba924c89cadf4d74737cf: 21300000
+    - 1c16db2b94593c54498af99655305253: 21300000
+    - 65014f5bf555ab9409698f0e06ef14c5: 21300000
+    - 7147b51cd1829564ca406f7e1189e332: 21300000
+    - c434e4cebbe7c4348b2ff9fe264092e9: 21300000
+    - 49b6297f8fed2224fa37442becb97496: 21300000
+    - cd76f38f56363f34a971f4f249bf350d: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c56840008f9efd24e80b1a6f36e8e6d0, type: 3}
+  - {fileID: 21300000, guid: 7c0658408f3b4c048b52fbbbe9a610a3, type: 3}
+  - {fileID: 21300000, guid: 107bc66031251e5469e3c3db1db9870e, type: 3}
+  - {fileID: 21300000, guid: d22c02a1ff510a841a65228b552e0b5c, type: 3}
+  - {fileID: 21300000, guid: 9e71a6a21c3977845b8485eceec59626, type: 3}
+  - {fileID: 21300000, guid: 5c4bf133b78cef749a8ea6c79c10d423, type: 3}
+  - {fileID: 21300000, guid: 17ab0f33ba74230458188de699a236b3, type: 3}
+  - {fileID: 21300000, guid: ed827974ece0e7a4b8998ce6caa4e8c4, type: 3}
+  - {fileID: 21300000, guid: c3990584eba73ea47bdd421e7063811e, type: 3}
+  - {fileID: 21300000, guid: 2ad9ac96e7635b142b0a5b089e739e10, type: 3}
+  - {fileID: 21300000, guid: 588076e7c27b09041bb53ac6f22c590f, type: 3}
+  - {fileID: 21300000, guid: a8335309425f9564289417a0ddb0545d, type: 3}
+  - {fileID: 21300000, guid: c10f1969acf63084cba41173199a558d, type: 3}
+  - {fileID: 21300000, guid: 03a7eb2a048942e44864829e6523d4fe, type: 3}
+  - {fileID: 21300000, guid: 2da980ca8b40e1944ae5619a6326bf59, type: 3}
+  - {fileID: 21300000, guid: 3a1fcccacba9a6b489a54a84a6e2b53e, type: 3}
+  - {fileID: 21300000, guid: 7ac2cdeae9221854a804c1b0049596e5, type: 3}
+  - {fileID: 21300000, guid: 3f81f21b82dba924c89cadf4d74737cf, type: 3}
+  - {fileID: 21300000, guid: 1c16db2b94593c54498af99655305253, type: 3}
+  - {fileID: 21300000, guid: 65014f5bf555ab9409698f0e06ef14c5, type: 3}
+  - {fileID: 21300000, guid: 7147b51cd1829564ca406f7e1189e332, type: 3}
+  - {fileID: 21300000, guid: c434e4cebbe7c4348b2ff9fe264092e9, type: 3}
+  - {fileID: 21300000, guid: 49b6297f8fed2224fa37442becb97496, type: 3}
+  - {fileID: 21300000, guid: cd76f38f56363f34a971f4f249bf350d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Saber Animation 23
+  - Saber Animation 15
+  - Saber Animation 06
+  - Saber Animation 01
+  - Saber Animation 18
+  - Saber Animation 04
+  - Saber Animation 07
+  - Saber Animation 14
+  - Saber Animation 13
+  - Saber Animation 17
+  - Saber Animation 05
+  - Saber Animation 09
+  - Saber Animation 12
+  - Saber Animation 20
+  - Saber Animation 02
+  - Saber Animation 22
+  - Saber Animation 11
+  - Saber Animation 03
+  - Saber Animation 21
+  - Saber Animation 24
+  - Saber Animation 10
+  - Saber Animation 19
+  - Saber Animation 08
+  - Saber Animation 16
+  m_RenderDataMap: {}
+  m_Tag: animSaber
+  m_IsVariant: 0
