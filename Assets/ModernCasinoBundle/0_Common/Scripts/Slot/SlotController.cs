@@ -612,11 +612,11 @@ namespace Mkey
         /// </summary>
         private void HandleLose()
         {
-            // 패배 로직 처리
+            // 패배 로직 처리::
             //MPlayer.AddLevelProgress(loseSpinLevelProgress);
 
             // 멘트 처리
-            // 굿럭 멘트 설정
+            // 굿럭 멘트 설정##
             if (controls.InfoText != null)
                 controls.SetTextString(controls.InfoText, "One more?");
             if (controls.WinAmountText != null)
